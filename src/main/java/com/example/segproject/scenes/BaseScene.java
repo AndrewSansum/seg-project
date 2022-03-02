@@ -1,6 +1,7 @@
 package com.example.segproject.scenes;
 
 import com.example.segproject.SceneController;
+import com.example.segproject.components.CalculationInput;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -40,7 +41,7 @@ public abstract class BaseScene {
         io.setMinWidth(controller.getWidth() * 0.33);
 
         runwayPane.getChildren().add(new Text("Runway"));
-        io.getChildren().add(new Text("IO"));
+        io.getChildren().add(new CalculationInput());
     }
 
     public abstract void build();
