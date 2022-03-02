@@ -11,26 +11,28 @@ public class Calculations {
     int newAwayLDA;
     String runwayName;
 
-    public Calculations(String name,String tora, String lda, String stopway, String clearway, String height, String obstacleDistance, String direction, String distance){
+    public Calculations(String name,String tora, String asda, String toda, String lda, String height, String obstacleDistance, String direction, String distance, String displacement){
         runwayName = name;
-        int runway = Integer.parseInt(tora);
-        int runwayStrip = runway + Integer.parseInt(stopway);
-        int stripEnd = runwayStrip - runway;
-        int slopeCalculation = 0; //Placeholder: if(50*height<RESA) slopeCalculation=RESA else slopeCalculation = 50*height
+        int runway = 0; //Placeholder
+        int stopway = Integer.parseInt(asda) - runway;
+        int clearway = Integer.parseInt(toda) - runway;
+        int slopeCalculation = 0; //Placeholder: max(RESA, height*50)
+        //Resa constant = 240?
+        //stripEnd constant = 60?
         takeOffTowardsLandingTowards();
         takeOffAwayLandingOver(stopway, clearway);
     }
      public void takeOffTowardsLandingTowards(){
-        newTowardsTORA = 0; //Placeholder(?)
+        newTowardsTORA = 0; //Placeholder: distance(from incoming direction) - slopeCalculation - stripEnd (+displaced threshold sometimes?)
         newTowardsASDA = newTowardsTORA;
         newTowardsTODA = newTowardsTORA;
-        newTowardsLDA = 0; //Placeholder: distance - RESA - stripEnd
+        newTowardsLDA = 0; //Placeholder: distance(from incoming direction) - RESA - stripEnd
      }
 
-     public void takeOffAwayLandingOver(String stopway, String clearway){
-        newAwayTORA = 0; //Placeholder(?)
-        newAwayASDA = newAwayTORA + Integer.parseInt(stopway);
-        newAwayTODA = newAwayTORA + Integer.parseInt(clearway);
-        newAwayLDA = 0; //Placeholder: lda - slopeCalculation - distance - stripEnd
+     public void takeOffAwayLandingOver(int stopway, int clearway){
+        newAwayTORA = 0; //Placeholder(so many questions)
+        newAwayASDA = newAwayTORA + stopway;
+        newAwayTODA = newAwayTORA + clearway;
+        newAwayLDA = 0; //Placeholder: lda - distance(from incoming direction) - slopeCalculation - max(stripEnd, blastProtectionValue)
      }
 }
