@@ -20,14 +20,14 @@ public class CalculationInput extends VBox {
         this.getChildren().add(nameLabel);
         this.getChildren().add(nameBox);
 
-        Label todaLabel = new Label("Please Input Original TODA:");
-        HBox todaBox = new HBox();
-        TextField todaText = new TextField();
-        Label todaMeasure = new Label("Meters");
-        todaBox.getChildren().add(todaText);
-        todaBox.getChildren().add(todaMeasure);
-        this.getChildren().add(todaLabel);
-        this.getChildren().add(todaBox);
+        Label toraLabel = new Label("Please Input Original TORA:");
+        HBox toraBox = new HBox();
+        TextField toraText = new TextField();
+        Label toraMeasure = new Label("Meters");
+        toraBox.getChildren().add(toraText);
+        toraBox.getChildren().add(toraMeasure);
+        this.getChildren().add(toraLabel);
+        this.getChildren().add(toraBox);
 
         Label ldaLabel = new Label("Please Input Original LDA:");
         HBox ldaBox = new HBox();
@@ -81,7 +81,7 @@ public class CalculationInput extends VBox {
         this.getChildren().add(directionLabel);
         this.getChildren().add(directionBox);
 
-        Label distanceLabel = new Label("Please Input Obstacle distance from input Threshold:");
+        Label distanceLabel = new Label("Input Obstacle Distance from Runway Threshold:");
         HBox distanceBox = new HBox();
         TextField distanceText = new TextField();
         Label distanceMeasure = new Label("Meters");
@@ -99,7 +99,7 @@ public class CalculationInput extends VBox {
 
         calculate.setOnAction(e -> {
             String a = nameText.getText();
-            String b = todaText.getText();
+            String b = toraText.getText();
             String c = ldaText.getText();
             String d = stopwayText.getText();
             String f = clearwayText.getText();
@@ -108,6 +108,7 @@ public class CalculationInput extends VBox {
             String i = directionText.getText();
             String j = distanceText.getText();
             cal = new Calculations(a,b,c,d,f,g,h,i,j);
+            //System.out.println(a);
         });
     }
 }
