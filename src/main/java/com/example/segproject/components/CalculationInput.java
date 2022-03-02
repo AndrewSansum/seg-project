@@ -1,5 +1,6 @@
 package com.example.segproject.components;
 
+import com.example.segproject.Calculations;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -9,6 +10,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class CalculationInput extends VBox {
+    Calculations cal;
+
     public CalculationInput(){
         Label nameLabel = new Label("Please Input Name of Runway:");
         HBox nameBox = new HBox();
@@ -87,11 +90,24 @@ public class CalculationInput extends VBox {
         this.getChildren().add(distanceLabel);
         this.getChildren().add(distanceBox);
 
-        Region blank = new Region();
-        this.setVgrow(blank, Priority.ALWAYS);
-        this.getChildren().add(blank);
+        //Region blank = new Region();
+        //this.setVgrow(blank, Priority.ALWAYS);
+        //this.getChildren().add(blank);
 
         Button calculate = new Button("Calculate");
         this.getChildren().add(calculate);
+
+        calculate.setOnAction(e -> {
+            String a = nameText.getText();
+            String b = todaText.getText();
+            String c = ldaText.getText();
+            String d = stopwayText.getText();
+            String f = clearwayText.getText();
+            String g = obstacleHeightText.getText();
+            String h = obstacleDistanceText.getText();
+            String i = directionText.getText();
+            String j = distanceText.getText();
+            cal = new Calculations(a,b,c,d,f,g,h,i,j);
+        });
     }
 }
