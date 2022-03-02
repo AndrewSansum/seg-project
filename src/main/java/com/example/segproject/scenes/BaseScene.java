@@ -54,4 +54,15 @@ public abstract class BaseScene {
 
     public Scene getScene() {return scene;}
 
+    /**
+     * Set the stylesheet of the scene.
+     * <p>
+     * File name should be the full name with file type e.g. "menu.css".
+     * Will commonly be used in the build method.
+     * @param fileName Name of the stylesheet file i the resources folder
+     */
+    protected void setStylesheet(String fileName) {
+        root.getStylesheets().add(this.getClass().getResource("/".concat(fileName)).toExternalForm());
+    }
+
 }

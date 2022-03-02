@@ -39,7 +39,7 @@ public class MenuScene extends BaseScene {
         buttonExit.setOnAction(this::exit);
 
         //Fetch and apply the css file "menu.css" from the resources folder. Most styling is done here
-        root.getStylesheets().add(this.getClass().getResource("/menu.css").toExternalForm());
+        setStylesheet("menu.css");
     }
 
     private void openSideScene(ActionEvent actionEvent) {controller.openSideScene();}
