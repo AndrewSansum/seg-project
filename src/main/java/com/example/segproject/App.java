@@ -1,23 +1,27 @@
 package com.example.segproject;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class App extends Application {
+
+    private final int resH = 600;
+    private final int resV = 800;
+
+    private Stage stage;
+
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
+    public void start(Stage stage) {
+        this.stage = stage;
+        var controller = new SceneController(stage, resH, resV, "test");
         stage.show();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static void shutdown() {
+        System.exit(0);
     }
 }
