@@ -2,7 +2,9 @@ package com.example.segproject.scenes;
 
 import com.example.segproject.SceneController;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -15,20 +17,29 @@ public class MenuScene extends BaseScene {
     }
 
     public void build() {
-        var vBox = new VBox();
-        root.getChildren().add(vBox);
+        var buttonBox = new VBox();
+        buttonBox.getStyleClass().add("v-box");
+        root.setCenter(buttonBox);
+
+        var titleLabel = new Label("Runway Re-declaration Tool");
+        titleLabel.getStyleClass().add("titleLabel");
+        BorderPane.setAlignment(titleLabel, Pos.CENTER);
+        root.setTop(titleLabel);
 
         var buttonSideScene = new Button("SideScene");
         var buttonTopScene = new Button("TopScene");
         var buttonDoubleScene = new Button("DoubleScene");
         var buttonExit = new Button("Exit");
 
-        vBox.getChildren().addAll(buttonSideScene, buttonTopScene, buttonDoubleScene, buttonExit);
+        buttonBox.getChildren().addAll(buttonSideScene, buttonTopScene, buttonDoubleScene, buttonExit);
 
         buttonSideScene.setOnAction(this::openSideScene);
         buttonTopScene.setOnAction(this::openTopScene);
         buttonDoubleScene.setOnAction(this::openDoubleScene);
         buttonExit.setOnAction(this::exit);
+
+        //Fetch and apply the css file "menu.css" from the resources folder. Most styling is done here
+        root.getStylesheets().add(this.getClass().getResource("/menu.css").toExternalForm());
     }
 
     private void openSideScene(ActionEvent actionEvent) {controller.openSideScene();}
