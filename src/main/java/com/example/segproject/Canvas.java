@@ -15,12 +15,12 @@ public class Canvas {
 	private Runway				runway;
 
 	public Canvas(Runway runway) {
-		Integer heigth = runway.getHeigth();
-		Integer length = runway.getLength();
-		Integer width = runway.getWidth();
-		this.runway = runway;
-		this.tileMap3D = new Integer[heigth][length][width];
-		this.obstacleList = new ArrayList<Obstacle>();
+		Integer heigth		= runway.getHeigth();
+		Integer length		= runway.getLength();
+		Integer width		= runway.getWidth();
+		this.runway			= runway;
+		this.tileMap3D		= new Integer[heigth][length][width];
+		this.obstacleList	= new ArrayList<Obstacle>();
 
 		for(Integer y = 0; y < heigth; y++)
 			for(Integer x = 0; x < length; x++)
@@ -34,10 +34,11 @@ public class Canvas {
 	}
 
 	public void generateTileMapSideView() {
-		Integer heigth = runway.getHeigth();
-		Integer length = runway.getLength();
-		Integer width = runway.getWidth();
-		this.tileMapSideView = new Integer[heigth][length];
+		Integer heigth			= runway.getHeigth();
+		Integer length			= runway.getLength();
+		Integer width			= runway.getWidth();
+		this.tileMapSideView	= new Integer[heigth][length];
+
 		for (Integer y = 0; y < heigth; y++)
 			for (Integer x = 0; x < length; x++)
 				this.tileMapSideView[y][x] = 0;
@@ -53,10 +54,11 @@ public class Canvas {
 	}
 
 	public void generateTileMapTopDownView() {
-		Integer heigth = runway.getHeigth();
-		Integer length = runway.getLength();
-		Integer width = runway.getWidth();
-		this.tileMapTopDownView = new Integer[length][width];
+		Integer heigth			= runway.getHeigth();
+		Integer length			= runway.getLength();
+		Integer width			= runway.getWidth();
+		this.tileMapTopDownView	= new Integer[length][width];
+
 		for (Integer y = 0; y < length; y++)
 			for (Integer x = 0; x < width; x++)
 				this.tileMapTopDownView[y][x] = 0;
@@ -72,15 +74,16 @@ public class Canvas {
 	}
 
 	public void addObstacleToTileMap3D(Obstacle obs) {
-		Point3D coord = obs.getPoint3d();
-		Integer[][][] obstacleMatrix = obs.getObstacleMatrix();
-		Integer x = coord.getX();
-		Integer y = coord.getY();
-		Integer z = coord.getZ();
-        for(int y_s = 0; y_s < obstacleMatrix.length && y_s + y < this.tileMap3D.length; y_s++){
-            for (int x_s = 0; x_s < obstacleMatrix[0].length && x_s + x < this.tileMap3D[0].length; x_s++)
-                for (int z_s = 0; z_s < obstacleMatrix[0][0].length && z_s + z < this.tileMap3D[0][0].length; z_s++)
-                    this.tileMap3D[y_s + y][x_s + x][z_s + z] = obstacleMatrix[y_s][x_s][z_s];
+		Point3D coord			= obs.getPoint3d();
+		Integer[][][] obsMat	= obs.getObstacleMatrix();
+		Integer x				= coord.getX();
+		Integer y				= coord.getY();
+		Integer z				= coord.getZ();
+
+        for(Integer y_s = 0; y_s < obsMat.length && y_s + y < this.tileMap3D.length; y_s++){
+            for (Integer x_s = 0; x_s < obsMat[0].length && x_s + x < this.tileMap3D[0].length; x_s++)
+                for (Integer z_s = 0; z_s < obsMat[0][0].length && z_s + z < this.tileMap3D[0][0].length; z_s++)
+                    this.tileMap3D[y_s + y][x_s + x][z_s + z] = obsMat[y_s][x_s][z_s];
 		}
 		this.obstacleList.add(obs);
 		generateTileMapTopDownView();
@@ -88,13 +91,14 @@ public class Canvas {
 	}
 
 	public void removeObstacle(Obstacle obs) {
+		Integer heigth	= runway.getHeigth();
+		Integer length	= runway.getLength();
+		Integer width	= runway.getWidth();		
+		
 		for (Obstacle o : this.obstacleList) {
 			if (o.equals(obs)) {
 				this.obstacleList.remove(o);
-				Integer heigth = runway.getHeigth();
-				Integer length = runway.getLength();
-				Integer width = runway.getWidth();		
-				this.tileMap3D = new Integer[heigth][length][width];
+				this.tileMap3D	= new Integer[heigth][length][width];
 				addListOfObstaclesToTileMap3D(this.obstacleList);
 				return ;
 			}
@@ -118,16 +122,16 @@ public class Canvas {
 	}
 
 	public void printTopDownView() {
-		for (int i = 0; i < this.tileMapTopDownView.length; i++){
-			for (int j = 0; j < this.tileMapTopDownView[0].length; j++)
+		for (Integer i = 0; i < this.tileMapTopDownView.length; i++){
+			for (Integer j = 0; j < this.tileMapTopDownView[0].length; j++)
 				System.out.print(this.tileMapTopDownView[i][j].toString() + " ");
 			System.out.println();
 		}
 	}
 
 	public void printSideView() {
-		for (int i = 0; i < this.tileMapSideView.length; i++){
-			for (int j = 0; j < this.tileMapSideView[0].length; j++)
+		for (Integer i = 0; i < this.tileMapSideView.length; i++){
+			for (Integer j = 0; j < this.tileMapSideView[0].length; j++)
 				System.out.print(this.tileMapSideView[i][j].toString() + " ");
 			System.out.println();
 		}

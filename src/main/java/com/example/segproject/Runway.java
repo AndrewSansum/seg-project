@@ -6,9 +6,9 @@ public class Runway {
 	private Integer	heigth;
 
 	public Runway(Integer length, Integer width, Integer heigth) {
-		this.length = length;
-		this.width = width;
-		this.heigth = heigth;
+		this.length	= length;
+		this.width	= width;
+		this.heigth	= heigth;
 	}
 
 	public Integer getLength() {
