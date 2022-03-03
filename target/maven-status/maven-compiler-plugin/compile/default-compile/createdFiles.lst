@@ -1,1 +1,5 @@
+com/example/segproject/Canvas.class
 com/example/segproject/App.class
+com/example/segproject/Point3D.class
+com/example/segproject/Runway.class
+com/example/segproject/Obstacle.class
