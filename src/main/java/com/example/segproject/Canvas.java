@@ -30,26 +30,31 @@ public class Canvas {
 		this.runway			= runway;
 		this.tileMap3D		= new Integer[heigth][length][width];
 		this.obstacleList	= new ArrayList<Obstacle>();
-		this.imgSz			= 64;
+		this.imgSz			= 32;
 
 		for(Integer y = 0; y < heigth; y++)
 			for(Integer x = 0; x < length; x++)
 				for(Integer z = 0; z < width; z++)
 					this.tileMap3D[y][x][z] = 0;
 		for(Integer x = 0; x < length; x++)
-			for(Integer z = 0; z < width; z++)
-				this.tileMap3D[heigth - 1][x][z] = 1;
+			for(Integer z = 0; z < width; z++) {
+				if (z == width / 2 && x % 3 != 0)
+					this.tileMap3D[heigth - 1][x][z] = 2;
+				else
+					this.tileMap3D[heigth - 1][x][z] = 1;
+			}
 		generateTileMapTopDownView();
 		generateTileMapSideView();
 	}
 
 	public void renderView(Stage stage, String title) {
-		Integer[][] grid = new Integer[0][0];
+		Integer[][] grid	= new Integer[0][0];
+		TilePane tilePane	= new TilePane();
+
 		if (title.equals("Side View"))
 			grid = this.tileMapSideView;
 		else 
 			grid = this.tileMapTopDownView;
-		TilePane tilePane = new TilePane();
 		tilePane.setAlignment(Pos.CENTER);
 		for (int y = 0; y <  grid.length; y++) {
 			for (int x = 0; x <  grid[0].length; x++) {
@@ -58,6 +63,8 @@ public class Canvas {
 					imageView = new ImageView("file:src/main/resources/void.png");
 				if ( grid[y][x] == 1)
 					imageView = new ImageView("file:src/main/resources/ground.png");
+				if ( grid[y][x] == 2)
+					imageView = new ImageView("file:src/main/resources/runway_line.png");
 				if ( grid[y][x] == 5)
 					imageView = new ImageView("file:src/main/resources/obs.png");
 				imageView.setFitWidth(this.imgSz);
