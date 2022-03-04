@@ -4,11 +4,15 @@ import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import static com.example.segproject.App.shutdown;
 
 public abstract class BaseScene {
 
@@ -19,7 +23,7 @@ public abstract class BaseScene {
     protected StackPane runwayPane;
     protected VBox io;
     protected CalculationInput inputs;
-    protected HBox toolbar;
+    protected MenuBar toolbar;
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
@@ -30,8 +34,26 @@ public abstract class BaseScene {
         runwayPane = new StackPane();
         io = new VBox();
 
-        // not in use
-        toolbar = new HBox();
+        toolbar = new MenuBar();
+
+        Menu fileMenu = new Menu("File");
+        MenuItem mainMenuItem = new MenuItem("Main Menu");
+        MenuItem exitMenuItem = new MenuItem("Exit");
+        mainMenuItem.setOnAction(h -> controller.openMenuScene());
+        exitMenuItem.setOnAction(h -> shutdown());
+        fileMenu.getItems().addAll(mainMenuItem, exitMenuItem);
+
+        Menu viewMenu = new Menu("View");
+        MenuItem topMenuItem = new MenuItem("Top View");
+        MenuItem sideMenuItem = new MenuItem("Side View");
+        MenuItem bothMenuItem = new MenuItem("Top & Side View");
+        topMenuItem.setOnAction(h -> controller.openTopScene());
+        sideMenuItem.setOnAction(h -> controller.openSideScene());
+        bothMenuItem.setOnAction(h -> controller.openDoubleScene());
+        viewMenu.getItems().addAll(topMenuItem, sideMenuItem, bothMenuItem);
+
+        toolbar.getMenus().addAll(fileMenu, viewMenu);
+        root.setTop(toolbar);
 
         root.setCenter(runwayPane);
         root.setRight(io);
