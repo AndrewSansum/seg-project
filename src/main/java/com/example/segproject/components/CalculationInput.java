@@ -15,7 +15,7 @@ public class CalculationInput extends VBox {
     public CalculationInput(){
         Label nameLabel = new Label("Runway Designator:");
         HBox nameBox = new HBox();
-        TextField nameText = new TextField();
+        RunwayDesignatorInput nameText = new RunwayDesignatorInput();
         nameBox.getChildren().add(nameText);
         this.getChildren().add(nameLabel);
         this.getChildren().add(nameBox);
