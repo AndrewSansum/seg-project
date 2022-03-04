@@ -1,5 +1,8 @@
 package com.example.segproject.components;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.example.segproject.Calculations;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -157,8 +160,13 @@ public class CalculationInput extends VBox {
             String l = resaText.getText();
             String m = stripEndText.getText();
             String n = blastProtectionText.getText();
+
+            //check none of the parameters are blank
+            List<String> paramList = Arrays.asList(a,b,c,d,f,g,h,i,j,k,l,m,n);
+            if (!paramList.stream().anyMatch(str -> str.isBlank())) {
+                cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
+            }
             //String o = obstacleHeightDirectionText.getText();
-            cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
             //System.out.println(a);
         });
     }
