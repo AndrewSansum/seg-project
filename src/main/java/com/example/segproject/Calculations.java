@@ -11,9 +11,9 @@ public class Calculations {
     int newAwayLDA;
     String runwayName;
 
-    public Calculations(String name,String tora, String asda, String toda, String lda, String height, String obstacleDistance, String direction, String distance, String displacement){
+    public Calculations(String name,String tora, String asda, String toda, String lda, String height, String distance, String direction, String obstacleDistance, String displacement, String resa, String stripEnd, String blastProtection){
         runwayName = name;
-        int runway = 0; //Placeholder
+        int runway = Integer.parseInt(tora);
         int stopway = Integer.parseInt(asda) - runway;
         int clearway = Integer.parseInt(toda) - runway;
         int slopeCalculation = 0; //Placeholder: max(RESA, height*50)

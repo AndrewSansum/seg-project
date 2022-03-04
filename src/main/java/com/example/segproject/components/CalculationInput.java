@@ -65,6 +65,15 @@ public class CalculationInput extends VBox {
         this.getChildren().add(obstacleHeightLabel);
         this.getChildren().add(obstacleHeightBox);
 
+        Label distanceLabel = new Label("Distance From Threshold to Obstacle:");
+        HBox distanceBox = new HBox();
+        TextField distanceText = new TextField();
+        Label distanceMeasure = new Label("Meters");
+        distanceBox.getChildren().add(distanceText);
+        distanceBox.getChildren().add(distanceMeasure);
+        this.getChildren().add(distanceLabel);
+        this.getChildren().add(distanceBox);
+
         Label obstacleDistanceLabel = new Label("Obstacle Distance From Centerline:");
         HBox obstacleDistanceBox = new HBox();
         TextField obstacleDistanceText = new TextField();
@@ -81,15 +90,6 @@ public class CalculationInput extends VBox {
         this.getChildren().add(directionLabel);
         this.getChildren().add(directionBox);
 
-        Label distanceLabel = new Label("Distance From Threshold to Obstacle:");
-        HBox distanceBox = new HBox();
-        TextField distanceText = new TextField();
-        Label distanceMeasure = new Label("Meters");
-        distanceBox.getChildren().add(distanceText);
-        distanceBox.getChildren().add(distanceMeasure);
-        this.getChildren().add(distanceLabel);
-        this.getChildren().add(distanceBox);
-
         Label displacementLabel = new Label("Displacement Threshold:");
         HBox displacementBox = new HBox();
         TextField displacementText = new TextField();
@@ -98,6 +98,42 @@ public class CalculationInput extends VBox {
         displacementBox.getChildren().add(displacementMeasure);
         this.getChildren().add(displacementLabel);
         this.getChildren().add(displacementBox);
+
+        Label resaLabel = new Label("RESA:");
+        HBox resaBox = new HBox();
+        TextField resaText = new TextField();
+        Label resaMeasure = new Label("Meters");
+        resaBox.getChildren().add(resaText);
+        resaBox.getChildren().add(resaMeasure);
+        this.getChildren().add(resaLabel);
+        this.getChildren().add(resaBox);
+
+        Label stripEndLabel = new Label("Strip End Length:");
+        HBox stripEndBox = new HBox();
+        TextField stripEndText = new TextField();
+        Label stripEndMeasure = new Label("Meters");
+        stripEndBox.getChildren().add(stripEndText);
+        stripEndBox.getChildren().add(stripEndMeasure);
+        this.getChildren().add(stripEndLabel);
+        this.getChildren().add(stripEndBox);
+
+        Label blastProtectionLabel = new Label("Airplane Blast Protection Length:");
+        HBox blastProtectionBox = new HBox();
+        TextField blastProtectionText = new TextField();
+        Label blastProtectionMeasure = new Label("Meters");
+        blastProtectionBox.getChildren().add(blastProtectionText);
+        blastProtectionBox.getChildren().add(blastProtectionMeasure);
+        this.getChildren().add(blastProtectionLabel);
+        this.getChildren().add(blastProtectionBox);
+
+        //Label obstacleHeightDirectionLabel = new Label("Runway Designator To Which Obstacle Max Height Is Closer:");
+        //HBox obstacleHeightDirectionBox = new HBox();
+        //TextField obstacleHeightDirectionText = new TextField();
+        //Label obstacleHeightDirectionMeasure = new Label("Meters");
+        //obstacleHeightDirectionBox.getChildren().add(obstacleHeightDirectionText);
+        //obstacleHeightDirectionBox.getChildren().add(obstacleHeightDirectionMeasure);
+        //this.getChildren().add(obstacleHeightDirectionLabel);
+        //this.getChildren().add(obstacleHeightDirectionBox);
 
         //Region blank = new Region();
         //this.setVgrow(blank, Priority.ALWAYS);
@@ -113,11 +149,16 @@ public class CalculationInput extends VBox {
             String d = todaText.getText();
             String f = ldaText.getText();
             String g = obstacleHeightText.getText();
-            String h = obstacleDistanceText.getText();
+            String h = distanceText.getText();
             String i = directionText.getText();
-            String j = distanceText.getText();
+            String j = obstacleDistanceText.getText();
             String k = displacementText.getText();
-            cal = new Calculations(a,b,c,d,f,g,h,i,j,k);
+
+            String l = resaText.getText();
+            String m = stripEndText.getText();
+            String n = blastProtectionText.getText();
+            //String o = obstacleHeightDirectionText.getText();
+            cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
             //System.out.println(a);
         });
     }
