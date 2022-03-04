@@ -107,6 +107,10 @@ public class Canvas {
 		generateTileMapSideView();
 	}
 
+	public void addPadding() {
+		// To be done
+	}
+
 	public void addListOfObstaclesToTileMap3D(ArrayList<Obstacle> obsLst) {
 		for (Integer i = 0; i < obsLst.size(); i++)
 			addObstacleToTileMap3D(obsLst.get(i));
