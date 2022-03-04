@@ -4,12 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.segproject.Calculations;
+
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class CalculationInput extends VBox {
@@ -165,6 +167,8 @@ public class CalculationInput extends VBox {
             List<String> paramList = Arrays.asList(a,b,c,d,f,g,h,i,j,k,l,m,n);
             if (!paramList.stream().anyMatch(str -> str.isBlank())) {
                 cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
+            } else {
+                new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
             }
             //String o = obstacleHeightDirectionText.getText();
             //System.out.println(a);
