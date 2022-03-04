@@ -14,6 +14,12 @@ import javafx.scene.text.Text;
 
 import static com.example.segproject.App.shutdown;
 
+/**
+ * Base class from which all scene classes will inherit
+ * Provides basic functionality required by the SceneController
+ * Provides a setupDefaultScene method to be used by all non-menu scenes
+ * Provides functionality for setting the style sheet of a scene
+ */
 public abstract class BaseScene {
 
     protected SceneController controller;
@@ -29,6 +35,9 @@ public abstract class BaseScene {
         this.controller = controller;
     }
 
+    /**
+     * Instantiates the foundational ui elements needed for all non-menu scenes
+     */
     protected void setupDefaultScene() {
         root = new BorderPane();
         runwayPane = new StackPane();
@@ -70,8 +79,16 @@ public abstract class BaseScene {
         io.getChildren().add(inputs);
     }
 
+    /**
+     * Will be used by children to declare all ui elements in the scene
+     */
     public abstract void build();
 
+    /**
+     * Used by the SceneController to declare an instance of this class as
+     * the current scene to be displayed
+     * @return scene
+     */
     public Scene setScene() {
         Scene currentScene = controller.getScene();
         Scene scene = new Scene(root, currentScene.getWidth(), currentScene.getHeight());
@@ -79,6 +96,10 @@ public abstract class BaseScene {
         return scene;
     }
 
+    /**
+     * Maybe won't be used at all, idk
+     * @return scene
+     */
     public Scene getScene() {return scene;}
 
     /**
@@ -86,7 +107,7 @@ public abstract class BaseScene {
      * <p>
      * File name should be the full name with file type e.g. "menu.css".
      * Will commonly be used in the build method.
-     * @param fileName Name of the stylesheet file i the resources folder
+     * @param fileName Name of the stylesheet file in the resources folder
      */
     protected void setStylesheet(String fileName) {
         root.getStylesheets().add(this.getClass().getResource("/".concat(fileName)).toExternalForm());

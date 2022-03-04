@@ -10,12 +10,18 @@ import javafx.scene.layout.VBox;
 
 import static com.example.segproject.App.shutdown;
 
+/**
+ * Class that builds and determines the behaviour of the menu
+ */
 public class MenuScene extends BaseScene {
     public MenuScene (SceneController controller) {
         super(controller);
         root = new BorderPane();
     }
 
+    /**
+     * Builds the ui elements of the scene
+     */
     public void build() {
         var buttonBox = new VBox();
         buttonBox.getStyleClass().add("v-box");
@@ -42,8 +48,27 @@ public class MenuScene extends BaseScene {
         setStylesheet("menu.css");
     }
 
+    /**
+     * Calls the scene controller to open the side view
+     * @param actionEvent When the corresponding button is clicked
+     */
     private void openSideScene(ActionEvent actionEvent) {controller.openSideScene();}
+
+    /**
+     * Calls the scene controller to open the top view
+     * @param actionEvent When the corresponding button is clicked
+     */
     private void openTopScene(ActionEvent actionEvent) {controller.openTopScene();}
+
+    /**
+     * Calls the scene controller to open the dual view
+     * @param actionEvent When the corresponding button is clicked
+     */
     private void openDoubleScene(ActionEvent actionEvent) {controller.openDoubleScene();}
+
+    /**
+     * Calls for the application to be closed
+     * @param actionEvent When the corresponding button is clicked
+     */
     private void exit(ActionEvent actionEvent) {shutdown();}
 }

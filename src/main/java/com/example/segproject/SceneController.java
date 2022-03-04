@@ -7,6 +7,10 @@ import javafx.stage.Stage;
 
 import com.example.segproject.scenes.*;
 
+/**
+ * Utility class that creates the window on which all scenes are displayed
+ * Provides the ability to switch between scenes
+ */
 public class SceneController {
 
     private final int resH;
@@ -17,6 +21,15 @@ public class SceneController {
     private BaseScene currentScene;
     private Scene scene;
 
+    /**
+     * Constructor that runs on program launch
+     * Builds the window to display scenes in
+     * Gives control to the menu scene
+     * @param stage Application window
+     * @param resH Horizontal resolution
+     * @param resV Vertical resolution
+     * @param title Name of the window
+     */
     public SceneController(Stage stage, int resH, int resV, String title) {
         this.resH = resH;
         this.resV = resV;
@@ -31,13 +44,22 @@ public class SceneController {
         openMenuScene();
     }
 
+    /**
+     * Method called by constructor only
+     * Sets the values of the application window
+     * Allows the user to close the application safely
+     */
     private void createStage() {
         stage.setTitle(this.title);
         stage.setMinWidth(this.resH);
         stage.setMinHeight(this.resV);
-        stage.setOnCloseRequest(ev -> App.shutdown());
+        stage.setOnCloseRequest(e -> App.shutdown());
     }
 
+    /**
+     * Transfers control over the application window from the current scene to a new scene
+     * @param newScene The scene to hand control over to
+     */
     private void loadScene(BaseScene newScene) {
         newScene.build();
         currentScene = newScene;
@@ -45,13 +67,41 @@ public class SceneController {
         stage.setScene(scene);
     }
 
+    /**
+     * Method that can be called by scenes to transfer control to the Menu
+     */
     public void openMenuScene() {loadScene(new MenuScene(this));}
+
+    /**
+     * Method that can be called by scenes to transfer control to the Side view
+     */
     public void openSideScene() {loadScene(new SideScene(this));}
+
+    /**
+     * Method that can be called by scenes to transfer control to the Top view
+     */
     public void openTopScene() {loadScene(new TopScene(this));}
+
+    /**
+     * Method that can be called by scenes to transfer control to the Dual view
+     */
     public void openDoubleScene() {;}
 
+    /**
+     * Getter method for the current scene
+     * @return scene The current scene
+     */
     public Scene getScene() {return scene;}
 
+    /**
+     * Getter method for horizontal resolution
+     * @return resH The horizontal resolution
+     */
     public int getWidth() {return resH;}
+
+    /**
+     * Getter method for vertical resolution
+     * @return resV The vertical resolution
+     */
     public int getHeight() {return resV;}
 }
