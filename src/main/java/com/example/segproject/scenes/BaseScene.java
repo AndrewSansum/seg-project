@@ -2,6 +2,7 @@ package com.example.segproject.scenes;
 
 import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +18,7 @@ public abstract class BaseScene {
     protected BorderPane root;
     protected StackPane runwayPane;
     protected VBox io;
+    protected CalculationInput inputs;
     protected HBox toolbar;
 
     public BaseScene(SceneController controller) {
@@ -41,7 +43,9 @@ public abstract class BaseScene {
         io.setMinWidth(controller.getWidth() * 0.33);
 
         runwayPane.getChildren().add(new Text("Runway"));
-        io.getChildren().add(new CalculationInput());
+
+        inputs = new CalculationInput();
+        io.getChildren().add(inputs);
     }
 
     public abstract void build();

@@ -10,7 +10,7 @@ public class SideScene extends BaseScene {
     }
 
     public void build() {
-        super.setupDefaultScene();
+        setupDefaultScene();
         runwayPane.setStyle("-fx-background-color: yellow");
     }
 }

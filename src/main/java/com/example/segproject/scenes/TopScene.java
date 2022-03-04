@@ -8,7 +8,7 @@ public class TopScene extends BaseScene {
     }
 
     public void build() {
-        super.setupDefaultScene();
+        setupDefaultScene();
         runwayPane.setStyle("-fx-background-color: blue");
     }
 }

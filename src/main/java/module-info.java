@@ -6,4 +6,5 @@ module com.example.segproject {
     opens com.example.segproject to javafx.fxml;
     exports com.example.segproject;
     exports com.example.segproject.scenes;
+    exports com.example.segproject.components;
 }
