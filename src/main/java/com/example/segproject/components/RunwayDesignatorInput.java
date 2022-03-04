@@ -20,7 +20,7 @@ public class RunwayDesignatorInput extends HBox {
         getChildren().add(spinner);
 
         positionChoice = new ChoiceBox<>();
-        positionChoice.getItems().addAll("", "L", "C", "R");
+        positionChoice.getItems().addAll(" ", "L", "C", "R");
         getChildren().add(positionChoice);
     }
 
