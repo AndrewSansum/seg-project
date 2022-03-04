@@ -1,8 +1,10 @@
 package com.example.segproject.components;
 
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * An input for Runway Designators with format of an
@@ -19,8 +21,14 @@ public class RunwayDesignatorInput extends HBox {
         spinner = new Spinner<Integer>(1, 36, 1);
         getChildren().add(spinner);
 
-        positionChoice = new ChoiceBox<>();
-        positionChoice.getItems().addAll(" ", "L", "C", "R");
+        CheckBox positionCheck = new CheckBox("Has position");
+        positionCheck.setAllowIndeterminate(false);
+        positionCheck.setSelected(false);
+        getChildren().add(positionCheck);
+
+        positionChoice = new ChoiceBox<String>();
+        positionChoice.getItems().addAll("L", "C", "R");
+        positionChoice.disableProperty().bind(positionCheck.selectedProperty().not());
         getChildren().add(positionChoice);
     }
 
@@ -30,10 +38,13 @@ public class RunwayDesignatorInput extends HBox {
      * @return runway designator string
      */
     public String getText() {
-        String num = this.spinner.getValue().toString();
-        if (num.length()==1) {
-            num = "0".concat(num);
+        String outStr = this.spinner.getValue().toString();
+        if (outStr.length()==1) {
+            outStr = "0".concat(outStr);
         }
-        return num.concat(positionChoice.getValue());
+        if (!positionChoice.isDisabled()) {
+            outStr.concat(positionChoice.getValue());
+        }
+        return outStr;
     }
 }
