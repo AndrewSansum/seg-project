@@ -22,7 +22,7 @@ public class CalculationInput extends VBox {
 
         Label toraLabel = new Label("Original TORA:");
         HBox toraBox = new HBox();
-        TextField toraText = new TextField();
+        TextField toraText = new IntegerField();
         Label toraMeasure = new Label("Meters");
         toraBox.getChildren().add(toraText);
         toraBox.getChildren().add(toraMeasure);
@@ -31,7 +31,7 @@ public class CalculationInput extends VBox {
 
         Label asdaLabel = new Label("Original ASDA:");
         HBox asdaBox = new HBox();
-        TextField asdaText = new TextField();
+        TextField asdaText = new IntegerField();
         Label asdaMeasure = new Label("Meters");
         asdaBox.getChildren().add(asdaText);
         asdaBox.getChildren().add(asdaMeasure);
@@ -40,7 +40,7 @@ public class CalculationInput extends VBox {
 
         Label todaLabel = new Label("Original TODA:");
         HBox todaBox = new HBox();
-        TextField todaText = new TextField();
+        TextField todaText = new IntegerField();
         Label todaMeasure = new Label("Meters");
         todaBox.getChildren().add(todaText);
         todaBox.getChildren().add(todaMeasure);
@@ -49,7 +49,7 @@ public class CalculationInput extends VBox {
 
         Label ldaLabel = new Label("Original LDA:");
         HBox ldaBox = new HBox();
-        TextField ldaText = new TextField();
+        TextField ldaText = new IntegerField();
         Label ldaMeasure = new Label("Meters");
         ldaBox.getChildren().add(ldaText);
         ldaBox.getChildren().add(ldaMeasure);
@@ -58,7 +58,7 @@ public class CalculationInput extends VBox {
 
         Label obstacleHeightLabel = new Label("Obstacle Height:");
         HBox obstacleHeightBox = new HBox();
-        TextField obstacleHeightText = new TextField();
+        TextField obstacleHeightText = new IntegerField();
         Label obstacleHeightMeasure = new Label("Meters");
         obstacleHeightBox.getChildren().add(obstacleHeightText);
         obstacleHeightBox.getChildren().add(obstacleHeightMeasure);
@@ -67,7 +67,7 @@ public class CalculationInput extends VBox {
 
         Label distanceLabel = new Label("Distance From Threshold to Obstacle:");
         HBox distanceBox = new HBox();
-        TextField distanceText = new TextField();
+        TextField distanceText = new IntegerField();
         Label distanceMeasure = new Label("Meters");
         distanceBox.getChildren().add(distanceText);
         distanceBox.getChildren().add(distanceMeasure);
@@ -76,7 +76,7 @@ public class CalculationInput extends VBox {
 
         Label obstacleDistanceLabel = new Label("Obstacle Distance From Centerline:");
         HBox obstacleDistanceBox = new HBox();
-        TextField obstacleDistanceText = new TextField();
+        TextField obstacleDistanceText = new IntegerField();
         Label obstacleDistanceMeasure = new Label("Meters");
         obstacleDistanceBox.getChildren().add(obstacleDistanceText);
         obstacleDistanceBox.getChildren().add(obstacleDistanceMeasure);
@@ -85,14 +85,14 @@ public class CalculationInput extends VBox {
 
         Label directionLabel = new Label("Direction of Obstacle From Centerline:");
         HBox directionBox = new HBox();
-        TextField directionText = new TextField();
+        TextField directionText = new IntegerField();
         directionBox.getChildren().add(directionText);
         this.getChildren().add(directionLabel);
         this.getChildren().add(directionBox);
 
         Label displacementLabel = new Label("Displacement Threshold:");
         HBox displacementBox = new HBox();
-        TextField displacementText = new TextField();
+        TextField displacementText = new IntegerField();
         Label displacementMeasure = new Label("Meters");
         displacementBox.getChildren().add(displacementText);
         displacementBox.getChildren().add(displacementMeasure);
@@ -101,7 +101,7 @@ public class CalculationInput extends VBox {
 
         Label resaLabel = new Label("RESA:");
         HBox resaBox = new HBox();
-        TextField resaText = new TextField();
+        TextField resaText = new IntegerField();
         Label resaMeasure = new Label("Meters");
         resaBox.getChildren().add(resaText);
         resaBox.getChildren().add(resaMeasure);
@@ -110,7 +110,7 @@ public class CalculationInput extends VBox {
 
         Label stripEndLabel = new Label("Strip End Length:");
         HBox stripEndBox = new HBox();
-        TextField stripEndText = new TextField();
+        TextField stripEndText = new IntegerField();
         Label stripEndMeasure = new Label("Meters");
         stripEndBox.getChildren().add(stripEndText);
         stripEndBox.getChildren().add(stripEndMeasure);
@@ -119,7 +119,7 @@ public class CalculationInput extends VBox {
 
         Label blastProtectionLabel = new Label("Airplane Blast Protection Length:");
         HBox blastProtectionBox = new HBox();
-        TextField blastProtectionText = new TextField();
+        TextField blastProtectionText = new IntegerField();
         Label blastProtectionMeasure = new Label("Meters");
         blastProtectionBox.getChildren().add(blastProtectionText);
         blastProtectionBox.getChildren().add(blastProtectionMeasure);
