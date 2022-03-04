@@ -18,7 +18,7 @@ public class App extends Application {
 
         obs.setObstacle(2, 1, 2);
 		can.addObstacleToTileMap3D(obs);
-		can.renderView(stage, "Top View");
+		can.renderView(stage, "Side View");
     }
 
     public static void main(String[] args) {

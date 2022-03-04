@@ -1,7 +1,8 @@
 ## How to run from the command line
 ```bash
-mvn clean install exec:java -Dexec.mainClass="com.example.segproject.App"
+mvn javafx:run
 ```
+You can change the view by setting the string parameter of the `renderView` function in the `App` class as "Side view" or "Top Down view"
 
 ## To be done
 - [x] Functions in Canvas Class
@@ -9,4 +10,4 @@ mvn clean install exec:java -Dexec.mainClass="com.example.segproject.App"
 	- [ ] moveObstacle to be done
 - [ ] Create a padding function so it looks a bit nicer
 - [ ] Add documentation
-- [ ] Find a way to compile only with `mvn install exec:java`
+- [x] Find a way to compile only with `mvn javafx:run`
