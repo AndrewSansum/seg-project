@@ -12,13 +12,13 @@ import javafx.scene.layout.TilePane;
 public class App extends Application {
     @Override
     public void start(Stage stage) {
-        Runway run		= new Runway(20, 10, 15);
+        Runway run		= new Runway(21, 10, 15);
         Canvas can		= new Canvas(run);
-		Obstacle obs	= new Obstacle(18,3,6);
+		Obstacle obs	= new Obstacle(20,12,1);
 
         obs.setObstacle(2, 1, 2);
 		can.addObstacleToTileMap3D(obs);
-		can.renderView(stage, "Top Down View");
+		can.renderView(stage, "Top View");
     }
 
     public static void main(String[] args) {

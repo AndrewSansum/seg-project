@@ -42,7 +42,8 @@ public class Canvas {
 					this.tileMap3D[heigth - 1][x][z] = 2;
 				else
 					this.tileMap3D[heigth - 1][x][z] = 1;
-			}
+				}
+		this.tileMap3D = Padding.addPadding(this.tileMap3D);
 		generateTileMapTopDownView();
 		generateTileMapSideView();
 	}
@@ -60,13 +61,15 @@ public class Canvas {
 			for (int x = 0; x <  grid[0].length; x++) {
 				ImageView imageView = new ImageView();
 				if ( grid[y][x] == 0)
-					imageView = new ImageView("file:src/main/resources/void.png");
+					imageView	= new ImageView("file:src/main/resources/void.png");
 				if ( grid[y][x] == 1)
-					imageView = new ImageView("file:src/main/resources/ground.png");
+					imageView	= new ImageView("file:src/main/resources/ground.png");
 				if ( grid[y][x] == 2)
-					imageView = new ImageView("file:src/main/resources/runway_line.png");
+					imageView	= new ImageView("file:src/main/resources/runway_line.png");
 				if ( grid[y][x] == 5)
-					imageView = new ImageView("file:src/main/resources/obs.png");
+					imageView	= new ImageView("file:src/main/resources/obs.png");
+				if ( grid[y][x] == 3)
+					imageView	= new ImageView("file:src/main/resources/grass.png");
 				imageView.setFitWidth(this.imgSz);
 				imageView.setPreserveRatio(true);
 				tilePane.getChildren().add(imageView);
@@ -79,9 +82,9 @@ public class Canvas {
 	}
 
 	public void generateTileMapSideView() {
-		Integer heigth			= runway.getHeigth();
-		Integer length			= runway.getLength();
-		Integer width			= runway.getWidth();
+		Integer heigth			= this.tileMap3D.length;
+		Integer length			= this.tileMap3D[0].length;
+		Integer width			= this.tileMap3D[0][0].length;
 		this.tileMapSideView	= new Integer[heigth][length];
 
 		for (Integer y = 0; y < heigth; y++)
@@ -96,12 +99,16 @@ public class Canvas {
 					}
 				}
 			}
+		for (Integer x = 0; x < length - Padding.paddingLend; x++) {
+			if (x + 1 > Padding.paddingLstart)
+				this.tileMapSideView[heigth - 1][x] = 1;
+		}
 	}
 
 	public void generateTileMapTopDownView() {
-		Integer heigth			= runway.getHeigth();
-		Integer length			= runway.getLength();
-		Integer width			= runway.getWidth();
+		Integer heigth			= this.tileMap3D.length;
+		Integer length			= this.tileMap3D[0].length;
+		Integer width			= this.tileMap3D[0][0].length;
 		this.tileMapTopDownView	= new Integer[length][width];
 
 		for (Integer y = 0; y < length; y++)
@@ -128,8 +135,8 @@ public class Canvas {
         for(Integer y_s = 0; y_s < obsMat.length && y_s + y < this.tileMap3D.length; y_s++){
             for (Integer x_s = 0; x_s < obsMat[0].length && x_s + x < this.tileMap3D[0].length; x_s++)
                 for (Integer z_s = 0; z_s < obsMat[0][0].length && z_s + z < this.tileMap3D[0][0].length; z_s++)
-                    this.tileMap3D[y_s + y][x_s + x][z_s + z] = obsMat[y_s][x_s][z_s];
-		}
+					this.tileMap3D[y_s + y][x_s + x + Padding.paddingLstart][z_s + z + Padding.paddingWleft] = obsMat[y_s][x_s][z_s];
+			}
 		this.obstacleList.add(obs);
 		generateTileMapTopDownView();
 		generateTileMapSideView();
@@ -150,10 +157,6 @@ public class Canvas {
 		}
 		generateTileMapTopDownView();
 		generateTileMapSideView();
-	}
-
-	public void addPadding() {
-		// To be done
 	}
 
 	public void addListOfObstaclesToTileMap3D(ArrayList<Obstacle> obsLst) {
