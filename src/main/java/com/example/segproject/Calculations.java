@@ -48,4 +48,48 @@ public class Calculations {
         newAwayTODA = newAwayTORA + clearway;
         newAwayLDA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - buffer;
      }
+
+    public String getRunwayName() {
+        return runwayName;
+    }
+
+    public int getTowardsTORA() {
+        return newTowardsTORA;
+    }
+
+    public int getAwayTORA() {
+        return newAwayTORA;
+    }
+
+    public int getTowardsASDA() {
+        return newTowardsASDA;
+    }
+
+    public int getAwayASDA() {
+        return newAwayASDA;
+    }
+
+    public int getTowardsTODA() {
+        return newTowardsTODA;
+    }
+
+    public int getAwayTODA() {
+        return newAwayTODA;
+    }
+
+    public int getTowardsLDA() {
+        return newTowardsLDA;
+    }
+
+    public int getAwayLDA() {
+        return newAwayLDA;
+    }
+
+    public String getObstacleDirection(){
+        return obstacleDirection;
+    }
+
+    public String getObstacleDistanceFromCenter(){
+        return obstacleDistanceFromCenter;
+    }
 }
