@@ -8,6 +8,7 @@ import com.example.segproject.Calculations;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -90,8 +91,9 @@ public class CalculationInput extends VBox {
 
         Label directionLabel = new Label("Direction of Obstacle From Centerline:");
         HBox directionBox = new HBox();
-        TextField directionText = new IntegerField();
-        directionBox.getChildren().add(directionText);
+        ChoiceBox<String> directionChoice = new ChoiceBox<String>();
+        directionChoice.getItems().addAll("North", "East", "South", "West");
+        directionBox.getChildren().add(directionChoice);
         this.getChildren().add(directionLabel);
         this.getChildren().add(directionBox);
 
@@ -155,7 +157,7 @@ public class CalculationInput extends VBox {
             String f = ldaText.getText();
             String g = obstacleHeightText.getText();
             String h = distanceText.getText();
-            String i = directionText.getText();
+            String i = directionChoice.getValue();
             String j = obstacleDistanceText.getText();
             String k = displacementText.getText();
 
