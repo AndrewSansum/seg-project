@@ -10,42 +10,29 @@ public class Calculations {
     int newAwayTODA;
     int newAwayLDA;
     String runwayName;
-    String obstacleDirection;
-    String obstacleDistanceFromCenter;
 
     public Calculations(String name,String tora, String asda, String toda, String lda, String height, String distance, String direction, String obstacleDistance, String displacement, String resa, String stripEnd, String blastProtection){
         runwayName = name;
         int runway = Integer.parseInt(tora);
         int stopway = Integer.parseInt(asda) - runway;
         int clearway = Integer.parseInt(toda) - runway;
-        obstacleDirection = direction;
-        obstacleDistanceFromCenter = obstacleDistance;
-        int slopeCalculation;
-        int landingOverBuffer;
-        if (Integer.parseInt(height)*50 > Integer.parseInt(resa)){
-            slopeCalculation = Integer.parseInt(height)*50;
-        } else {
-            slopeCalculation = Integer.parseInt(resa);
-        }
-        if (slopeCalculation + Integer.parseInt(stripEnd) > Integer.parseInt(blastProtection)){
-            landingOverBuffer = slopeCalculation + Integer.parseInt(stripEnd);
-        } else {
-            landingOverBuffer = Integer.parseInt(blastProtection);
-        }
-        takeOffTowardsLandingTowards(distance, slopeCalculation, stripEnd, resa);
-        takeOffAwayLandingOver(stopway, clearway, lda, distance, landingOverBuffer, blastProtection);
+        int slopeCalculation = 0; //Placeholder: max(RESA, height*50)
+        //Resa constant = 240?
+        //stripEnd constant = 60?
+        takeOffTowardsLandingTowards();
+        takeOffAwayLandingOver(stopway, clearway);
     }
-     public void takeOffTowardsLandingTowards(String distance, int slopeCalculation, String stripEnd, String resa){
-        newTowardsTORA = Integer.parseInt(distance) - slopeCalculation - Integer.parseInt(stripEnd);
+     public void takeOffTowardsLandingTowards(){
+        newTowardsTORA = 0; //Placeholder: distance(from incoming direction) - slopeCalculation - stripEnd (+displaced threshold sometimes?)
         newTowardsASDA = newTowardsTORA;
         newTowardsTODA = newTowardsTORA;
-        newTowardsLDA = Integer.parseInt(distance) - Integer.parseInt(resa) - Integer.parseInt(stripEnd);
+        newTowardsLDA = 0; //Placeholder: distance(from incoming direction) - RESA - stripEnd
      }
 
-     public void takeOffAwayLandingOver(int stopway, int clearway,String lda, String distance, int buffer, String bp){
-        newAwayTORA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - Integer.parseInt(bp);
+     public void takeOffAwayLandingOver(int stopway, int clearway){
+        newAwayTORA = 0; //Placeholder(so many questions)
         newAwayASDA = newAwayTORA + stopway;
         newAwayTODA = newAwayTORA + clearway;
-        newAwayLDA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - buffer;
+        newAwayLDA = 0; //Placeholder: lda - distance(from incoming direction) - slopeCalculation - max(stripEnd, blastProtectionValue)
      }
 }
