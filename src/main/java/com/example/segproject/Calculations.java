@@ -11,44 +11,43 @@ public class Calculations {
     int newAwayLDA;
     String runwayName;
     String obstacleDirection;
-    String obstacleDistanceFromCenter;
+    int obstacleDistanceFromCenter;
     int displacementThreshold;
 
-    public Calculations(String name,String tora, String asda, String toda, String lda, String height, String distance, String direction, String obstacleDistance, String displacement, String resa, String stripEnd, String blastProtection){
+    public Calculations(String name, int tora, int asda, int toda, int lda, int height, int distance, String direction, int obstacleDistance, int displacement, int resa, int stripEnd, int blastProtection){
         runwayName = name;
         obstacleDistanceFromCenter = obstacleDistance;
         obstacleDirection = direction;
-        displacementThreshold = Integer.parseInt(displacement);
-        int runway = Integer.parseInt(tora);
-        int stopway = Integer.parseInt(asda) - runway;
-        int clearway = Integer.parseInt(toda) - runway;
+        displacementThreshold = displacement;
+        int stopway = asda - tora;
+        int clearway = toda - tora;
         int slopeCalculation;
         int buffer;
-        if (Integer.parseInt(height)*50 > Integer.parseInt(resa)){
-            slopeCalculation = Integer.parseInt(height)*50;
+        if (height*50 > resa) {
+            slopeCalculation = height*50;
         } else {
-            slopeCalculation = Integer.parseInt(resa);
+            slopeCalculation = resa;
         }
-        if (Integer.parseInt(stripEnd) + slopeCalculation > Integer.parseInt(blastProtection)){
-            buffer = Integer.parseInt(stripEnd) + slopeCalculation;
+        if (stripEnd + slopeCalculation > blastProtection) {
+            buffer = stripEnd + slopeCalculation;
         } else {
-            buffer = Integer.parseInt(blastProtection);
+            buffer = blastProtection;
         }
-        takeOffTowardsLandingTowards(runway, distance, slopeCalculation, stripEnd, lda, resa);
-        takeOffAwayLandingOver(runway, distance, blastProtection, stopway, clearway, lda, buffer);
+        takeOffTowardsLandingTowards(tora, distance, slopeCalculation, stripEnd, lda, resa);
+        takeOffAwayLandingOver(tora, distance, blastProtection, stopway, clearway, lda, buffer);
     }
-     public void takeOffTowardsLandingTowards(int runway, String distance, int slope, String stripEnd, String lda, String resa){
-        newTowardsTORA = runway - (runway - Integer.parseInt(distance)) - slope - Integer.parseInt(stripEnd);
+     public void takeOffTowardsLandingTowards(int runway, int distance, int slope, int stripEnd, int lda, int resa){
+        newTowardsTORA = runway - (runway - distance) - slope - stripEnd;
         newTowardsASDA = newTowardsTORA;
         newTowardsTODA = newTowardsTORA;
-        newTowardsLDA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - Integer.parseInt(resa) - Integer.parseInt(stripEnd);
+        newTowardsLDA = lda - (lda - distance) - resa - stripEnd;
      }
 
-     public void takeOffAwayLandingOver(int runway, String distance, String bp, int stopway, int clearway, String lda, int buffer){
-        newAwayTORA = runway - (runway - Integer.parseInt(distance)) - Integer.parseInt(bp);
+     public void takeOffAwayLandingOver(int runway, int distance, int bp, int stopway, int clearway, int lda, int buffer){
+        newAwayTORA = runway - (runway - distance) - bp;
         newAwayASDA = newAwayTORA + stopway;
         newAwayTODA = newAwayTORA + clearway;
-        newAwayLDA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - buffer;
+        newAwayLDA = lda - (lda - distance) - buffer;
      }
 
     public String getRunwayName() {return runwayName;}
@@ -61,6 +60,6 @@ public class Calculations {
     public String getTowardsLDA() {return String.valueOf(newTowardsLDA);}
     public String getAwayLDA() {return String.valueOf(newAwayLDA);}
     public String getObstacleDirection() {return obstacleDirection;}
-    public String getObstacleDistanceFromCenter() {return obstacleDistanceFromCenter;}
+    public String getObstacleDistanceFromCenter() {return String.valueOf(obstacleDistanceFromCenter);}
     public String getDisplacementThreshold(){ return String.valueOf(displacementThreshold);}
 }
