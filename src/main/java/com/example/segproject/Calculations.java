@@ -14,6 +14,7 @@ public class Calculations {
     int obstacleDistanceFromCenter;
     int displacementThreshold;
     int obstacleHeight;
+    int obstacleDistanceFromThreshold;
 
     public Calculations(String name, int tora, int asda, int toda, int lda, int height, int distance, String direction, int obstacleDistance, int displacement, int resa, int stripEnd, int blastProtection){
         runwayName = name;
@@ -21,6 +22,7 @@ public class Calculations {
         obstacleDirection = direction;
         displacementThreshold = displacement;
         obstacleHeight = height;
+        obstacleDistanceFromThreshold = distance;
         int stopway = asda - tora;
         int clearway = toda - tora;
         int slopeCalculation;
@@ -65,4 +67,5 @@ public class Calculations {
     public String getObstacleDistanceFromCenter() {return String.valueOf(obstacleDistanceFromCenter);}
     public String getDisplacementThreshold(){ return String.valueOf(displacementThreshold);}
     public String getObstacleHeight() { return String.valueOf(obstacleHeight);}
+    public String getObstacleDistanceFromTheshold() { return String.valueOf(obstacleDistanceFromThreshold);}
 }
