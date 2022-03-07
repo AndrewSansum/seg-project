@@ -22,17 +22,27 @@ public class Calculations {
         takeOffTowardsLandingTowards();
         takeOffAwayLandingOver(stopway, clearway);
     }
-     public void takeOffTowardsLandingTowards(){
+    public void takeOffTowardsLandingTowards(){
         newTowardsTORA = 0; //Placeholder: distance(from incoming direction) - slopeCalculation - stripEnd (+displaced threshold sometimes?)
         newTowardsASDA = newTowardsTORA;
         newTowardsTODA = newTowardsTORA;
         newTowardsLDA = 0; //Placeholder: distance(from incoming direction) - RESA - stripEnd
-     }
+    }
 
-     public void takeOffAwayLandingOver(int stopway, int clearway){
+    public void takeOffAwayLandingOver(int stopway, int clearway){
         newAwayTORA = 0; //Placeholder(so many questions)
         newAwayASDA = newAwayTORA + stopway;
         newAwayTODA = newAwayTORA + clearway;
         newAwayLDA = 0; //Placeholder: lda - distance(from incoming direction) - slopeCalculation - max(stripEnd, blastProtectionValue)
-     }
+    }
+
+    public String getRunwayName() {return runwayName;}
+    public String getTowardsTORA() {return String.valueOf(newTowardsTORA);}
+    public String getTowardsASDA() {return String.valueOf(newTowardsASDA);}
+    public String getTowardsTODA() {return String.valueOf(newTowardsTODA);}
+    public String getTowardsLDA() {return String.valueOf(newTowardsLDA);}
+    public String getAwayTORA() {return String.valueOf(newTowardsTORA);}
+    public String getAwayASDA() {return String.valueOf(newTowardsASDA);}
+    public String getAwayTODA() {return String.valueOf(newTowardsTODA);}
+    public String getAwayLDA() {return String.valueOf(newTowardsLDA);}
 }
