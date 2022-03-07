@@ -154,35 +154,49 @@ public class CalculationInput extends VBox {
         this.getChildren().add(calculate);
 
         calculate.setOnAction(e -> {
-            String a = nameText.getText();
-            String b = toraText.getText();
-            String c = asdaText.getText();
-            String d = todaText.getText();
-            String f = ldaText.getText();
-            String g = obstacleHeightText.getText();
-            String h = distanceText.getText();
-            String i = directionChoice.getValue();
-            String j = obstacleDistanceText.getText();
-            String k = displacementText.getText();
-
-            String l = resaText.getText();
-            String m = stripEndText.getText();
-            String n = blastProtectionText.getText();
+            String name = nameText.getText();
+            String toraString = toraText.getText();
+            String asdaString = asdaText.getText();
+            String todaString = todaText.getText();
+            String ldaString = ldaText.getText();
+            String obHeightString = obstacleHeightText.getText();
+            String distanceString = distanceText.getText();
+            String direction = directionChoice.getValue();
+            String obDistanceString = obstacleDistanceText.getText();
+            String displacementString = displacementText.getText();
+            String resaString = resaText.getText();
+            String stripEndString = stripEndText.getText();
+            String blastProtString = blastProtectionText.getText();
 
             //check none of the parameters are blank
-            List<String> paramList = Arrays.asList(a,b,c,d,f,g,h,i,j,k,l,m,n);
+            List<String> paramList = Arrays.asList(name,toraString,asdaString,todaString,ldaString,obHeightString,distanceString,direction,obDistanceString,displacementString,resaString,stripEndString,blastProtString);
             if (paramList.stream().anyMatch(str -> str.isBlank())) {
                 new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
-            } else if (Integer.parseInt(f) > Integer.parseInt(b)) {
+                return;
+            }
+
+            int tora = Integer.parseInt(toraString);
+            int asda = Integer.parseInt(asdaString);
+            int toda = Integer.parseInt(todaString);
+            int lda = Integer.parseInt(ldaString);
+            int obHeight = Integer.parseInt(obHeightString);
+            int distance = Integer.parseInt(distanceString);
+            int obDistance = Integer.parseInt(obDistanceString);
+            int displacement = Integer.parseInt(displacementString);
+            int resa = Integer.parseInt(resaString);
+            int stripEnd = Integer.parseInt(stripEndString);
+            int blastProtection = Integer.parseInt(blastProtString);
+
+            if (Integer.parseInt(ldaString) > Integer.parseInt(toraString)) {
                 new Alert(AlertType.NONE, "LDA cannot exceed TORA", ButtonType.OK).showAndWait();
-            } else if (Integer.parseInt(k) > Integer.parseInt(b)) {
+            } else if (Integer.parseInt(displacementString) > Integer.parseInt(toraString)) {
                 new Alert(AlertType.NONE, "Displacement Threshold cannot exceed TORA", ButtonType.OK).showAndWait();
-            } else if (Integer.parseInt(b) > Integer.parseInt(d)) {
+            } else if (Integer.parseInt(toraString) > Integer.parseInt(todaString)) {
                 new Alert(AlertType.NONE, "TORA cannot exceed TODA", ButtonType.OK).showAndWait();
-            } else if (Integer.parseInt(b) > Integer.parseInt(c)) {
+            } else if (Integer.parseInt(toraString) > Integer.parseInt(asdaString)) {
                 new Alert(AlertType.NONE, "TORA cannot exceed ASDA", ButtonType.OK).showAndWait();
             } else {
-                cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
+                cal = new Calculations(name, tora, asda, toda, lda, obHeight, distance, direction, obDistance, displacement, resa, stripEnd, blastProtection);
                 buttonClicked(cal, e);
             }
             //String o = obstacleHeightDirectionText.getText();
