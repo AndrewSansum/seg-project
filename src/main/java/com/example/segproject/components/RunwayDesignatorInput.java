@@ -4,7 +4,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 /**
  * An input for Runway Designators with format of an

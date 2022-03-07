@@ -1,10 +1,6 @@
 package com.example.segproject.components;
 
 import com.example.segproject.Calculations;
-import com.example.segproject.events.CalculateButtonListener;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
