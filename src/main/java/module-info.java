@@ -1,11 +1,9 @@
 module com.example.segproject {
-    requires javafx.controls;
-    requires javafx.fxml;
+    requires transitive javafx.controls;
 
-
-    opens com.example.segproject to javafx.fxml;
     exports com.example.segproject;
     exports com.example.segproject.scenes;
     exports com.example.segproject.components;
     exports com.example.segproject.events;
+    exports com.example.segproject.utils;
 }
