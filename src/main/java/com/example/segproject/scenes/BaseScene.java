@@ -1,16 +1,20 @@
 package com.example.segproject.scenes;
 
+import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
 import com.example.segproject.components.Canvas;
 import com.example.segproject.components.Obstacle;
 import com.example.segproject.components.Runway;
 
+import com.example.segproject.components.CalculationOutput;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -30,13 +34,12 @@ public abstract class BaseScene {
 
     protected BorderPane root;
     protected StackPane runwayPane;
-    protected VBox io;
+    protected HBox io;
     protected CalculationInput inputs;
-	protected MenuBar toolbar;
-	
-	protected Runway run;
-	protected Canvas can;
-	protected Obstacle obs;
+    protected CalculationOutput outputs;
+    protected MenuBar toolbar;
+
+    protected Calculations cal;
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
@@ -51,7 +54,7 @@ public abstract class BaseScene {
     protected void setupDefaultScene() {
         root = new BorderPane();
         runwayPane = new StackPane();
-        io = new VBox();
+        io = new HBox();
 
         toolbar = new MenuBar();
 
@@ -89,7 +92,12 @@ public abstract class BaseScene {
         runwayPane.getChildren().add(new Text("Runway"));
 
         inputs = new CalculationInput();
+        outputs = new CalculationOutput();
+
         io.getChildren().add(inputs);
+        io.getChildren().add(outputs);
+
+        inputs.setOnButtonClicked(this::newValues);
     }
 
     /**
@@ -107,6 +115,16 @@ public abstract class BaseScene {
         Scene scene = new Scene(root, currentScene.getWidth(), currentScene.getHeight());
         this.scene = scene;
         return scene;
+    }
+
+    /**
+     * Called when calculate button is clicked
+     * @param cal new calculated values
+     * @param event the button click event, shouldn't be needed for anything
+     */
+    private void newValues(Calculations cal, ActionEvent event) {
+        this.cal = cal;
+        outputs.updateValues(cal);
     }
 
     /**

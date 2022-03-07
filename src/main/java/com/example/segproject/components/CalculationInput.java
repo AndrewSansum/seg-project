@@ -6,6 +6,8 @@ import java.util.List;
 import com.example.segproject.Calculations;
 
 import javafx.scene.control.Alert;
+import com.example.segproject.events.CalculateButtonListener;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -17,6 +19,8 @@ import javafx.scene.layout.VBox;
 
 public class CalculationInput extends VBox {
     Calculations cal;
+
+    private CalculateButtonListener buttonClickedListener;
 
     public CalculationInput(){
         Label nameLabel = new Label("Runway Designator:");
@@ -169,11 +173,31 @@ public class CalculationInput extends VBox {
             List<String> paramList = Arrays.asList(a,b,c,d,f,g,h,i,j,k,l,m,n);
             if (!paramList.stream().anyMatch(str -> str.isBlank())) {
                 cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
+                buttonClicked(cal, e);
             } else {
                 new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
             }
             //String o = obstacleHeightDirectionText.getText();
             //System.out.println(a);
         });
+    }
+
+    /**
+     * Set the listener for when the calculate button is clicked
+     * @param listener the listener to be set
+     */
+    public void setOnButtonClicked(CalculateButtonListener listener) {
+        this.buttonClickedListener = listener;
+    }
+
+    /**
+     * Calls the attached listener
+     * @param cal new calculated values
+     * @param event the button click event
+     */
+    private void buttonClicked(Calculations cal, ActionEvent event) {
+        if (buttonClickedListener != null) {
+            buttonClickedListener.calculateButtonClicked(cal, event);
+        }
     }
 }
