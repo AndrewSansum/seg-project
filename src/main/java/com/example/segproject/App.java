@@ -1,6 +1,7 @@
 package com.example.segproject;
 
 import javafx.application.Application;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -8,8 +9,8 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private final int resH = 1600;
-    private final int resV = 900;
+    private int resH;
+    private int resV;
 
     private Stage stage;
 
@@ -20,6 +21,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         this.stage = stage;
+        var screenSize = Screen.getPrimary().getBounds();
+        resH = (int)screenSize.getWidth() / 10 * 8;
+        resV = (int)screenSize.getHeight() / 10 * 8;
         var controller = new SceneController(stage, resH, resV, "test");
         stage.show();
     }
