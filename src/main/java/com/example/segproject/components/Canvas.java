@@ -57,14 +57,11 @@ public class Canvas {
 
 		if (title.equals("Side View")) {
 			grid = this.tileMapSideView;
-			this.imgSz = 27;
+			this.imgSz = 39;
 		} else 
 			grid = this.tileMapTopDownView;
 		tilePane.setMaxSize(grid[0].length * this.imgSz, grid.length * this.imgSz);
 		tilePane.setMinSize(grid[0].length * this.imgSz, grid.length * this.imgSz);
-		System.out.println("<<<<<<<<<<<<");
-		System.out.println(grid.length * this.imgSz);
-		System.out.println(grid[0].length * this.imgSz);
 		// tilePane.setAlignment(Pos.TOP_CENTER);
 		for (int y = 0; y <  grid.length; y++) {
 			for (int x = 0; x <  grid[0].length; x++) {

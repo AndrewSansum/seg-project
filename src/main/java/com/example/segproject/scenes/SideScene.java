@@ -21,15 +21,7 @@ public class SideScene extends BaseScene {
      */
     public void build() {
 		setupDefaultScene();
-        // Runway run		= new Runway(15, 11, 16);
-		// Canvas can		= new Canvas(run, 27);
-		// Obstacle obs	= new Obstacle(10,13,2);
-
-        // obs.setObstacle(2, 2, 2);
-		// can.addObstacleToTileMap3D(obs);
 		runwayPane.getChildren().add(can.renderView("Side View"));
 		runwayPane.setAlignment(Pos.TOP_CENTER);
-		// root.setCenter();
-        // runwayPane.setStyle("-fx-background-color: yellow");
     }
 }

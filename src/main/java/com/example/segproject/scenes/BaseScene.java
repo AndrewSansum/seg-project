@@ -37,15 +37,18 @@ public abstract class BaseScene {
     protected HBox io;
     protected CalculationInput inputs;
     protected CalculationOutput outputs;
-    protected MenuBar toolbar;
+	protected MenuBar toolbar;
+	protected Runway run;
+	protected Canvas can;
+	protected Obstacle obs;
 
     protected Calculations cal;
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
-        run		= new Runway(15, 11, 16);
-		can		= new Canvas(run, 8);
-		obs		= new Obstacle(10,13,2);
+        run		= new Runway(20, 11, 20);
+		can		= new Canvas(run, 32);
+		obs		= new Obstacle(10,run.getHeigth() - 3,2);
     }
 
     /**
