@@ -171,11 +171,11 @@ public class CalculationInput extends VBox {
 
             //check none of the parameters are blank
             List<String> paramList = Arrays.asList(a,b,c,d,f,g,h,i,j,k,l,m,n);
-            if (!paramList.stream().anyMatch(str -> str.isBlank())) {
+            if (paramList.stream().anyMatch(str -> str.isBlank())) {
+                new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
+            } else {
                 cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
                 buttonClicked(cal, e);
-            } else {
-                new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
             }
             //String o = obstacleHeightDirectionText.getText();
             //System.out.println(a);
