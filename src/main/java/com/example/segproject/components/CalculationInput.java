@@ -171,11 +171,19 @@ public class CalculationInput extends VBox {
 
             //check none of the parameters are blank
             List<String> paramList = Arrays.asList(a,b,c,d,f,g,h,i,j,k,l,m,n);
-            if (!paramList.stream().anyMatch(str -> str.isBlank())) {
+            if (paramList.stream().anyMatch(str -> str.isBlank())) {
+                new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
+            } else if (Integer.parseInt(f) > Integer.parseInt(b)) {
+                new Alert(AlertType.NONE, "LDA cannot exceed TORA", ButtonType.OK).showAndWait();
+            } else if (Integer.parseInt(k) > Integer.parseInt(b)) {
+                new Alert(AlertType.NONE, "Displacement Threshold cannot exceed TORA", ButtonType.OK).showAndWait();
+            } else if (Integer.parseInt(b) > Integer.parseInt(d)) {
+                new Alert(AlertType.NONE, "TORA cannot exceed TODA", ButtonType.OK).showAndWait();
+            } else if (Integer.parseInt(b) > Integer.parseInt(c)) {
+                new Alert(AlertType.NONE, "TORA cannot exceed ASDA", ButtonType.OK).showAndWait();
+            } else {
                 cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
                 buttonClicked(cal, e);
-            } else {
-                new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
             }
             //String o = obstacleHeightDirectionText.getText();
             //System.out.println(a);
