@@ -15,18 +15,20 @@ import javafx.scene.layout.HBox;
 public class RunwayDesignatorInput extends HBox {
     Spinner<Integer> spinner;
     ChoiceBox<String> positionChoice;
+    CheckBox positionCheck;
 
     public RunwayDesignatorInput() {
         spinner = new Spinner<Integer>(1, 36, 1);
         getChildren().add(spinner);
 
-        CheckBox positionCheck = new CheckBox("Has position");
+        positionCheck = new CheckBox("Has position");
         positionCheck.setAllowIndeterminate(false);
         positionCheck.setSelected(false);
         getChildren().add(positionCheck);
 
         positionChoice = new ChoiceBox<String>();
         positionChoice.getItems().addAll("L", "C", "R");
+        positionChoice.setValue("L");
         positionChoice.disableProperty().bind(positionCheck.selectedProperty().not());
         getChildren().add(positionChoice);
     }
@@ -41,8 +43,8 @@ public class RunwayDesignatorInput extends HBox {
         if (outStr.length()==1) {
             outStr = "0".concat(outStr);
         }
-        if (!positionChoice.isDisabled()) {
-            outStr.concat(positionChoice.getValue());
+        if (positionCheck.isSelected()) {
+            outStr = outStr.concat(positionChoice.getValue());
         }
         return outStr;
     }
