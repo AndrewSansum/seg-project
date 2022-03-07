@@ -23,6 +23,9 @@ public class CalculationOutput extends VBox {
     private Text awayTODA;
     private Text towardsLDA;
     private Text awayLDA;
+    private Text obstacleDirection;
+    private Text obstacleDistanceFromCenter;
+    private Text displacementThreshold;
 
     /**
      * Instantiates the labels
@@ -37,6 +40,9 @@ public class CalculationOutput extends VBox {
         this.awayTODA = new Text("Away TODA: ");
         this.towardsLDA = new Text("Towards LDA: ");
         this.awayLDA = new Text("Away LDA: ");
+        this.obstacleDirection = new Text("Obstacle Direction: ");
+        this.obstacleDistanceFromCenter = new Text("Obstacle Distance from Center: ");
+        this.displacementThreshold = new Text("Displacement Threshold: ");
 
         this.getChildren().add(this.runwayName);
         this.getChildren().add(this.towardsTORA);
@@ -47,6 +53,9 @@ public class CalculationOutput extends VBox {
         this.getChildren().add(this.awayTODA);
         this.getChildren().add(this.towardsLDA);
         this.getChildren().add(this.awayLDA);
+        this.getChildren().add(this.obstacleDirection);
+        this.getChildren().add(this.obstacleDistanceFromCenter);
+        this.getChildren().add(this.displacementThreshold);
     }
 
     /**
@@ -64,5 +73,8 @@ public class CalculationOutput extends VBox {
         this.awayTODA.setText("Away TODA: " + cal.getAwayTODA() + " Meters");
         this.towardsLDA.setText("Towards LDA: " + cal.getTowardsLDA() + " Meters");
         this.awayLDA.setText("Away LDA: " + cal.getAwayLDA() + " Meters");
+        this.obstacleDirection.setText("Obstacle Direction: " + cal.getObstacleDirection());
+        this.obstacleDistanceFromCenter.setText("Obstacle Distance from Center: " + cal.getObstacleDistanceFromCenter() + " Meters");
+        this.displacementThreshold.setText("Displacement Threshold: " + cal.getDisplacementThreshold() + " Meters");
     }
 }

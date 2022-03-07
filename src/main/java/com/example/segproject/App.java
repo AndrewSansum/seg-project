@@ -8,8 +8,8 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private final int resH = 1400;
-    private final int resV = 800;
+    private final int resH = 1600;
+    private final int resV = 900;
 
     private Stage stage;
 

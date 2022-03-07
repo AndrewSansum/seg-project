@@ -51,51 +51,16 @@ public class Calculations {
         newAwayLDA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - buffer;
      }
 
-    public String getRunwayName() {
-        return runwayName;
-    }
-
-    public int getTowardsTORA() {
-        return newTowardsTORA;
-    }
-
-    public int getAwayTORA() {
-        return newAwayTORA;
-    }
-
-    public int getTowardsASDA() {
-        return newTowardsASDA;
-    }
-
-    public int getAwayASDA() {
-        return newAwayASDA;
-    }
-
-    public int getTowardsTODA() {
-        return newTowardsTODA;
-    }
-
-    public int getAwayTODA() {
-        return newAwayTODA;
-    }
-
-    public int getTowardsLDA() {
-        return newTowardsLDA;
-    }
-
-    public int getAwayLDA() {
-        return newAwayLDA;
-    }
-
-    public String getObstacleDirection(){
-        return obstacleDirection;
-    }
-
-    public String getObstacleDistanceFromCenter(){
-        return obstacleDistanceFromCenter;
-    }
-
-    public int getDisplacementThreshold(){
-        return displacementThreshold;
-    }
+    public String getRunwayName() {return runwayName;}
+    public String getTowardsTORA() {return String.valueOf(newTowardsTORA);}
+    public String getAwayTORA() {return String.valueOf(newAwayTORA);}
+    public String getTowardsASDA() {return String.valueOf(newTowardsASDA);}
+    public String getAwayASDA() {return String.valueOf(newAwayASDA);}
+    public String getTowardsTODA() {return String.valueOf(newTowardsTODA);}
+    public String getAwayTODA() {return String.valueOf(newAwayTODA);}
+    public String getTowardsLDA() {return String.valueOf(newTowardsLDA);}
+    public String getAwayLDA() {return String.valueOf(newAwayLDA);}
+    public String getObstacleDirection() {return obstacleDirection;}
+    public String getObstacleDistanceFromCenter() {return obstacleDistanceFromCenter;}
+    public String getDisplacementThreshold(){ return String.valueOf(displacementThreshold);}
 }

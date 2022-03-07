@@ -46,9 +46,9 @@ public abstract class BaseScene {
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
-        run		= new Runway(20, 11, 20);
-		can		= new Canvas(run, 32);
-		obs		= new Obstacle(10,run.getHeigth() - 3,2);
+        run	= new Runway(20, 11, 20);
+		can	= new Canvas(run, 32);
+		obs	= new Obstacle(10,run.getHeigth() - 3,2);
     }
 
     /**
