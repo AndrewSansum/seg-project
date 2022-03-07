@@ -12,11 +12,13 @@ public class Calculations {
     String runwayName;
     String obstacleDirection;
     String obstacleDistanceFromCenter;
+    int displacementThreshold;
 
     public Calculations(String name,String tora, String asda, String toda, String lda, String height, String distance, String direction, String obstacleDistance, String displacement, String resa, String stripEnd, String blastProtection){
         runwayName = name;
         obstacleDistanceFromCenter = obstacleDistance;
         obstacleDirection = direction;
+        displacementThreshold = Integer.parseInt(displacement);
         int runway = Integer.parseInt(tora);
         int stopway = Integer.parseInt(asda) - runway;
         int clearway = Integer.parseInt(toda) - runway;
@@ -91,5 +93,9 @@ public class Calculations {
 
     public String getObstacleDistanceFromCenter(){
         return obstacleDistanceFromCenter;
+    }
+
+    public int getDisplacementThreshold(){
+        return displacementThreshold;
     }
 }
