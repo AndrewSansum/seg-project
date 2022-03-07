@@ -32,20 +32,20 @@ public class Calculations {
         } else {
             buffer = Integer.parseInt(blastProtection);
         }
-        takeOffTowardsLandingTowards();
-        takeOffAwayLandingOver(stopway, clearway);
+        takeOffTowardsLandingTowards(runway, distance, slopeCalculation, stripEnd, lda, resa);
+        takeOffAwayLandingOver(runway, distance, blastProtection, stopway, clearway, lda, buffer);
     }
-     public void takeOffTowardsLandingTowards(){
-        newTowardsTORA = 0; //Placeholder: distance(from incoming direction) - slopeCalculation - stripEnd (+displaced threshold sometimes?)
+     public void takeOffTowardsLandingTowards(int runway, String distance, int slope, String stripEnd, String lda, String resa){
+        newTowardsTORA = runway - (runway - Integer.parseInt(distance)) - slope - Integer.parseInt(stripEnd);
         newTowardsASDA = newTowardsTORA;
         newTowardsTODA = newTowardsTORA;
-        newTowardsLDA = 0; //Placeholder: distance(from incoming direction) - RESA - stripEnd
+        newTowardsLDA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - Integer.parseInt(resa) - Integer.parseInt(stripEnd);
      }
 
-     public void takeOffAwayLandingOver(int stopway, int clearway){
-        newAwayTORA = 0; //Placeholder(so many questions)
+     public void takeOffAwayLandingOver(int runway, String distance, String bp, int stopway, int clearway, String lda, int buffer){
+        newAwayTORA = runway - (runway - Integer.parseInt(distance)) - Integer.parseInt(bp);
         newAwayASDA = newAwayTORA + stopway;
         newAwayTODA = newAwayTORA + clearway;
-        newAwayLDA = 0; //Placeholder: lda - distance(from incoming direction) - max(slopeCalculation + stripEnd, blastProtectionValue)
+        newAwayLDA = Integer.parseInt(lda) - (Integer.parseInt(lda) - Integer.parseInt(distance)) - buffer;
      }
 }
