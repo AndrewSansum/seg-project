@@ -1,8 +1,10 @@
 package com.example.segproject.scenes;
 
+import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
 
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -30,6 +32,8 @@ public abstract class BaseScene {
     protected VBox io;
     protected CalculationInput inputs;
     protected MenuBar toolbar;
+
+    protected Calculations cal;
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
@@ -77,6 +81,8 @@ public abstract class BaseScene {
 
         inputs = new CalculationInput();
         io.getChildren().add(inputs);
+
+        inputs.setOnButtonClicked(this::newValues);
     }
 
     /**
@@ -94,6 +100,16 @@ public abstract class BaseScene {
         Scene scene = new Scene(root, currentScene.getWidth(), currentScene.getHeight());
         this.scene = scene;
         return scene;
+    }
+
+    /**
+     * Called when calculate button is clicked
+     * @param cal new calculated values
+     * @param event the button click event, shouldn't be needed for anything
+     */
+    private void newValues(Calculations cal, ActionEvent event) {
+        this.cal = cal;
+        runwayPane.getChildren().add(new Text("test"));
     }
 
     /**

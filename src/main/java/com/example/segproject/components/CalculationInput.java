@@ -1,16 +1,18 @@
 package com.example.segproject.components;
 
 import com.example.segproject.Calculations;
+import com.example.segproject.events.CalculateButtonListener;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class CalculationInput extends VBox {
     Calculations cal;
+
+    private CalculateButtonListener buttonClickedListener;
 
     public CalculationInput(){
         Label nameLabel = new Label("Runway Designator:");
@@ -159,7 +161,27 @@ public class CalculationInput extends VBox {
             String n = blastProtectionText.getText();
             //String o = obstacleHeightDirectionText.getText();
             cal = new Calculations(a,b,c,d,f,g,h,i,j,k,l,m,n);
+            buttonClicked(cal, e);
             //System.out.println(a);
         });
+    }
+
+    /**
+     * Set the listener for when the calculate button is clicked
+     * @param listener the listener to be set
+     */
+    public void setOnButtonClicked(CalculateButtonListener listener) {
+        this.buttonClickedListener = listener;
+    }
+
+    /**
+     * Calls the attached listener
+     * @param cal new calculated values
+     * @param event the button click event
+     */
+    private void buttonClicked(Calculations cal, ActionEvent event) {
+        if (buttonClickedListener != null) {
+            buttonClickedListener.calculateButtonClicked(cal, event);
+        }
     }
 }
