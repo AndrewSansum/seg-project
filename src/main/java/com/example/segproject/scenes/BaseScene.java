@@ -2,6 +2,9 @@ package com.example.segproject.scenes;
 
 import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
+import com.example.segproject.components.Canvas;
+import com.example.segproject.components.Obstacle;
+import com.example.segproject.components.Runway;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -29,10 +32,17 @@ public abstract class BaseScene {
     protected StackPane runwayPane;
     protected VBox io;
     protected CalculationInput inputs;
-    protected MenuBar toolbar;
+	protected MenuBar toolbar;
+	
+	protected Runway run;
+	protected Canvas can;
+	protected Obstacle obs;
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
+        run		= new Runway(15, 11, 16);
+		can		= new Canvas(run, 8);
+		obs		= new Obstacle(10,13,2);
     }
 
     /**
@@ -68,7 +78,10 @@ public abstract class BaseScene {
         root.setRight(io);
 
         root.setMaxWidth(controller.getWidth());
-        root.setMaxHeight(controller.getHeight());
+		root.setMaxHeight(controller.getHeight());
+
+        obs.setObstacle(2, 2, 2);
+		can.addObstacleToTileMap3D(obs);
 
         runwayPane.setMinWidth(controller.getWidth() * 0.66);
         io.setMinWidth(controller.getWidth() * 0.33);
