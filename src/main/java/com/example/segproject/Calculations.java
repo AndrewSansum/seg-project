@@ -39,6 +39,7 @@ public class Calculations {
         }
         takeOffTowardsLandingTowards(tora, distance, slopeCalculation, stripEnd, lda, resa);
         takeOffAwayLandingOver(tora, distance, blastProtection, stopway, clearway, lda, buffer);
+
     }
      public void takeOffTowardsLandingTowards(int runway, int distance, int slope, int stripEnd, int lda, int resa){
         newTowardsTORA = runway - (runway - distance) - slope - stripEnd;
@@ -48,10 +49,10 @@ public class Calculations {
      }
 
      public void takeOffAwayLandingOver(int runway, int distance, int bp, int stopway, int clearway, int lda, int buffer){
-        newAwayTORA = runway - (runway - distance) - bp;
+        newAwayTORA = runway - distance - bp;
         newAwayASDA = newAwayTORA + stopway;
         newAwayTODA = newAwayTORA + clearway;
-        newAwayLDA = lda - (lda - distance) - buffer;
+        newAwayLDA = lda - distance - buffer;
      }
 
     public String getRunwayName() {return runwayName;}

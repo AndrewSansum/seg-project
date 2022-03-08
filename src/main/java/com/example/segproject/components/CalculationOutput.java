@@ -33,12 +33,12 @@ public class CalculationOutput extends VBox {
     public CalculationOutput(){
         this.runwayName = new Text("Runway Designator: ");
         this.towardsTORA = new Text("Towards TORA: ");
-        this.awayTORA = new Text("Away TORA: ");
         this.towardsASDA = new Text("Towards ASDA: ");
-        this.awayASDA = new Text("Away ASDA: ");
         this.towardsTODA = new Text("Towards TODA: ");
-        this.awayTODA = new Text("Away TODA: ");
         this.towardsLDA = new Text("Towards LDA: ");
+        this.awayTORA = new Text("Away TORA: ");
+        this.awayASDA = new Text("Away ASDA: ");
+        this.awayTODA = new Text("Away TODA: ");
         this.awayLDA = new Text("Away LDA: ");
         this.obstacleDirection = new Text("Obstacle Direction: ");
         this.obstacleDistanceFromCenter = new Text("Obstacle Distance from Center: ");
@@ -46,12 +46,12 @@ public class CalculationOutput extends VBox {
 
         this.getChildren().add(this.runwayName);
         this.getChildren().add(this.towardsTORA);
-        this.getChildren().add(this.awayTORA);
         this.getChildren().add(this.towardsASDA);
-        this.getChildren().add(this.awayASDA);
         this.getChildren().add(this.towardsTODA);
-        this.getChildren().add(this.awayTODA);
         this.getChildren().add(this.towardsLDA);
+        this.getChildren().add(this.awayTORA);
+        this.getChildren().add(this.awayASDA);
+        this.getChildren().add(this.awayTODA);
         this.getChildren().add(this.awayLDA);
         this.getChildren().add(this.obstacleDirection);
         this.getChildren().add(this.obstacleDistanceFromCenter);
@@ -65,14 +65,14 @@ public class CalculationOutput extends VBox {
     public void updateValues(Calculations cal) {
         this.cal = cal;
         this.runwayName.setText("Runway Designator: " + cal.getRunwayName());
-        this.towardsTORA.setText("Towards TORA: " + cal.getTowardsTORA() + " Meters");
-        this.awayTORA.setText("Away TORA: " + cal.getAwayTORA() + " Meters");
-        this.towardsASDA.setText("Towards ASDA: " + cal.getTowardsASDA() + " Meters");
-        this.awayASDA.setText("Away ASDA: " + cal.getAwayASDA() + " Meters");
-        this.towardsTODA.setText("Towards TODA: " + cal.getTowardsTODA() + " Meters");
-        this.awayTODA.setText("Away TODA: " + cal.getAwayTODA() + " Meters");
-        this.towardsLDA.setText("Towards LDA: " + cal.getTowardsLDA() + " Meters");
-        this.awayLDA.setText("Away LDA: " + cal.getAwayLDA() + " Meters");
+        this.towardsTORA.setText("Taking Off Towards TORA: " + cal.getTowardsTORA() + " Meters");
+        this.towardsASDA.setText("Taking Off Towards ASDA: " + cal.getTowardsASDA() + " Meters");
+        this.towardsTODA.setText("Taking Off Towards TODA: " + cal.getTowardsTODA() + " Meters");
+        this.towardsLDA.setText("Landing Towards LDA: " + cal.getTowardsLDA() + " Meters");
+        this.awayTORA.setText("Taking Off Away TORA: " + cal.getAwayTORA() + " Meters");
+        this.awayASDA.setText("Taking Off Away ASDA: " + cal.getAwayASDA() + " Meters");
+        this.awayTODA.setText("Taking Off Away TODA: " + cal.getAwayTODA() + " Meters");
+        this.awayLDA.setText("Landig Over LDA: " + cal.getAwayLDA() + " Meters");
         this.obstacleDirection.setText("Obstacle Direction: " + cal.getObstacleDirection());
         this.obstacleDistanceFromCenter.setText("Obstacle Distance from Center: " + cal.getObstacleDistanceFromCenter() + " Meters");
         this.displacementThreshold.setText("Displacement Threshold: " + cal.getDisplacementThreshold() + " Meters");
