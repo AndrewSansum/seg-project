@@ -9,24 +9,43 @@ public class Calculations {
     int newAwayASDA;
     int newAwayTODA;
     int newAwayLDA;
-    String runwayName;
-    String obstacleDirection;
-    int obstacleDistanceFromCenter;
-    int displacementThreshold;
-    int obstacleHeight;
-    int obstacleDistanceFromThreshold;
+
+    public String runwayName;
+    public String obstacleDirection;
+    public int obstacleDistanceFromCenter;
+    public int displacementThreshold;
+    public int obstacleHeight;
+    public int obstacleDistanceFromThreshold;
+    public int tora;
+    public int asda;
+    public int toda;
+    public int lda;
+    public int resa;
+    public int stripEnd;
+    public int blastProtection;
+
+    public int stopway;
+    public int clearway;
+    public int slopeCalculation;
+    int buffer;
 
     public Calculations(String name, int tora, int asda, int toda, int lda, int height, int distance, String direction, int obstacleDistance, int displacement, int resa, int stripEnd, int blastProtection){
-        runwayName = name;
-        obstacleDistanceFromCenter = obstacleDistance;
-        obstacleDirection = direction;
-        displacementThreshold = displacement;
-        obstacleHeight = height;
-        obstacleDistanceFromThreshold = distance;
-        int stopway = asda - tora;
-        int clearway = toda - tora;
-        int slopeCalculation;
-        int buffer;
+        this.runwayName = name;
+        this.tora = tora;
+        this.asda = asda;
+        this.toda = toda;
+        this.lda = lda;
+        this.resa = resa;
+        this.stripEnd = stripEnd;
+        this.blastProtection = blastProtection;
+        this.obstacleDistanceFromCenter = obstacleDistance;
+        this.obstacleDirection = direction;
+        this.displacementThreshold = displacement;
+        this.obstacleHeight = height;
+        this.obstacleDistanceFromThreshold = distance;
+        this.stopway = asda - tora;
+        this.clearway = toda - tora;
+
         if (height*50 > resa) {
             slopeCalculation = height*50;
         } else {
@@ -65,7 +84,7 @@ public class Calculations {
     public String getAwayLDA() {return String.valueOf(newAwayLDA);}
     public String getObstacleDirection() {return obstacleDirection;}
     public String getObstacleDistanceFromCenter() {return String.valueOf(obstacleDistanceFromCenter);}
-    public String getDisplacementThreshold(){ return String.valueOf(displacementThreshold);}
-    public String getObstacleHeight() { return String.valueOf(obstacleHeight);}
-    public String getObstacleDistanceFromTheshold() { return String.valueOf(obstacleDistanceFromThreshold);}
+    public String getDisplacementThreshold() {return String.valueOf(displacementThreshold);}
+    public String getObstacleHeight() {return String.valueOf(obstacleHeight);}
+    public String getObstacleDistanceFromThreshold() {return String.valueOf(obstacleDistanceFromThreshold);}
 }

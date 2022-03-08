@@ -3,7 +3,6 @@ package com.example.segproject.scenes;
 import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
-import com.example.segproject.components.Canvas;
 import com.example.segproject.components.Obstacle;
 import com.example.segproject.components.Runway;
 
@@ -13,10 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import static com.example.segproject.App.shutdown;
@@ -33,22 +30,22 @@ public abstract class BaseScene {
     protected Scene scene;
 
     protected BorderPane root;
-    protected StackPane runwayPane;
+    protected Pane runwayPane;
     protected HBox io;
     protected CalculationInput inputs;
     protected CalculationOutput outputs;
 	protected MenuBar toolbar;
-	protected Runway run;
-	protected Canvas can;
-	protected Obstacle obs;
 
     protected Calculations cal;
+    protected Double runwayPaneCenterX;
+    protected Double runwayPaneCenterY;
+    protected Integer runwayLength;
+
+    protected Rectangle runway;
+    protected Rectangle obstacle;
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
-        run	= new Runway(20, 11, 20);
-		can	= new Canvas(run, 32);
-		obs	= new Obstacle(10,run.getHeigth() - 3,2);
     }
 
     /**
@@ -56,7 +53,7 @@ public abstract class BaseScene {
      */
     protected void setupDefaultScene() {
         root = new BorderPane();
-        runwayPane = new StackPane();
+        runwayPane = new Pane();
         io = new HBox();
 
         toolbar = new MenuBar();
@@ -86,13 +83,8 @@ public abstract class BaseScene {
         root.setMaxWidth(controller.getWidth());
 		root.setMaxHeight(controller.getHeight());
 
-        obs.setObstacle(2, 2, 2);
-		can.addObstacleToTileMap3D(obs);
-
         runwayPane.setMinWidth(controller.getWidth() * 0.66);
         io.setMinWidth(controller.getWidth() * 0.33);
-
-        runwayPane.getChildren().add(new Text("Runway"));
 
         inputs = new CalculationInput();
         outputs = new CalculationOutput();
@@ -101,6 +93,9 @@ public abstract class BaseScene {
         io.getChildren().add(outputs);
 
         inputs.setOnButtonClicked(this::newValues);
+
+        runwayPaneCenterX = controller.getWidth() * 0.66 * 0.5;
+        runwayPaneCenterY = controller.getHeight() * 0.5;
     }
 
     /**

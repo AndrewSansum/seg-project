@@ -2,14 +2,8 @@ package com.example.segproject.components;
 
 import com.example.segproject.utils.Point3D;
 import com.example.segproject.utils.Padding;
-import javafx.scene.Group;
 import javafx.scene.image.ImageView;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.geometry.Pos; 
-import javafx.scene.layout.TilePane; 
+import javafx.scene.layout.TilePane;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +20,7 @@ public class Canvas {
 	private ArrayList<Obstacle>	obstacleList;
 	private Runway				runway;
 
-	public Canvas(Runway runway, Integer imgSz) {
+	public Canvas() {
 		Integer heigth		= runway.getHeigth();
 		Integer length		= runway.getLength();
 		Integer width		= runway.getWidth();
