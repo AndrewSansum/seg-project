@@ -32,12 +32,12 @@ public class MenuScene extends BaseScene {
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
         root.setTop(titleLabel);
 
-        var buttonSideScene = new Button("SideScene");
-        var buttonTopScene = new Button("TopScene");
+        var buttonSideScene = new Button("Side-On View");
+        var buttonTopScene = new Button("Top-Down View");
         var buttonDoubleScene = new Button("DoubleScene");
         var buttonExit = new Button("Exit");
 
-        buttonBox.getChildren().addAll(buttonSideScene, buttonTopScene, buttonDoubleScene, buttonExit);
+        buttonBox.getChildren().addAll(buttonSideScene, buttonTopScene, buttonExit);
 
         buttonSideScene.setOnAction(this::openSideScene);
         buttonTopScene.setOnAction(this::openTopScene);
