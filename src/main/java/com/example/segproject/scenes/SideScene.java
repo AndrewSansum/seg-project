@@ -54,7 +54,18 @@ public class SideScene extends BaseScene {
 
         runwayLength = cal.tora;
 
-        obstacle.setX(((double) cal.obstacleDistanceFromThreshold / (double) runwayLength) * runway.getWidth());
-        obstacle.setWidth(((double) cal.displacementThreshold / (double) runwayLength) * runway.getWidth());
+
+
+        if (Double.valueOf(cal.runwayName.substring(0,2)) <= 18) { // calculating from 01 to 18
+            obstacle.setX(((double) cal.obstacleDistanceFromThreshold / (double) runwayLength) * runway.getWidth());
+            obstacle.setWidth(((double) cal.displacementThreshold / (double) runwayLength) * runway.getWidth());
+
+        } else { // calculating from 19 to 36
+            obstacle.setX(((double) (runwayLength - cal.obstacleDistanceFromThreshold) / (double) runwayLength) * runway.getWidth());
+
+        }
+
+
+
     }
 }

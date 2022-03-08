@@ -51,12 +51,19 @@ public class TopScene extends BaseScene {
 
         if (cal.obstacleDirection == "North") {
             obstacle.setY((runwayPaneCenterY - obstacle.getHeight()) - (double) cal.obstacleDistanceFromCenter);
-            System.out.println((runwayPaneCenterY - obstacle.getHeight()) - (double) cal.obstacleDistanceFromCenter);
         } else if (cal.obstacleDirection == "South") {
             obstacle.setY((runwayPaneCenterY - (obstacle.getHeight() * 0.5)) + (double) cal.obstacleDistanceFromCenter);
         }
 
-        obstacle.setX(((double) cal.obstacleDistanceFromThreshold / (double) runwayLength) * runway.getWidth());
-        obstacle.setWidth(((double) cal.displacementThreshold / (double) runwayLength) * runway.getWidth());
+
+
+        if (Double.valueOf(cal.runwayName.substring(0,2)) <= 18) { // calculating from 01 to 18
+            obstacle.setX(((double) cal.obstacleDistanceFromThreshold / (double) runwayLength) * runway.getWidth());
+            obstacle.setWidth(((double) cal.displacementThreshold / (double) runwayLength) * runway.getWidth());
+
+        } else { // calculating from 19 to 36
+            obstacle.setX(((double) (runwayLength - cal.obstacleDistanceFromThreshold) / (double) runwayLength) * runway.getWidth());
+
+        }
     }
 }
