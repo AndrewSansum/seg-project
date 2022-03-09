@@ -94,9 +94,9 @@ public class Calculations {
         slopeCalculation = obstacleHeight * this.als;
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
-            this.newLDA = this.tora - obstacleDistanceFromThreshold - this.resa - stripEnd;
+            this.newLDA = this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd;
         } else {
-            this.newLDA = this.tora - obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
+            this.newLDA = this.lda - obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
         }
     }
 
