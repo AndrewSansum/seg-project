@@ -30,6 +30,14 @@ public class CalculationInput extends VBox {
         this.getChildren().add(nameLabel);
         this.getChildren().add(nameBox);
 
+        Label statusLabel = new Label("Takeoff or Landing");
+        HBox statusBox = new HBox();
+        ChoiceBox<String> statusChoice = new ChoiceBox<String>();
+        statusChoice.getItems().addAll("Takeoff", "Landing");
+        statusBox.getChildren().add(statusChoice);
+        this.getChildren().add(statusLabel);
+        this.getChildren().add(statusBox);
+
         Label toraLabel = new Label("Original TORA:");
         HBox toraBox = new HBox();
         TextField toraText = new IntegerField();
@@ -155,6 +163,7 @@ public class CalculationInput extends VBox {
 
         calculate.setOnAction(e -> {
             String name = nameText.getText();
+            String status = statusChoice.getValue();
             String toraString = toraText.getText();
             String asdaString = asdaText.getText();
             String todaString = todaText.getText();
@@ -169,7 +178,7 @@ public class CalculationInput extends VBox {
             String blastProtString = blastProtectionText.getText();
 
             //check none of the parameters are blank
-            List<String> paramList = Arrays.asList(name,toraString,asdaString,todaString,ldaString,obHeightString,distanceString,direction,obDistanceString,displacementString,resaString,stripEndString,blastProtString);
+            List<String> paramList = Arrays.asList(name, status, toraString,asdaString,todaString,ldaString,obHeightString,distanceString,direction,obDistanceString,displacementString,resaString,stripEndString,blastProtString);
             if (paramList.stream().anyMatch(str -> str.isBlank())) {
                 new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
                 return;
@@ -196,7 +205,7 @@ public class CalculationInput extends VBox {
             } else if (Integer.parseInt(toraString) > Integer.parseInt(asdaString)) {
                 new Alert(AlertType.NONE, "TORA cannot exceed ASDA", ButtonType.OK).showAndWait();
             } else {
-                cal = new Calculations(name, tora, asda, toda, lda, obHeight, distance, direction, obDistance, displacement, resa, stripEnd, blastProtection);
+                cal = new Calculations(name, status, tora, asda, toda, lda, obHeight, distance, direction, obDistance, displacement, resa, stripEnd, blastProtection);
                 buttonClicked(cal, e);
             }
             //String o = obstacleHeightDirectionText.getText();
