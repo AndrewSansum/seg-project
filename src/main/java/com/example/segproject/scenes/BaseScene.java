@@ -3,8 +3,6 @@ package com.example.segproject.scenes;
 import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
-import com.example.segproject.components.Obstacle;
-import com.example.segproject.components.Runway;
 
 import com.example.segproject.components.CalculationOutput;
 import javafx.event.ActionEvent;
@@ -14,7 +12,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 import static com.example.segproject.App.shutdown;
 

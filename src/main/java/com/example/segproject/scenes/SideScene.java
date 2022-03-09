@@ -1,16 +1,14 @@
 package com.example.segproject.scenes;
 
 import com.example.segproject.Calculations;
-import com.example.segproject.components.Canvas;
-import com.example.segproject.components.Obstacle;
-import com.example.segproject.components.Runway;
+import com.example.segproject.components.*;
 import com.example.segproject.SceneController;
-import com.example.segproject.components.CalculationInput;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 /**
