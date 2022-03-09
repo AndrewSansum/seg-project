@@ -101,13 +101,13 @@ public class Calculations {
     }
 
     public String getRunwayName() {return runwayName;}
-    public String getNewTORA() {return String.valueOf(this.newTORA);}
-    public String getNewASDA() {return String.valueOf(this.newASDA);}
-    public String getNewTODA() {return String.valueOf(this.newTODA);}
-    public String getNewLDA() {return String.valueOf(this.newLDA);}
+    public int getNewTORA() {return this.newTORA;}
+    public int getNewASDA() {return this.newASDA;}
+    public int getNewTODA() {return this.newTODA;}
+    public int getNewLDA() {return this.newLDA;}
     public String getObstacleDirection() {return obstacleDirection;}
     public int getObstacleDistanceFromCenter() {return obstacleDistanceFromCenter;}
-    public String getDisplacementThreshold() {return String.valueOf(displacementThreshold);}
-    public String getObstacleHeight() {return String.valueOf(obstacleHeight);}
+    public int getDisplacementThreshold() {return displacementThreshold;}
+    public int getObstacleHeight() {return obstacleHeight;}
     public int getObstacleDistanceFromThreshold() {return obstacleDistanceFromThreshold;}
 }
