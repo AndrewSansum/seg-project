@@ -1,17 +1,14 @@
 package com.example.segproject;
 
 public class Calculations {
-    int newTowardsTORA;
-    int newTowardsASDA;
-    int newTowardsTODA;
-    int newTowardsLDA;
-    int newAwayTORA;
-    int newAwayASDA;
-    int newAwayTODA;
-    int newAwayLDA;
+    int newTORA;
+    int newASDA;
+    int newTODA;
+    int newLDA;
 
     public String runwayName;
     public String obstacleDirection;
+    public String status;
     public int obstacleDistanceFromCenter;
     public int displacementThreshold;
     public int obstacleHeight;
@@ -23,13 +20,15 @@ public class Calculations {
     public int resa;
     public int stripEnd;
     public int blastProtection;
+    public int als;
+    public int tocs;
 
     public int stopway;
     public int clearway;
     public int slopeCalculation;
     int buffer;
 
-    public Calculations(String name, int tora, int asda, int toda, int lda, int height, int distance, String direction, int obstacleDistance, int displacement, int resa, int stripEnd, int blastProtection){
+    public Calculations(String name, String status, int tora, int asda, int toda, int lda, int height, int distance, String direction, int obstacleDistance, int displacement, int resa, int stripEnd, int blastProtection){
         this.runwayName = name;
         this.tora = tora;
         this.asda = asda;
@@ -45,43 +44,69 @@ public class Calculations {
         this.obstacleDistanceFromThreshold = distance;
         this.stopway = asda - tora;
         this.clearway = toda - tora;
+        this.als = 50; // future user input
+        this.tocs = 50; // future user input
+        this.status = status;
 
-        if (height*50 > resa) {
-            slopeCalculation = height*50;
-        } else {
-            slopeCalculation = resa;
+
+        // determine heading towards or away from obstacle
+        if (obstacleDistanceFromThreshold <= (tora * 0.5)) { // obstacle is on the near-side
+            if (status == "Landing") { // Plane is landing
+                landingOver(this.obstacleHeight, this.obstacleDistanceFromThreshold, this.stripEnd);
+            } else { // Plane is taking off
+                takeoffAway(this.blastProtection, this.obstacleDistanceFromThreshold);
+            }
+
+        } else { // obstacle is on the far-side
+            if (status == "Landing") { // Plane is landing
+                landingTowards(this.obstacleDistanceFromThreshold, this.resa, this.stripEnd);
+            } else { // Plane is taking off
+                takeoffTowards(this.obstacleHeight, this.displacementThreshold, this.obstacleDistanceFromThreshold, this.stripEnd);
+            }
         }
-        if (stripEnd + slopeCalculation > blastProtection) {
-            buffer = stripEnd + slopeCalculation;
-        } else {
-            buffer = blastProtection;
-        }
-        takeOffTowardsLandingTowards(tora, distance, slopeCalculation, stripEnd, lda, resa);
-        takeOffAwayLandingOver(tora, distance, blastProtection, stopway, clearway, lda, buffer);
+
     }
-     public void takeOffTowardsLandingTowards(int runway, int distance, int slope, int stripEnd, int lda, int resa){
-        newTowardsTORA = runway - (runway - distance) - slope - stripEnd;
-        newTowardsASDA = newTowardsTORA;
-        newTowardsTODA = newTowardsTORA;
-        newTowardsLDA = lda - (lda - distance) - resa - stripEnd;
-     }
 
-     public void takeOffAwayLandingOver(int runway, int distance, int bp, int stopway, int clearway, int lda, int buffer){
-        newAwayTORA = runway - (runway - distance) - bp;
-        newAwayASDA = newAwayTORA + stopway;
-        newAwayTODA = newAwayTORA + clearway;
-        newAwayLDA = lda - (lda - distance) - buffer;
-     }
+    public void takeoffTowards(int obstacleHeight, int displacementThreshold, int obstacleDistanceFromThreshold, int stripEnd) {
+        int slopeCalculation;
+        slopeCalculation = obstacleHeight * this.tocs;
+
+        if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
+            this.newTORA = displacementThreshold + obstacleDistanceFromThreshold - this.resa - stripEnd;
+        } else {
+            this.newTORA = displacementThreshold + obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
+        }
+
+        this.newTODA = this.newTORA;
+        this.newASDA = this.newTORA;
+    }
+
+    public void landingTowards(int obstacleDistanceFromThreshold, int resa, int stripEnd) {
+        this.newLDA = obstacleDistanceFromThreshold - resa - stripEnd;
+    }
+
+    public void takeoffAway(int blastProtection, int obstacleDistanceFromThreshold) {
+        this.newTORA = this.tora - blastProtection - obstacleDistanceFromThreshold;
+        this.newTODA = this.toda - blastProtection - obstacleDistanceFromThreshold;
+        this.newASDA = this.asda - blastProtection - obstacleDistanceFromThreshold;
+    }
+
+    public void landingOver(int obstacleHeight, int obstacleDistanceFromThreshold, int stripEnd){
+        int slopeCalculation;
+        slopeCalculation = obstacleHeight * this.als;
+
+        if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
+            this.newLDA = this.tora - obstacleDistanceFromThreshold - this.resa - stripEnd;
+        } else {
+            this.newLDA = this.tora - obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
+        }
+    }
 
     public String getRunwayName() {return runwayName;}
-    public String getTowardsTORA() {return String.valueOf(newTowardsTORA);}
-    public String getAwayTORA() {return String.valueOf(newAwayTORA);}
-    public String getTowardsASDA() {return String.valueOf(newTowardsASDA);}
-    public String getAwayASDA() {return String.valueOf(newAwayASDA);}
-    public String getTowardsTODA() {return String.valueOf(newTowardsTODA);}
-    public String getAwayTODA() {return String.valueOf(newAwayTODA);}
-    public String getTowardsLDA() {return String.valueOf(newTowardsLDA);}
-    public String getAwayLDA() {return String.valueOf(newAwayLDA);}
+    public String getNewTORA() {return String.valueOf(this.newTORA);}
+    public String getNewASDA() {return String.valueOf(this.newASDA);}
+    public String getNewTODA() {return String.valueOf(this.newTODA);}
+    public String getNewLDA() {return String.valueOf(this.newLDA);}
     public String getObstacleDirection() {return obstacleDirection;}
     public String getObstacleDistanceFromCenter() {return String.valueOf(obstacleDistanceFromCenter);}
     public String getDisplacementThreshold() {return String.valueOf(displacementThreshold);}
