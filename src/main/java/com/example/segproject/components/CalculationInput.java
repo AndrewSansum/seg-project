@@ -196,13 +196,13 @@ public class CalculationInput extends VBox {
             int stripEnd = Integer.parseInt(stripEndString);
             int blastProtection = Integer.parseInt(blastProtString);
 
-            if (Integer.parseInt(ldaString) > Integer.parseInt(toraString)) {
+            if (lda > tora) {
                 new Alert(AlertType.NONE, "LDA cannot exceed TORA", ButtonType.OK).showAndWait();
-            } else if (Integer.parseInt(displacementString) > Integer.parseInt(toraString)) {
+            } else if (displacement > tora) {
                 new Alert(AlertType.NONE, "Displacement Threshold cannot exceed TORA", ButtonType.OK).showAndWait();
-            } else if (Integer.parseInt(toraString) > Integer.parseInt(todaString)) {
+            } else if (tora > toda) {
                 new Alert(AlertType.NONE, "TORA cannot exceed TODA", ButtonType.OK).showAndWait();
-            } else if (Integer.parseInt(toraString) > Integer.parseInt(asdaString)) {
+            } else if (tora > asda) {
                 new Alert(AlertType.NONE, "TORA cannot exceed ASDA", ButtonType.OK).showAndWait();
             } else {
                 cal = new Calculations(name, status, tora, asda, toda, lda, obHeight, distance, direction, obDistance, displacement, resa, stripEnd, blastProtection);
