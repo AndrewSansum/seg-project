@@ -13,9 +13,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.IntegerStringConverter;
 
 public class CalculationInput extends VBox {
     Calculations cal;
@@ -85,7 +87,8 @@ public class CalculationInput extends VBox {
 
         Label distanceLabel = new Label("Distance From Threshold to Obstacle:");
         HBox distanceBox = new HBox();
-        TextField distanceText = new IntegerField();
+        TextField distanceText = new TextField();
+        distanceText.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
         Label distanceMeasure = new Label("Meters");
         distanceBox.getChildren().add(distanceText);
         distanceBox.getChildren().add(distanceMeasure);
