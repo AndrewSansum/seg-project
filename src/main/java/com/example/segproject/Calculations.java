@@ -6,25 +6,26 @@ public class Calculations {
     private int newTODA;
     private int newLDA;
 
-    public String runwayName;
-    public String obstacleDirection;
-    public String status;
-    public int obstacleDistanceFromCenter;
-    public int displacementThreshold;
-    public int obstacleHeight;
-    public int obstacleDistanceFromThreshold;
-    public int tora;
-    public int asda;
-    public int toda;
-    public int lda;
-    public int resa;
-    public int stripEnd;
-    public int blastProtection;
-    public int als;
-    public int tocs;
+    private String runwayName;
+    private String obstacleDirection;
+    private String status;
+    private int obstacleDistanceFromCenter;
+    private int displacedThreshold;
+    private int obstacleHeight;
+    private int obstacleDistanceFromThreshold;
+    private int tora;
+    private int asda;
+    private int toda;
+    private int lda;
+    private int resa;
+    private int stripEnd;
+    private int blastProtection;
+    private int als;
+    private int tocs;
+    private int slopeCalculation;
 
-    public int stopway;
-    public int clearway;
+    private int stopway;
+    private int clearway;
 
     public Calculations(String name, String status, int tora, int asda, int toda, int lda, int height, int distance, String direction, int obstacleDistance, int displacement, int resa, int stripEnd, int blastProtection){
         this.runwayName = name;
@@ -37,7 +38,7 @@ public class Calculations {
         this.blastProtection = blastProtection;
         this.obstacleDistanceFromCenter = obstacleDistance;
         this.obstacleDirection = direction;
-        this.displacementThreshold = displacement;
+        this.displacedThreshold = displacement;
         this.obstacleHeight = height;
         this.obstacleDistanceFromThreshold = distance;
         this.stopway = asda - tora;
@@ -59,15 +60,14 @@ public class Calculations {
             if (status == "Landing") { // Plane is landing
                 landingTowards(this.obstacleDistanceFromThreshold, this.resa, this.stripEnd);
             } else { // Plane is taking off
-                takeoffTowards(this.obstacleHeight, this.displacementThreshold, this.obstacleDistanceFromThreshold, this.stripEnd);
+                takeoffTowards(this.obstacleHeight, this.displacedThreshold, this.obstacleDistanceFromThreshold, this.stripEnd);
             }
         }
 
     }
 
     public void takeoffTowards(int obstacleHeight, int displacementThreshold, int obstacleDistanceFromThreshold, int stripEnd) {
-        int slopeCalculation;
-        slopeCalculation = obstacleHeight * this.tocs;
+        this.slopeCalculation = obstacleHeight * this.tocs;
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
             this.newTORA = displacementThreshold + obstacleDistanceFromThreshold - this.resa - stripEnd;
@@ -90,8 +90,7 @@ public class Calculations {
     }
 
     public void landingOver(int obstacleHeight, int obstacleDistanceFromThreshold, int stripEnd){
-        int slopeCalculation;
-        slopeCalculation = obstacleHeight * this.als;
+        this.slopeCalculation = obstacleHeight * this.als;
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
             this.newLDA = this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd;
@@ -101,13 +100,18 @@ public class Calculations {
     }
 
     public String getRunwayName() {return runwayName;}
+    public String getStatus() {return status;}
+    public int getTORA() {return this.tora;}
     public int getNewTORA() {return this.newTORA;}
     public int getNewASDA() {return this.newASDA;}
     public int getNewTODA() {return this.newTODA;}
     public int getNewLDA() {return this.newLDA;}
+    public int getRESA() {return this.resa;}
+    public int getStripEnd() {return this.stripEnd;}
+    public int getDisplacedThreshold() {return this.displacedThreshold;}
+    public int getSlopeCalculation() {return slopeCalculation;}
     public String getObstacleDirection() {return obstacleDirection;}
     public int getObstacleDistanceFromCenter() {return obstacleDistanceFromCenter;}
-    public int getDisplacementThreshold() {return displacementThreshold;}
     public int getObstacleHeight() {return obstacleHeight;}
     public int getObstacleDistanceFromThreshold() {return obstacleDistanceFromThreshold;}
 }

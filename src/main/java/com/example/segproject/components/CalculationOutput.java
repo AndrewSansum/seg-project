@@ -59,6 +59,6 @@ public class CalculationOutput extends VBox {
         this.LDA.setText("LDA: " + cal.getNewLDA() + " Meters");
         this.obstacleDirection.setText("Obstacle Direction: " + cal.getObstacleDirection());
         this.obstacleDistanceFromCenter.setText("Obstacle Distance from Center: " + cal.getObstacleDistanceFromCenter() + " Meters");
-        this.displacementThreshold.setText("Displacement Threshold: " + cal.getDisplacementThreshold() + " Meters");
+        this.displacementThreshold.setText("Displacement Threshold: " + cal.getDisplacedThreshold() + " Meters");
     }
 }
