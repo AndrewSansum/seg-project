@@ -3,7 +3,9 @@ package com.example.segproject.scenes;
 import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import javafx.event.ActionEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -21,19 +23,36 @@ public class TopScene extends BaseScene {
         setupDefaultScene();
         inputs.setOnButtonClicked(this::newValues);
 
-        runway = new Rectangle();
-        runway.setWidth(controller.getWidth() * 0.66 - 100);
-        runway.setHeight(200);
-        runway.setX(runwayPaneCenterX - runway.getWidth() * 0.5);
-        runway.setY(runwayPaneCenterY - runway.getHeight() * 0.5);
+        runway = new ImageView("runway.png");
+        runway.setFitWidth(controller.getWidth() * 0.66 - 300);
+        runway.setFitHeight(100);
+        runway.setLayoutX(runwayPaneCenterX - runway.getFitWidth() * 0.5);
+        runway.setLayoutY(runwayPaneCenterY - runway.getFitHeight() * 0.5);
 
+        Polygon clearedAndGradedArea = new Polygon();
+        clearedAndGradedArea.getPoints().addAll(new Double[] {
+                runway.getLayoutX() - 60, runway.getLayoutY() - 75,
+                runway.getLayoutX() - 60, runway.getLayoutY() + 75 + runway.getFitHeight(),
+                runway.getLayoutX() + 60, runway.getLayoutY() + 75 + runway.getFitHeight(),
+                runway.getLayoutX() + 120, runway.getLayoutY() + 105 + runway.getFitHeight(),
+                runway.getLayoutX() - 120 + runway.getFitWidth(), runway.getLayoutY() + 105 + runway.getFitHeight(),
+                runway.getLayoutX() - 60 + runway.getFitWidth(), runway.getLayoutY() + 75 + runway.getFitHeight(),
+                runway.getLayoutX() + 60 + runway.getFitWidth(), runway.getLayoutY() + 75 + runway.getFitHeight(),
+                runway.getLayoutX() + 60 + runway.getFitWidth(), runway.getLayoutY() - 75,
+                runway.getLayoutX() - 60 + runway.getFitWidth(), runway.getLayoutY() - 75,
+                runway.getLayoutX() - 120 + runway.getFitWidth(), runway.getLayoutY() - 105,
+                runway.getLayoutX() + 120, runway.getLayoutY() - 105,
+                runway.getLayoutX() + 60, runway.getLayoutY() - 75
+        });
 
-        obstacle = new Rectangle(400, 400, 50, 50);
+        obstacle = new Rectangle(runwayPaneCenterX - 25, runwayPaneCenterY - 25, 50, 50);
+        Rectangle background = new Rectangle(0,0, controller.getWidth() * 0.66, controller.getHeight());
 
-        runway.setFill(Color.DARKGRAY);
+        background.setFill(Color.GREEN);
+        clearedAndGradedArea.setFill(Color.BLUE);
         obstacle.setFill(Color.ORANGE);
 
-        runwayPane.getChildren().addAll(runway, obstacle);
+        runwayPane.getChildren().addAll(background, clearedAndGradedArea, runway, obstacle);
 
     }
 
@@ -52,10 +71,10 @@ public class TopScene extends BaseScene {
 
 
         if (Double.valueOf(cal.runwayName.substring(0,2)) <= 18) { // calculating from 01 to 18
-            obstacle.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getWidth());
+            obstacle.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth());
 
         } else { // calculating from 19 to 36
-            obstacle.setX(((double) (runwayLength - cal.getObstacleDistanceFromThreshold()) / (double) runwayLength) * runway.getWidth());
+            obstacle.setX(((double) (runwayLength - cal.getObstacleDistanceFromThreshold()) / (double) runwayLength) * runway.getFitWidth());
 
         }
     }

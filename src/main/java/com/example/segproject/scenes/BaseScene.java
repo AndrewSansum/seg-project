@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 
@@ -38,7 +39,7 @@ public abstract class BaseScene {
     protected Double runwayPaneCenterY;
     protected Integer runwayLength;
 
-    protected Rectangle runway;
+    protected ImageView runway;
     protected Rectangle obstacle;
 
     public BaseScene(SceneController controller) {
