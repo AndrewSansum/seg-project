@@ -186,6 +186,7 @@ public class CalculationInput extends VBox {
             String nameNotification = null,statusNotification = null,toraNotification = null,todaNotification = null,asdaNotification = null,ldaNotification = null;
             String obHeightNotification = null,distanceNotification = null,directionNotification = null,obDistanceNotification= null,displacementNotification = null;
             String resaNotification = null,stripEndNotification = null,blastProtNotification = null;
+            String finalNotification = "You have changed the following data:" + newLine;
             if (firstCalculation == false){
                 if (!name.equals(nameText.getText())){ nameNotification = "Name: " + name + " --> " + nameText.getText(); }
                 if (!status.equals(statusChoice.getValue())){ statusNotification = "Status: " + status + " --> " + statusChoice.getValue(); }
@@ -194,14 +195,30 @@ public class CalculationInput extends VBox {
                 if (!todaString.equals(todaText.getText())){ todaNotification = "TORA: " + todaString + " --> " + todaText.getText(); }
                 if (!ldaString.equals(ldaText.getText())){ ldaNotification = "LDA: " + ldaString + " --> " + ldaText.getText(); }
                 if (!obHeightString.equals(obstacleHeightText.getText())){ obHeightNotification = "Obstacle Height: " + obHeightString + " --> " + obstacleHeightText.getText(); }
-                if (!distanceString.equals(distanceText.getText())){ distanceNotification = "Distance: " + distanceString + " --> " + distanceText.getText(); }
-                if (!direction.equals(directionChoice.getValue())){ directionNotification = "Direction: " + direction + " --> " + directionChoice.getValue(); }
-                if (!obDistanceString.equals(obstacleDistanceText.getText())){ obDistanceNotification = "Obstacle Distance: " + obDistanceString + " --> " + obstacleDistanceText.getText(); }
-                if (!displacementString.equals(displacementText.getText())){ displacementNotification = "Displacement: " + displacementString + " --> " + displacementText.getText(); }
+                if (!distanceString.equals(distanceText.getText())){ distanceNotification = "Distance From Threshold: " + distanceString + " --> " + distanceText.getText(); }
+                if (!direction.equals(directionChoice.getValue())){ directionNotification = "Direction From Centerline: " + direction + " --> " + directionChoice.getValue(); }
+                if (!obDistanceString.equals(obstacleDistanceText.getText())){ obDistanceNotification = "Obstacle Distance From Centerline: " + obDistanceString + " --> " + obstacleDistanceText.getText(); }
+                if (!displacementString.equals(displacementText.getText())){ displacementNotification = "Displacement Threshold: " + displacementString + " --> " + displacementText.getText(); }
                 if (!resaString.equals(resaText.getText())){ resaNotification = "RESA: " + resaString + " --> " + resaText.getText(); }
                 if (!stripEndString.equals(stripEndText.getText())){ stripEndNotification = "Strip End: " + stripEndString + " --> " + stripEndText.getText(); }
                 if (!blastProtString.equals(blastProtectionText.getText())){ blastProtNotification = "Blast Protection: " + blastProtString + " --> " + blastProtectionText.getText(); }
             }
+            if(!(nameNotification == null)){ finalNotification = finalNotification + nameNotification + newLine; }
+            if(!(statusNotification == null)){ finalNotification = finalNotification + statusNotification + newLine; }
+            if(!(toraNotification == null)){ finalNotification = finalNotification + toraNotification + newLine; }
+            if(!(todaNotification == null)){ finalNotification = finalNotification + todaNotification + newLine; }
+            if(!(asdaNotification == null)){ finalNotification = finalNotification + asdaNotification + newLine; }
+            if(!(ldaNotification == null)){ finalNotification = finalNotification + ldaNotification + newLine; }
+            if(!(obHeightNotification == null)){ finalNotification = finalNotification + obHeightNotification + newLine; }
+            if(!(obHeightNotification == null)){ finalNotification = finalNotification + obHeightNotification + newLine; }
+            if(!(distanceNotification == null)){ finalNotification = finalNotification + distanceNotification + newLine; }
+            if(!(directionNotification == null)){ finalNotification = finalNotification + directionNotification + newLine; }
+            if(!(obDistanceNotification == null)){ finalNotification = finalNotification + obDistanceNotification + newLine; }
+            if(!(displacementNotification == null)){ finalNotification = finalNotification + displacementNotification + newLine; }
+            if(!(resaNotification == null)){ finalNotification = finalNotification + resaNotification + newLine; }
+            if(!(stripEndNotification == null)){ finalNotification = finalNotification + stripEndNotification + newLine; }
+            if(!(blastProtNotification == null)){ finalNotification = finalNotification + blastProtNotification + newLine; }
+
 
             name = nameText.getText();
             status = statusChoice.getValue();
@@ -224,11 +241,7 @@ public class CalculationInput extends VBox {
                 new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
                 return;
             } else if (firstCalculation == false){
-                Alert al = new Alert(AlertType.NONE, "You have changed the following data:" + newLine + nameNotification + newLine +
-                        statusNotification + newLine + toraNotification + newLine + todaNotification + newLine + asdaNotification + newLine +
-                        ldaNotification + newLine + obHeightNotification + newLine + distanceNotification + newLine + directionNotification +
-                        newLine + obDistanceNotification + newLine + displacementNotification + newLine + resaNotification + newLine +
-                        stripEndNotification + newLine + blastProtNotification, ButtonType.OK);
+                Alert al = new Alert(AlertType.NONE, finalNotification, ButtonType.OK);
                 al.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 al.show();
             } else {
