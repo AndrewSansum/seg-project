@@ -50,11 +50,11 @@ public class SideScene extends BaseScene {
         this.cal = cal;
         outputs.updateValues(cal);
 
-        runwayLength = cal.tora;
+        runwayLength = cal.getTORA();
 
 
 
-        if (Double.valueOf(cal.runwayName.substring(0,2)) <= 18) { // calculating from 01 to 18
+        if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) { // calculating from 01 to 18
             obstacle.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getWidth());
 
         } else { // calculating from 19 to 36

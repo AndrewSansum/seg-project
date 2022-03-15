@@ -25,6 +25,8 @@ public class CalculationInput extends VBox {
     private CalculateButtonListener buttonClickedListener;
 
     public CalculationInput(){
+        cal = new Calculations();
+
         Label nameLabel = new Label("Runway Designator:");
         HBox nameBox = new HBox();
         RunwayDesignatorInput nameText = new RunwayDesignatorInput();
@@ -208,7 +210,23 @@ public class CalculationInput extends VBox {
             } else if (tora > asda) {
                 new Alert(AlertType.NONE, "TORA cannot exceed ASDA", ButtonType.OK).showAndWait();
             } else {
-                cal = new Calculations(name, status, tora, asda, toda, lda, obHeight, distance, direction, obDistance, displacement, resa, stripEnd, blastProtection);
+                cal.setRunwayName(name);
+                cal.setStatus(status);
+                cal.setTORA(tora);
+                cal.setASDA(asda);
+                cal.setTODA(toda);
+                cal.setLDA(lda);
+                cal.setObstacleHeight(obHeight);
+                cal.setObstacleDistanceFromThreshold(distance);
+                cal.setObstacleDistanceFromCenter(obDistance);
+                cal.setObstacleDirection(direction);
+                cal.setDisplacementThreshold(displacement);
+                cal.setRESA(resa);
+                cal.setStripEnd(stripEnd);
+                cal.setBlastProtection(blastProtection);
+                cal.setALS(50);
+                cal.setTOCS(50);
+                cal.runCalculations();
                 buttonClicked(cal, e);
             }
             //String o = obstacleHeightDirectionText.getText();
