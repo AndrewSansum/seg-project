@@ -60,6 +60,7 @@ public class TopScene extends BaseScene {
         this.cal = cal;
         outputs.updateValues(cal);
 
+        // once implemented needs to add clearway and stopway
         runwayLength = cal.tora;
 
         if (cal.obstacleDirection == "North") {
