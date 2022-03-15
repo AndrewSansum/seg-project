@@ -26,6 +26,32 @@ public class Calculations {
     private int newTODA;
     private int newLDA;
 
+    private String TORACalc;
+    private String ASDACalc;
+    private String TODACalc;
+    private String LDACalc;
+    private String SlopeCalc;
+
+    public Calculations() {}
+
+    public Calculations(String name, String status, int tora, int asda, int toda, int lda, int obstacleHeight, int obstacleDistanceFromThreshold, String obstacleDirection, int obstacleDistanceFromCenter, int displacementThreshold, int resa, int stripEnd, int blastProtection) {
+        this.runwayName = name;
+        this.status = status;
+        this.tora = tora;
+        this.asda = asda;
+        this.toda = toda;
+        this.lda = lda;
+        this.obstacleHeight = obstacleHeight;
+        this.obstacleDistanceFromThreshold = obstacleDistanceFromThreshold;
+        this.obstacleDirection = obstacleDirection;
+        this.obstacleDistanceFromCenter = obstacleDistanceFromCenter;
+        this.displacementThreshold = displacementThreshold;
+        this.resa = resa;
+        this.stripEnd = stripEnd;
+        this.blastProtection = blastProtection;
+        runCalculations();
+    }
+
     public void runCalculations () {
         // determine heading towards or away from obstacle
         if (obstacleDistanceFromThreshold <= (tora * 0.5)) { // obstacle is on the near-side
@@ -42,40 +68,57 @@ public class Calculations {
                 takeoffTowards(this.obstacleHeight, this.displacementThreshold, this.obstacleDistanceFromThreshold, this.stripEnd);
             }
         }
+
+        this.stopway = this.asda - this.tora;
+        this.clearway = this.toda - this.tora;
     }
 
     public void takeoffTowards(int obstacleHeight, int displacementThreshold, int obstacleDistanceFromThreshold, int stripEnd) {
         int slopeCalculation;
         slopeCalculation = obstacleHeight * this.tocs;
+        this.SlopeCalc = "Slope Calculation: " + obstacleHeight + " * " + this.tocs + " = " + slopeCalculation;
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
             this.newTORA = displacementThreshold + obstacleDistanceFromThreshold - this.resa - stripEnd;
+            this.TORACalc = "TORA: " + displacementThreshold + " + " + obstacleDistanceFromThreshold + " - " + this.resa + " - " + stripEnd + " = " + this.newTORA;
         } else {
             this.newTORA = displacementThreshold + obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
+            this.TORACalc = "TORA: " + displacementThreshold + " + " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - " + stripEnd + " = " + this.newTORA;
         }
 
         this.newTODA = this.newTORA;
         this.newASDA = this.newTORA;
+
+        this.TODACalc = "TODA: " + this.newTODA + " = " + this.newTORA;
+        this.ASDACalc = "ASDA: " + this.newASDA + " = " + this.newTORA;
     }
 
     public void landingTowards(int obstacleDistanceFromThreshold, int resa, int stripEnd) {
         this.newLDA = obstacleDistanceFromThreshold - resa - stripEnd;
+        this.LDACalc = "LDA: " + obstacleDistanceFromThreshold + " - " + resa + " - " + stripEnd + " = " + this.newLDA;
     }
 
     public void takeoffAway(int blastProtection, int obstacleDistanceFromThreshold) {
         this.newTORA = this.tora - blastProtection - obstacleDistanceFromThreshold;
         this.newTODA = this.toda - blastProtection - obstacleDistanceFromThreshold;
         this.newASDA = this.asda - blastProtection - obstacleDistanceFromThreshold;
+
+        this.TORACalc = "TORA: " + this.tora + " - " + blastProtection + " - " + obstacleDistanceFromThreshold + " = " + this.newTORA;
+        this.TODACalc = "TODA: " + this.toda + " - " + blastProtection + " - " + obstacleDistanceFromThreshold + " = " + this.newTODA;
+        this.ASDACalc = "ASDA: " + this.asda + " - " + blastProtection + " - " + obstacleDistanceFromThreshold + " = " + this.newASDA;
     }
 
     public void landingOver(int obstacleHeight, int obstacleDistanceFromThreshold, int stripEnd){
         int slopeCalculation;
         slopeCalculation = obstacleHeight * this.als;
+        this.SlopeCalc = "Slope Calculation: " + obstacleHeight + " * " + this.als + " = " + slopeCalculation;
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
             this.newLDA = this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd;
+            this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.resa + " - " + stripEnd + " = " + this.newLDA;
         } else {
             this.newLDA = this.lda - obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
+            this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - " + stripEnd + " = " + this.newLDA;
         }
     }
 
@@ -92,6 +135,11 @@ public class Calculations {
     public int getObstacleDistanceFromThreshold() {return obstacleDistanceFromThreshold;}
     public int getClearway() {return clearway;}
     public int getStopway() {return stopway;}
+    public String getSlopeCalc() {return this.SlopeCalc;}
+    public String getTORACalc() {return this.TORACalc;}
+    public String getTODACalc() {return this.TODACalc;}
+    public String getASDACalc() {return this.ASDACalc;}
+    public String getLDACalc() {return this.LDACalc;}
 
     public void setRunwayName (String name) {this.runwayName = name;}
     public void setStatus (String status) {this.status = status;}
