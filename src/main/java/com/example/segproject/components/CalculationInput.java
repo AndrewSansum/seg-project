@@ -16,11 +16,29 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.util.converter.IntegerStringConverter;
 
 public class CalculationInput extends VBox {
     Calculations cal;
+    String name;
+    String status;
+    String toraString;
+    String asdaString;
+    String todaString;
+    String ldaString;
+    String obHeightString;
+    String distanceString;
+    String direction;
+    String obDistanceString;
+    String displacementString;
+    String resaString;
+    String stripEndString;
+    String blastProtString;
+    boolean firstCalculation = true;
+    String newLine = System.getProperty("line.separator");
 
     private CalculateButtonListener buttonClickedListener;
 
@@ -165,26 +183,69 @@ public class CalculationInput extends VBox {
         this.getChildren().add(calculate);
 
         calculate.setOnAction(e -> {
-            String name = nameText.getText();
-            String status = statusChoice.getValue();
-            String toraString = toraText.getText();
-            String asdaString = asdaText.getText();
-            String todaString = todaText.getText();
-            String ldaString = ldaText.getText();
-            String obHeightString = obstacleHeightText.getText();
-            String distanceString = distanceText.getText();
-            String direction = directionChoice.getValue();
-            String obDistanceString = obstacleDistanceText.getText();
-            String displacementString = displacementText.getText();
-            String resaString = resaText.getText();
-            String stripEndString = stripEndText.getText();
-            String blastProtString = blastProtectionText.getText();
+            String nameNotification = null,statusNotification = null,toraNotification = null,todaNotification = null,asdaNotification = null,ldaNotification = null;
+            String obHeightNotification = null,distanceNotification = null,directionNotification = null,obDistanceNotification= null,displacementNotification = null;
+            String resaNotification = null,stripEndNotification = null,blastProtNotification = null;
+            String finalNotification = "You have changed the following data:" + newLine;
+            if (firstCalculation == false){
+                if (!name.equals(nameText.getText())){ nameNotification = "Name: " + name + " --> " + nameText.getText(); }
+                if (!status.equals(statusChoice.getValue())){ statusNotification = "Status: " + status + " --> " + statusChoice.getValue(); }
+                if (!toraString.equals(toraText.getText())){ toraNotification = "TORA: " + toraString + " --> " + toraText.getText(); }
+                if (!asdaString.equals(asdaText.getText())){ asdaNotification = "ASDA: " + asdaString + " --> " + asdaText.getText(); }
+                if (!todaString.equals(todaText.getText())){ todaNotification = "TORA: " + todaString + " --> " + todaText.getText(); }
+                if (!ldaString.equals(ldaText.getText())){ ldaNotification = "LDA: " + ldaString + " --> " + ldaText.getText(); }
+                if (!obHeightString.equals(obstacleHeightText.getText())){ obHeightNotification = "Obstacle Height: " + obHeightString + " --> " + obstacleHeightText.getText(); }
+                if (!distanceString.equals(distanceText.getText())){ distanceNotification = "Distance From Threshold: " + distanceString + " --> " + distanceText.getText(); }
+                if (!direction.equals(directionChoice.getValue())){ directionNotification = "Direction From Centerline: " + direction + " --> " + directionChoice.getValue(); }
+                if (!obDistanceString.equals(obstacleDistanceText.getText())){ obDistanceNotification = "Obstacle Distance From Centerline: " + obDistanceString + " --> " + obstacleDistanceText.getText(); }
+                if (!displacementString.equals(displacementText.getText())){ displacementNotification = "Displacement Threshold: " + displacementString + " --> " + displacementText.getText(); }
+                if (!resaString.equals(resaText.getText())){ resaNotification = "RESA: " + resaString + " --> " + resaText.getText(); }
+                if (!stripEndString.equals(stripEndText.getText())){ stripEndNotification = "Strip End: " + stripEndString + " --> " + stripEndText.getText(); }
+                if (!blastProtString.equals(blastProtectionText.getText())){ blastProtNotification = "Blast Protection: " + blastProtString + " --> " + blastProtectionText.getText(); }
+            }
+            if(!(nameNotification == null)){ finalNotification = finalNotification + nameNotification + newLine; }
+            if(!(statusNotification == null)){ finalNotification = finalNotification + statusNotification + newLine; }
+            if(!(toraNotification == null)){ finalNotification = finalNotification + toraNotification + newLine; }
+            if(!(todaNotification == null)){ finalNotification = finalNotification + todaNotification + newLine; }
+            if(!(asdaNotification == null)){ finalNotification = finalNotification + asdaNotification + newLine; }
+            if(!(ldaNotification == null)){ finalNotification = finalNotification + ldaNotification + newLine; }
+            if(!(obHeightNotification == null)){ finalNotification = finalNotification + obHeightNotification + newLine; }
+            if(!(obHeightNotification == null)){ finalNotification = finalNotification + obHeightNotification + newLine; }
+            if(!(distanceNotification == null)){ finalNotification = finalNotification + distanceNotification + newLine; }
+            if(!(directionNotification == null)){ finalNotification = finalNotification + directionNotification + newLine; }
+            if(!(obDistanceNotification == null)){ finalNotification = finalNotification + obDistanceNotification + newLine; }
+            if(!(displacementNotification == null)){ finalNotification = finalNotification + displacementNotification + newLine; }
+            if(!(resaNotification == null)){ finalNotification = finalNotification + resaNotification + newLine; }
+            if(!(stripEndNotification == null)){ finalNotification = finalNotification + stripEndNotification + newLine; }
+            if(!(blastProtNotification == null)){ finalNotification = finalNotification + blastProtNotification + newLine; }
 
-            //check none of the parameters are blank
+
+            name = nameText.getText();
+            status = statusChoice.getValue();
+            toraString = toraText.getText();
+            asdaString = asdaText.getText();
+            todaString = todaText.getText();
+            ldaString = ldaText.getText();
+            obHeightString = obstacleHeightText.getText();
+            distanceString = distanceText.getText();
+            direction = directionChoice.getValue();
+            obDistanceString = obstacleDistanceText.getText();
+            displacementString = displacementText.getText();
+            resaString = resaText.getText();
+            stripEndString = stripEndText.getText();
+            blastProtString = blastProtectionText.getText();
+
+            //check none of the parameters are blank otherwise give notification of updates if data changed
             List<String> paramList = Arrays.asList(name, status, toraString,asdaString,todaString,ldaString,obHeightString,distanceString,direction,obDistanceString,displacementString,resaString,stripEndString,blastProtString);
             if (paramList.stream().anyMatch(str -> str.isBlank())) {
                 new Alert(AlertType.NONE, "Please enter values for all fields.", ButtonType.OK).showAndWait();
                 return;
+            } else if (firstCalculation == false){
+                Alert al = new Alert(AlertType.NONE, finalNotification, ButtonType.OK);
+                al.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                al.show();
+            } else {
+                firstCalculation = false;
             }
 
             int tora = Integer.parseInt(toraString);
