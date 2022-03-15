@@ -41,7 +41,7 @@ public class SceneController {
         this.scene = new Scene(new Pane(), this.resH, this.resV, Color.BLACK);
         stage.setScene(this.scene);
 
-        openMenuScene();
+        openSideScene();
     }
 
     /**
@@ -66,11 +66,6 @@ public class SceneController {
         scene = newScene.setScene();
         stage.setScene(scene);
     }
-
-    /**
-     * Method that can be called by scenes to transfer control to the Menu
-     */
-    public void openMenuScene() {loadScene(new MenuScene(this));}
 
     /**
      * Method that can be called by scenes to transfer control to the Side view

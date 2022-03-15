@@ -56,11 +56,9 @@ public abstract class BaseScene {
         toolbar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
-        MenuItem mainMenuItem = new MenuItem("Main Menu");
         MenuItem exitMenuItem = new MenuItem("Exit");
-        mainMenuItem.setOnAction(h -> controller.openMenuScene());
         exitMenuItem.setOnAction(h -> shutdown());
-        fileMenu.getItems().addAll(mainMenuItem, exitMenuItem);
+        fileMenu.getItems().addAll(exitMenuItem);
 
         Menu viewMenu = new Menu("View");
         MenuItem topMenuItem = new MenuItem("Top View");
