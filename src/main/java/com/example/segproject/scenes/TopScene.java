@@ -61,17 +61,17 @@ public class TopScene extends BaseScene {
         outputs.updateValues(cal);
 
         // once implemented needs to add clearway and stopway
-        runwayLength = cal.tora;
+        runwayLength = cal.getTORA();
 
-        if (cal.obstacleDirection == "North") {
+
+        if (cal.getObstacleDirection() == "North") {
             obstacle.setY((runwayPaneCenterY - obstacle.getHeight()) - (double) cal.getObstacleDistanceFromCenter());
-        } else if (cal.obstacleDirection == "South") {
+        } else if (cal.getObstacleDirection() == "South") {
             obstacle.setY((runwayPaneCenterY - (obstacle.getHeight() * 0.5)) + (double) cal.getObstacleDistanceFromCenter());
         }
 
 
-
-        if (Double.valueOf(cal.runwayName.substring(0,2)) <= 18) { // calculating from 01 to 18
+        if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) { // calculating from 01 to 18
             obstacle.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth());
 
         } else { // calculating from 19 to 36
