@@ -15,6 +15,9 @@ import javafx.scene.shape.Rectangle;
  * Class that builds and determines the behaviour of the side view
  */
 public class SideScene extends BaseScene {
+
+    private Rectangle runway;
+
     public SideScene (SceneController controller) {
         super(controller);
     }
@@ -27,22 +30,28 @@ public class SideScene extends BaseScene {
         inputs.setOnButtonClicked(this::newValues);
 
         runway = new Rectangle();
-        runway.setWidth(controller.getWidth() * 0.66 - 100);
+        runway.setWidth(controller.getWidth() * 0.66 - 300);
         runway.setHeight(50);
         runway.setX(runwayPaneCenterX - runway.getWidth() * 0.5);
         runway.setY(runwayPaneCenterY - runway.getHeight() * 0.5);
 
+        Rectangle clearedAndGradedArea = new Rectangle(runway.getX() - 60, runway.getY(), runway.getWidth() + 120, runway.getHeight());
+        Rectangle lowerBackground = new Rectangle(0, runway.getY(), controller.getWidth() * 0.66, controller.getHeight());
+        Rectangle upperBackground = new Rectangle(0,0,controller.getWidth() * 0.66, controller.getHeight() * 0.5 - runway.getHeight() * 0.5);
 
         obstacle = new Rectangle();
-        obstacle.setWidth(100);
-        obstacle.setHeight(100);
+        obstacle.setWidth(50);
+        obstacle.setHeight(50);
         obstacle.setX(runway.getX());
         obstacle.setY(runway.getY() - obstacle.getHeight());
 
+        lowerBackground.setFill(Color.GREEN);
+        upperBackground.setFill(Color.LIGHTCYAN);
+        clearedAndGradedArea.setFill(Color.BLUE);
         runway.setFill(Color.DARKGRAY);
         obstacle.setFill(Color.ORANGE);
 
-        runwayPane.getChildren().addAll(runway, obstacle);
+        runwayPane.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway, obstacle);
 
     }
 
@@ -50,6 +59,7 @@ public class SideScene extends BaseScene {
         this.cal = cal;
         outputs.updateValues(cal);
 
+        // once implemented needs to add clearway and stopway
         runwayLength = cal.tora;
 
 
