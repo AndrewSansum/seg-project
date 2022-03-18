@@ -51,7 +51,9 @@ public class SideScene extends BaseScene {
         runway.setFill(Color.DARKGRAY);
         obstacle.setFill(Color.ORANGE);
 
-        runwayPane.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway, obstacle);
+        DistanceIndicator test = new DistanceIndicator(runway, 100, 1100, "test label", 0);
+
+        runwayPane.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway, obstacle, test);
 
     }
 
