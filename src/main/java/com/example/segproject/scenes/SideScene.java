@@ -51,18 +51,36 @@ public class SideScene extends BaseScene {
         runway.setFill(Color.DARKGRAY);
         obstacle.setFill(Color.ORANGE);
 
-        DistanceIndicator test = new DistanceIndicator(runway, 100, 1100, "test label", 0);
+        runwayPane.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway, obstacle);
 
-        runwayPane.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway, obstacle, test);
+        toraIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        asdaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        todaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        ldaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        distanceFromThresholdIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        displacementThresholdIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        resaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        stripEndIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        blastProtectionIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        slopeCalculationIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
 
+        runwayPane.getChildren().addAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator);
     }
 
     private void newValues(Calculations cal, ActionEvent event) {
         this.cal = cal;
         outputs.updateValues(cal);
 
+        disableIndicators(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+
         // once implemented needs to add clearway and stopway
         runwayLength = cal.getTORA();
+
+        // ----------------------------------- Indicator Visualisation below here -----------------------------------
 
 
         if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) { // calculating from 01 to 18

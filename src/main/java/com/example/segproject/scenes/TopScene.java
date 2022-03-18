@@ -2,6 +2,7 @@ package com.example.segproject.scenes;
 
 import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
+import com.example.segproject.components.DistanceIndicator;
 import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -54,14 +55,34 @@ public class TopScene extends BaseScene {
 
         runwayPane.getChildren().addAll(background, clearedAndGradedArea, runway, obstacle);
 
+        toraIndicator = new DistanceIndicator(runway, 0, 0 , "", 0);
+        asdaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        todaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        ldaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        distanceFromThresholdIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        displacementThresholdIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        resaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        stripEndIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        blastProtectionIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        slopeCalculationIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+
+        runwayPane.getChildren().addAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator);
     }
 
     private void newValues(Calculations cal, ActionEvent event) {
         this.cal = cal;
         outputs.updateValues(cal);
 
+        disableIndicators(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+
         // once implemented needs to add clearway and stopway
         runwayLength = cal.getTORA();
+
+        // ----------------------------------- Indicator Visualisation below here -----------------------------------
 
 
         if (cal.getObstacleDirection() == "North") {
