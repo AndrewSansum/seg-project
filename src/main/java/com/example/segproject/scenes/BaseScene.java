@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
 import static com.example.segproject.App.shutdown;
 
@@ -125,7 +126,13 @@ public abstract class BaseScene {
      * Maybe won't be used at all, idk
      * @return scene
      */
-    public Scene getScene() {return scene;}
+	public Scene getScene() {return scene;}
+	
+	public Rectangle createObstable(Double x, Double y) {
+		Rectangle obstacle = new Rectangle(x, y, 50, 50);
+        obstacle.setFill(Color.ORANGE);
+		return obstacle;
+	}
 
     /**
      * Set the stylesheet of the scene.

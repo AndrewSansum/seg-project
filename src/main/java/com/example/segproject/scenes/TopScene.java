@@ -7,13 +7,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.*;
 
 /**
  * Class that builds and determines the behaviour of the top view
  */
 public class TopScene extends BaseScene {
-    public TopScene (SceneController controller) {
-        super(controller);
+	private Double k;
+
+    public TopScene (SceneController controller, Double k) {
+		super(controller);
+		this.k = k;
     }
 
     /**
@@ -21,12 +25,18 @@ public class TopScene extends BaseScene {
      */
     public void build() {
         setupDefaultScene();
-        inputs.setOnButtonClicked(this::newValues);
+		inputs.setOnButtonClicked(this::newValues);
+		Pane topScene = getTopScenePane();
+		runwayPane.getChildren().add(topScene);
+	}
+	
+	public Pane getTopScenePane() {
+		Pane topScene = new Pane();
 
         runway = new ImageView("runway.png");
-        runway.setFitWidth(controller.getWidth() * 0.66 - 300);
+        runway.setFitWidth((controller.getWidth() * 0.66 - 300) * this.k);
         runway.setFitHeight(100);
-        runway.setLayoutX(runwayPaneCenterX - runway.getFitWidth() * 0.5);
+        runway.setLayoutX((runwayPaneCenterX - runway.getFitWidth() * 0.5) * (this.k - 0.2));
         runway.setLayoutY(runwayPaneCenterY - runway.getFitHeight() * 0.5);
 
         Polygon clearedAndGradedArea = new Polygon();
@@ -45,16 +55,22 @@ public class TopScene extends BaseScene {
                 runway.getLayoutX() + 60, runway.getLayoutY() - 75
         });
 
-        obstacle = new Rectangle(runwayPaneCenterX - 25, runwayPaneCenterY - 25, 50, 50);
-        Rectangle background = new Rectangle(0,0, controller.getWidth() * 0.66, controller.getHeight());
+		obstacle = createObstable(runwayPaneCenterX - 25, runwayPaneCenterY - 25);
+        Rectangle background = new Rectangle(0,0, (controller.getWidth() * 0.66) * this.k, controller.getHeight());
 
         background.setFill(Color.GREEN);
-        clearedAndGradedArea.setFill(Color.BLUE);
-        obstacle.setFill(Color.ORANGE);
+		clearedAndGradedArea.setFill(Color.BLUE);
+		topScene.getChildren().addAll(background, clearedAndGradedArea, runway);
+		return topScene;
+	}
 
-        runwayPane.getChildren().addAll(background, clearedAndGradedArea, runway, obstacle);
+	public Rectangle getObstacleTop() {
+		return this.obstacle;
+	}
 
-    }
+	public ImageView getRunwayTop() {
+		return this.runway;
+	}
 
     private void newValues(Calculations cal, ActionEvent event) {
         this.cal = cal;
@@ -63,20 +79,15 @@ public class TopScene extends BaseScene {
         // once implemented needs to add clearway and stopway
         runwayLength = cal.getTORA();
 
-
-        if (cal.getObstacleDirection() == "North") {
+        if (cal.getObstacleDirection() == "North")
             obstacle.setY((runwayPaneCenterY - obstacle.getHeight()) - (double) cal.getObstacleDistanceFromCenter());
-        } else if (cal.getObstacleDirection() == "South") {
+        else if (cal.getObstacleDirection() == "South")
             obstacle.setY((runwayPaneCenterY - (obstacle.getHeight() * 0.5)) + (double) cal.getObstacleDistanceFromCenter());
-        }
 
-
-        if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) { // calculating from 01 to 18
+        if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) // calculating from 01 to 18
             obstacle.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth());
-
-        } else { // calculating from 19 to 36
+        else // calculating from 19 to 36
             obstacle.setX(((double) (runwayLength - cal.getObstacleDistanceFromThreshold()) / (double) runwayLength) * runway.getFitWidth());
-
-        }
+		runwayPane.getChildren().add(obstacle);
     }
 }
