@@ -5,6 +5,7 @@ import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
 
 import com.example.segproject.components.CalculationOutput;
+import com.example.segproject.components.DistanceIndicator;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -14,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 import static com.example.segproject.App.shutdown;
 
@@ -42,6 +45,17 @@ public abstract class BaseScene {
 
     protected ImageView runway;
     protected Rectangle obstacle;
+
+    protected DistanceIndicator toraIndicator;
+    protected DistanceIndicator asdaIndicator;
+    protected DistanceIndicator todaIndicator;
+    protected DistanceIndicator ldaIndicator;
+    protected DistanceIndicator distanceFromThresholdIndicator;
+    protected DistanceIndicator displacementThresholdIndicator;
+    protected DistanceIndicator resaIndicator;
+    protected DistanceIndicator stripEndIndicator;
+    protected DistanceIndicator blastProtectionIndicator;
+    protected DistanceIndicator slopeCalculationIndicator;
 
     public BaseScene(SceneController controller) {
         this.controller = controller;
@@ -93,6 +107,7 @@ public abstract class BaseScene {
 
         runwayPaneCenterX = controller.getWidth() * 0.66 * 0.5;
         runwayPaneCenterY = controller.getHeight() * 0.5;
+
     }
 
     /**
@@ -143,6 +158,18 @@ public abstract class BaseScene {
      */
     protected void setStylesheet(String fileName) {
         root.getStylesheets().add(this.getClass().getResource("/".concat(fileName)).toExternalForm());
+    }
+
+    protected void enableIndicators(DistanceIndicator[] indicators) {
+        for (DistanceIndicator indicator:indicators) {
+            indicator.enable();
+        }
+    }
+
+    protected void disableIndicators(DistanceIndicator[] indicators) {
+        for (DistanceIndicator indicator:indicators) {
+            indicator.disable();
+        }
     }
 
 }

@@ -82,4 +82,8 @@ public class SimulScene extends BaseScene {
 		this.obstacle_2.setX(this.obstacle_2.getX() * 0.49 * 1.05);
 		this.topPane.getChildren().add(this.obstacle_2);
 	}
+
+	public void rotate(int bearing) {
+
+	}
 }

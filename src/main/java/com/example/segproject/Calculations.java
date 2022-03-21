@@ -17,6 +17,7 @@ public class Calculations {
     private int blastProtection;
     private int als;
     private int tocs;
+    private int slopeCalculation;
 
     public int stopway;
     public int clearway;
@@ -74,7 +75,6 @@ public class Calculations {
     }
 
     public void takeoffTowards(int obstacleHeight, int displacementThreshold, int obstacleDistanceFromThreshold, int stripEnd) {
-        int slopeCalculation;
         slopeCalculation = obstacleHeight * this.tocs;
         this.SlopeCalc = "Slope Calculation: " + obstacleHeight + " * " + this.tocs + " = " + slopeCalculation;
 
@@ -109,7 +109,6 @@ public class Calculations {
     }
 
     public void landingOver(int obstacleHeight, int obstacleDistanceFromThreshold, int stripEnd){
-        int slopeCalculation;
         slopeCalculation = obstacleHeight * this.als;
         this.SlopeCalc = "Slope Calculation: " + obstacleHeight + " * " + this.als + " = " + slopeCalculation;
 
@@ -135,6 +134,7 @@ public class Calculations {
     public int getObstacleDistanceFromThreshold() {return obstacleDistanceFromThreshold;}
     public int getClearway() {return clearway;}
     public int getStopway() {return stopway;}
+    public int getSlopeValue() {return this.slopeCalculation;}
     public String getSlopeCalc() {return this.SlopeCalc;}
     public String getTORACalc() {return this.TORACalc;}
     public String getTODACalc() {return this.TODACalc;}

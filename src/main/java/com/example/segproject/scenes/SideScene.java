@@ -60,6 +60,22 @@ public class SideScene extends BaseScene {
 		upperBackground.setWidth(upperBackground.getWidth() * this.k);
 	
 		sideScene.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway);
+
+        toraIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        asdaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        todaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        ldaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        distanceFromThresholdIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        displacementThresholdIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        resaIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        stripEndIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        blastProtectionIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+        slopeCalculationIndicator = new DistanceIndicator (runway, 0, 0 , "", 0);
+
+        runwayPane.getChildren().addAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator);
+
 		return sideScene;
 	}
 
@@ -75,8 +91,15 @@ public class SideScene extends BaseScene {
         this.cal = cal;
         outputs.updateValues(cal);
 
+        disableIndicators(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+
         // once implemented needs to add clearway and stopway
         runwayLength = cal.getTORA();
+
+        // ----------------------------------- Indicator Visualisation below here -----------------------------------
+
         if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) { // calculating from 01 to 18
 			obstacle.setX(this.k *(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getWidth()));
         } else { // calculating from 19 to 36
@@ -84,5 +107,9 @@ public class SideScene extends BaseScene {
 		}
 		obstacle.setX(obstacle.getX() * this.k);
 		runwayPane.getChildren().add(obstacle);
+    }
+
+    public void rotate(int bearing) {
+
     }
 }
