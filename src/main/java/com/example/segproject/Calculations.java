@@ -113,11 +113,22 @@ public class Calculations {
         this.SlopeCalc = "Slope Calculation: " + obstacleHeight + " * " + this.als + " = " + slopeCalculation;
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
-            this.newLDA = this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd;
-            this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.resa + " - " + stripEnd + " = " + this.newLDA;
+            if (this.resa + stripEnd < this.blastProtection) {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.resa + " - " + stripEnd + " = " + this.newLDA;
+            } else {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - this.blastProtection;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " = " + this.newLDA;
+            }
+
         } else {
-            this.newLDA = this.lda - obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
-            this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - " + stripEnd + " = " + this.newLDA;
+            if (slopeCalculation + stripEnd < this.blastProtection) {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - " + stripEnd + " = " + this.newLDA;
+            } else {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - this.blastProtection;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " = " + this.newLDA;
+            }
         }
     }
 
