@@ -1,5 +1,6 @@
 package com.example.segproject.scenes;
 
+import java.util.ArrayList; // import the ArrayList class
 import com.example.segproject.Calculations;
 import com.example.segproject.components.*;
 import com.example.segproject.SceneController;
@@ -76,10 +77,22 @@ public class SideScene extends BaseScene {
         this.cal = cal;
         outputs.updateValues(cal);
 		runwayPane.getChildren().remove(obstacle);
-        runwayPane.getChildren().removeAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
-                resaIndicator, stripEndIndicator, displacementThresholdIndicator, distanceFromThresholdIndicator);
 
         // once implemented needs to add clearway and stopway
+		runwayLength = cal.getTORA();
+
+        // ----------------------------------- Indicator Visualisation below here -----------------------------------
+
+		obstacle = getNewObstacle(cal, event);
+		runwayPane.getChildren().addAll(displayLines(cal));
+		runwayPane.getChildren().add(obstacle);
+
+	}
+
+	public ArrayList<DistanceIndicator> displayLines(Calculations cal) {
+        ArrayList<DistanceIndicator> res = new ArrayList<DistanceIndicator>();
+        runwayPane.getChildren().removeAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                resaIndicator, stripEndIndicator, displacementThresholdIndicator, distanceFromThresholdIndicator);
 		runwayLength = cal.getTORA();
 		double ratio = runwayLength / runway.getWidth();
 		double startx = this.runway.getX();
@@ -96,21 +109,22 @@ public class SideScene extends BaseScene {
 			toraIndicator = new DistanceIndicator (runway, (double) startx , (double) ( startx + (tora / ratio)) , "TORA: " + tora.toString(), 0);
 			asdaIndicator = new DistanceIndicator (runway, (double) startx , (double) ( startx + (asda / ratio)) , "ASDA: " + asda.toString(), 1);
 			todaIndicator = new DistanceIndicator (runway, (double) startx , (double) ( startx + (toda / ratio)) , "TODA: " + tora.toString(), 2);
-			runwayPane.getChildren().addAll(toraIndicator, asdaIndicator, todaIndicator);
+            res.add(toraIndicator);
+            res.add(asdaIndicator);
+            res.add(todaIndicator);
 		} else {
 			displacementThresholdIndicator = new DistanceIndicator (runway, startx, (double) startx + displacement / ratio , displacement.toString() + "m", 0);
 			distanceFromThresholdIndicator = new DistanceIndicator (runway, (double) (startx + (displacement / ratio)), (double) (startx + ((displacement + distThresholdObject) / ratio)) , distThresholdObject.toString() + "m", 0);
 			ldaIndicator = new DistanceIndicator (runway, startx + displacement / ratio, (double) startx + ((lda + displacement) / ratio) , lda.toString() + "m", 1);
 			stripEndIndicator = new DistanceIndicator (runway, startx + ((lda + displacement) / ratio), (double) (startx + (lda + stripEnd + displacement) / ratio), Integer.valueOf(stripEnd).toString() + "m", 1);
 			resaIndicator = new DistanceIndicator (runway,  (startx + ((lda + stripEnd + displacement) / ratio)), (double) (startx + (lda + resa + stripEnd + displacement) / ratio) , Integer.valueOf(resa).toString() + "m", 1);
-			runwayPane.getChildren().addAll(ldaIndicator, stripEndIndicator, resaIndicator, displacementThresholdIndicator, distanceFromThresholdIndicator);
+			res.add(ldaIndicator);
+			res.add(stripEndIndicator);
+			res.add(resaIndicator);
+			res.add(displacementThresholdIndicator);
+			res.add(distanceFromThresholdIndicator);
 		}
-
-        // ----------------------------------- Indicator Visualisation below here -----------------------------------
-
-		obstacle = getNewObstacle(cal, event);
-		runwayPane.getChildren().add(obstacle);
-
+        return res;
 	}
 	
 	public Rectangle getNewObstacle(Calculations cal, ActionEvent event) {
