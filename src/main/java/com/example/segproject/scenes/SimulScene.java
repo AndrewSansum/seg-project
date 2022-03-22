@@ -25,6 +25,8 @@ public class SimulScene extends BaseScene {
 	private Rectangle obstacle_2;
 	private Pane sidePane;
 	private Pane topPane;
+	private SideScene sideScene;
+	private TopScene topScene;
 
     public SimulScene (SceneController controller) {
         super(controller);
@@ -36,8 +38,8 @@ public class SimulScene extends BaseScene {
     public void build() {
 		setupDefaultScene();
 		inputs.setOnButtonClicked(this::newValues);
-		SideScene sideScene = new SideScene(controller,0.49);
-		TopScene topScene = new TopScene(controller, 0.49);
+		sideScene = new SideScene(controller,0.49);
+		topScene = new TopScene(controller, 0.49);
 		topScene.setupDefaultScene();
 		sideScene.setupDefaultScene();
 		SplitPane splitPane = new SplitPane();
@@ -46,6 +48,7 @@ public class SimulScene extends BaseScene {
 		obstacle = sideScene.getObstacleSide();
 		obstacle.setWidth(obstacle.getWidth() * 0.49);
 		obstacle.setHeight(obstacle.getHeight() * 0.49);
+		obstacle.setY(obstacle.getY() + obstacle.getHeight() * 1.05);
 		this.obstacle_2 = topScene.getObstacleTop();
 		this.obstacle_2.setWidth(this.obstacle_2.getWidth() * 0.49);
 		this.obstacle_2.setHeight(this.obstacle_2.getHeight() * 0.49);
@@ -58,28 +61,28 @@ public class SimulScene extends BaseScene {
     }
 
     private void newValues(Calculations cal, ActionEvent event) {
+        this.topPane.getChildren().removeAll(this.topScene.toraIndicator, this.topScene.asdaIndicator, this.topScene.todaIndicator, this.topScene.ldaIndicator,
+				this.topScene.resaIndicator, this.topScene.stripEndIndicator, this.topScene.displacementThresholdIndicator, this.topScene.distanceFromThresholdIndicator);
+		this.sidePane.getChildren().removeAll(this.sideScene.toraIndicator, this.sideScene.asdaIndicator, this.sideScene.todaIndicator, this.sideScene.ldaIndicator,
+				this.sideScene.resaIndicator, this.sideScene.stripEndIndicator, this.sideScene.displacementThresholdIndicator, this.sideScene.distanceFromThresholdIndicator);
+		this.sidePane.getChildren().remove(this.obstacle);
+		this.topPane.getChildren().remove(this.obstacle_2);
 		this.cal = cal;
 		outputs.updateValues(cal);
+
         // once implemented needs to add clearway and stopway
 		runwayLength = cal.getTORA();
-        if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) // calculating from 01 to 18
-            obstacle.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getWidth());
-        else // calculating from 19 to 36
-            obstacle.setX(((double) (runwayLength - cal.getObstacleDistanceFromThreshold()) / (double) runwayLength) * runway.getWidth());
-		obstacle.setX(obstacle.getX() * 0.49);
-		obstacle.setY(obstacle.getY() + obstacle.getHeight() * 1.05);
-		this.sidePane.getChildren().add(obstacle);
+		// this.sidePane = this.sideScene.displayLines(cal);
+		// this.topPane = this.topScene.displayLines(cal);
 
-        if (cal.getObstacleDirection() == "North")
-            this.obstacle_2.setY((runwayPaneCenterY - this.obstacle_2.getHeight()) - (double) cal.getObstacleDistanceFromCenter());
-        else if (cal.getObstacleDirection() == "South")
-            this.obstacle_2.setY((runwayPaneCenterY - (this.obstacle_2.getHeight() * 0.5)) + (double) cal.getObstacleDistanceFromCenter());
+		obstacle = this.sideScene.getNewObstacle(cal, event);
+		obstacle.setX(obstacle.getX());
+		this.sidePane.getChildren().addAll(this.sideScene.displayLines(cal));
+		this.sidePane.getChildren().add(this.obstacle);
 
-        if (Double.valueOf(cal.getRunwayName().substring(0,2)) <= 18) // calculating from 01 to 18
-            this.obstacle_2.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway_2.getFitWidth());
-        else // calculating from 19 to 36
-            this.obstacle_2.setX(((double) (runwayLength - cal.getObstacleDistanceFromThreshold()) / (double) runwayLength) * runway_2.getFitWidth());
-		this.obstacle_2.setX(this.obstacle_2.getX() * 0.49 * 1.05);
+		obstacle_2 = this.topScene.getNewObstacle(cal, event);
+		this.obstacle_2.setX(this.obstacle_2.getX() * 1.04);
+		this.topPane.getChildren().addAll(this.topScene.displayLines(cal));
 		this.topPane.getChildren().add(this.obstacle_2);
 	}
 

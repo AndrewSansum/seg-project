@@ -134,6 +134,7 @@ public class Calculations {
 
     public String getRunwayName() {return runwayName;}
     public int getTORA() {return this.tora;}
+    public int getRESA() {return this.resa;}
     public int getNewTORA() {return this.newTORA;}
     public int getNewASDA() {return this.newASDA;}
     public int getNewTODA() {return this.newTODA;}
@@ -151,6 +152,9 @@ public class Calculations {
     public String getTODACalc() {return this.TODACalc;}
     public String getASDACalc() {return this.ASDACalc;}
     public String getLDACalc() {return this.LDACalc;}
+    public int getStripEnd() {return this.stripEnd;}
+	public int getBlastProtection() {return this.blastProtection;}
+	public String getStatus() {return this.status;}
 
     public void setRunwayName (String name) {this.runwayName = name;}
     public void setStatus (String status) {this.status = status;}
