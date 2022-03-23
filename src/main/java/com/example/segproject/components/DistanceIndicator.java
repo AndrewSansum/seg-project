@@ -134,7 +134,6 @@ public class DistanceIndicator extends Pane {
 
         label.setLayoutY(6);
         label.setText(text);
-        label.setLayoutX((x2 - x1) * 0.5 - (label.getWidth()));
 
         this.setLayoutY(this.y + (5 * (layer + 1)) + (10 * layer));
         this.setLayoutX(x1);
