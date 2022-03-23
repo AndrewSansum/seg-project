@@ -118,18 +118,27 @@ public class Calculations {
                 + this.newASDA;
     }
 
-    public void landingOver(int obstacleHeight, int obstacleDistanceFromThreshold, int stripEnd) {
+    public void landingOver(int obstacleHeight, int obstacleDistanceFromThreshold, int stripEnd){
         slopeCalculation = obstacleHeight * this.als;
         this.SlopeCalc = "Slope Calculation: " + obstacleHeight + " * " + this.als + " = " + slopeCalculation;
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
-            this.newLDA = this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd;
-            this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.resa + " - "
-                    + stripEnd + " = " + this.newLDA;
+            if (this.resa + stripEnd < this.blastProtection) {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - this.blastProtection - this.displacementThreshold;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " - " + this.displacementThreshold + " = " + this.newLDA;
+            } else {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd - this.displacementThreshold;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.resa + " - " + stripEnd + " - " + this.displacementThreshold + " = " + this.newLDA;
+            }
+
         } else {
-            this.newLDA = this.lda - obstacleDistanceFromThreshold - slopeCalculation - stripEnd;
-            this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - "
-                    + stripEnd + " = " + this.newLDA;
+            if (slopeCalculation + stripEnd < this.blastProtection) {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - this.blastProtection - this.displacementThreshold;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " - " + this.displacementThreshold + " = " + this.newLDA;
+            } else {
+                this.newLDA = this.lda - obstacleDistanceFromThreshold - slopeCalculation -  - this.displacementThreshold - stripEnd;
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - " + stripEnd + " - " + this.displacementThreshold + " = " + this.newLDA;
+            }
         }
     }
 

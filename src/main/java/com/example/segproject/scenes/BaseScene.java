@@ -153,9 +153,9 @@ public abstract class BaseScene {
         root.getStylesheets().add(this.getClass().getResource("/".concat(fileName)).toExternalForm());
     }
 
-    protected void enableIndicators(DistanceIndicator[] indicators) {
+    protected void setIndicatorsLabel(DistanceIndicator[] indicators) {
         for (DistanceIndicator indicator:indicators) {
-            indicator.enable();
+            indicator.setLabelX();
         }
     }
 
