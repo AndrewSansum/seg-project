@@ -70,17 +70,17 @@ public class SceneController {
     /**
      * Method that can be called by scenes to transfer control to the Side view
      */
-    public void openSideScene() {loadScene(new SideScene(this, 1.0));}
+    public void openSideScene() {loadScene(new SideScene(this));}
 
     /**
      * Method that can be called by scenes to transfer control to the Top view
      */
-    public void openTopScene() {loadScene(new TopScene(this, 1.0));}
+    public void openTopScene() {loadScene(new TopScene(this));}
 
     /**
      * Method that can be called by scenes to transfer control to the Dual view
      */
-    public void openDoubleScene() {loadScene(new SimulScene(this));}
+    //public void openDoubleScene() {loadScene(new SimulScene(this));}
 
     /**
      * Getter method for the current scene

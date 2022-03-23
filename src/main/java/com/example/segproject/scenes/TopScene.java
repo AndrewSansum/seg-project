@@ -4,6 +4,7 @@ import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import com.example.segproject.components.DistanceIndicator;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -14,11 +15,11 @@ import javafx.scene.layout.*;
  * Class that builds and determines the behaviour of the top view
  */
 public class TopScene extends BaseScene {
-    private Double k;
 
-    public TopScene(SceneController controller, Double k) {
+    private ImageView runway;
+
+    public TopScene(SceneController controller) {
         super(controller);
-        this.k = k;
     }
 
     /**
@@ -27,17 +28,11 @@ public class TopScene extends BaseScene {
     public void build() {
         setupDefaultScene();
         inputs.setOnButtonClicked(this::newValues);
-        Pane topScene = getTopScenePane();
-        runwayPane.getChildren().add(topScene);
-    }
-
-    public Pane getTopScenePane() {
-        Pane topScene = new Pane();
 
         runway = new ImageView("runway.png");
-        runway.setFitWidth((controller.getWidth() * 0.66 - 300) * this.k);
+        runway.setFitWidth((controller.getWidth() * 0.66 - 300));
         runway.setFitHeight(100);
-        runway.setLayoutX((runwayPaneCenterX - runway.getFitWidth() * 0.5) * (this.k - 0.2));
+        runway.setLayoutX((runwayPaneCenterX - runway.getFitWidth() * 0.5));
         runway.setLayoutY(runwayPaneCenterY - runway.getFitHeight() * 0.5);
 
         Polygon clearedAndGradedArea = new Polygon();
@@ -56,12 +51,13 @@ public class TopScene extends BaseScene {
                 runway.getLayoutX() + 60, runway.getLayoutY() - 75
         });
 
-        obstacle = createObstable(runwayPaneCenterX - 25, runwayPaneCenterY - 25);
-        Rectangle background = new Rectangle(0, 0, (controller.getWidth() * 0.66) * this.k, controller.getHeight());
+        obstacle = new Rectangle(runwayPaneCenterX - 25, runwayPaneCenterY - 25, 50, 50);
+        Rectangle background = new Rectangle(0, 0, (controller.getWidth() * 0.66), controller.getHeight());
 
         background.setFill(Color.GREEN);
         clearedAndGradedArea.setFill(Color.BLUE);
-        topScene.getChildren().addAll(background, clearedAndGradedArea, runway);
+        obstacle.setFill(Color.ORANGE);
+        runwayPane.getChildren().addAll(background, clearedAndGradedArea, runway, obstacle);
 
         toraIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
         asdaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
@@ -78,16 +74,6 @@ public class TopScene extends BaseScene {
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
                 stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator);
 
-        return topScene;
-    }
-
-    public Rectangle getObstacleTop() {
-        return this.obstacle;
-    }
-
-
-    public ImageView getRunwayTop() {
-        return this.runway;
     }
 
     private void newValues(Calculations cal, ActionEvent event) {
@@ -105,18 +91,330 @@ public class TopScene extends BaseScene {
 
 
         if (cal.getObstacleDirection() == "North") {
-            obstacle.setY((runwayPaneCenterY - obstacle.getHeight()) - (double) cal.getObstacleDistanceFromCenter());
+            obstacle.setY((runwayPaneCenterY - (obstacle.getHeight() * 0.5)) - (double) cal.getObstacleDistanceFromCenter());
         } else if (cal.getObstacleDirection() == "South") {
             obstacle.setY((runwayPaneCenterY - (obstacle.getHeight() * 0.5)) + (double) cal.getObstacleDistanceFromCenter());
         }
 
+
         if (Double.valueOf(cal.getRunwayName().substring(0, 2)) <= 18) { // calculating from 01 to 18
-            obstacle.setX(((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth());
+            obstacle.setX((((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX());
+
+            if (cal.getObstacleDistanceFromThreshold() <= (runwayLength * 0.5)) { // obstacle on near-side
+                if (cal.getStatus() == "Landing") { // Plane is landing
+                    obstacle.setX((((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX());
+
+                    displacementThresholdIndicator.update(runway.getLayoutX(),
+                            ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getEndX(),
+                            ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth() + displacementThresholdIndicator.getEndX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+
+                    if (cal.getResa() > cal.getSlopeValue()) {
+                        if (cal.getResa() + cal.getStripEnd() < cal.getBlastProtection()) {
+                            blastProtectionIndicator.update(distanceFromThresholdIndicator.getEndX(),
+                                    ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getFitWidth() + distanceFromThresholdIndicator.getEndX(),
+                                    "Blast Protection: " + cal.getBlastProtection(),
+                                    0);
+                            ldaIndicator.update(blastProtectionIndicator.getEndX(),
+                                    ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth() + blastProtectionIndicator.getEndX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        } else {
+                            resaIndicator.update(distanceFromThresholdIndicator.getEndX(),
+                                    ((double) cal.getResa() / (double) runwayLength) * runway.getFitWidth() + distanceFromThresholdIndicator.getEndX(),
+                                    "RESA: " + cal.getResa(),
+                                    0);
+                            stripEndIndicator.update(resaIndicator.getEndX(),
+                                    ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth() + resaIndicator.getEndX(),
+                                    "" + cal.getStripEnd(),
+                                    0);
+                            ldaIndicator.update(stripEndIndicator.getEndX(),
+                                    ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth() + stripEndIndicator.getEndX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        }
+
+                    } else {
+                        if (cal.getSlopeValue() + cal.getStripEnd() < cal.getBlastProtection()) {
+                            blastProtectionIndicator.update(distanceFromThresholdIndicator.getEndX(),
+                                    ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getFitWidth() + distanceFromThresholdIndicator.getEndX(),
+                                    "Blast Protection: " + cal.getBlastProtection(),
+                                    0);
+                            ldaIndicator.update(blastProtectionIndicator.getEndX(),
+                                    ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth() + blastProtectionIndicator.getEndX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        } else {
+                            slopeCalculationIndicator.update(distanceFromThresholdIndicator.getEndX(),
+                                    ((double) cal.getSlopeValue() / (double) runwayLength) * runway.getFitWidth() + distanceFromThresholdIndicator.getEndX(),
+                                    "Slope Calculation: " + cal.getSlopeValue(),
+                                    0);
+                            stripEndIndicator.update(slopeCalculationIndicator.getEndX(),
+                                    ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth() + slopeCalculationIndicator.getEndX(),
+                                    "" + cal.getStripEnd(),
+                                    0);
+                            ldaIndicator.update(stripEndIndicator.getEndX(),
+                                    ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth() + stripEndIndicator.getEndX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        }
+                    }
+
+                } else { // Plane is taking off
+                    obstacle.setX((((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX() - obstacle.getWidth());
+
+                    displacementThresholdIndicator.update(runway.getLayoutX(),
+                            ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getEndX(),
+                            ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth() + displacementThresholdIndicator.getEndX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+                    blastProtectionIndicator.update(distanceFromThresholdIndicator.getEndX(),
+                            ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getFitWidth() + distanceFromThresholdIndicator.getEndX(),
+                            "" + cal.getBlastProtection(),
+                            0);
+
+                    toraIndicator.update(blastProtectionIndicator.getEndX(),
+                            ((double) cal.getNewTORA() / (double) runwayLength) * runway.getFitWidth() + blastProtectionIndicator.getEndX(),
+                            "TORA: " + cal.getNewTORA(),
+                            0);
+                    todaIndicator.update(blastProtectionIndicator.getEndX(),
+                            ((double) cal.getNewTODA() / (double) runwayLength) * runway.getFitWidth() + blastProtectionIndicator.getEndX(),
+                            "TODA: " + cal.getNewTODA(),
+                            1);
+                    asdaIndicator.update(blastProtectionIndicator.getEndX(),
+                            ((double) cal.getNewASDA() / (double) runwayLength) * runway.getFitWidth() + blastProtectionIndicator.getEndX(),
+                            "ASDA: " + cal.getNewASDA(),
+                            2);
+                }
+            } else { // obstacle on far-side
+                if (cal.getStatus() == "Landing") { // Plane is landing
+                    obstacle.setX((((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX());
+
+                    displacementThresholdIndicator.update(runway.getLayoutX(),
+                            ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getEndX(),
+                            ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth() + displacementThresholdIndicator.getEndX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+                    ldaIndicator.update(displacementThresholdIndicator.getEndX(),
+                            ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth() + displacementThresholdIndicator.getEndX(),
+                            "LDA: " + cal.getNewLDA(),
+                            1);
+                    stripEndIndicator.update(ldaIndicator.getEndX(),
+                            ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth() + ldaIndicator.getEndX(),
+                            "" + cal.getStripEnd(),
+                            1);
+                    resaIndicator.update(stripEndIndicator.getEndX(),
+                            ((double) cal.getResa() / (double) runwayLength) * runway.getFitWidth() + stripEndIndicator.getEndX(),
+                            "RESA: " + cal.getResa(),
+                            1);
+
+
+                } else { // Plane is taking off
+                    obstacle.setX((((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX() - obstacle.getWidth());
+
+                    displacementThresholdIndicator.update(runway.getLayoutX(),
+                            ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getEndX(),
+                            ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth() + displacementThresholdIndicator.getEndX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+                    toraIndicator.update(runway.getLayoutX(),
+                            ((double) cal.getNewTORA() / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX(),
+                            "TORA: " + cal.getNewTORA(),
+                            1);
+                    stripEndIndicator.update(toraIndicator.getEndX(),
+                            ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth() + toraIndicator.getEndX(),
+                            "" + cal.getStripEnd(),
+                            1);
+
+                    if (cal.getResa() > cal.getSlopeValue()) {
+                        resaIndicator.update(stripEndIndicator.getEndX(),
+                                ((double) cal.getResa() / (double) runwayLength) * runway.getFitWidth() + stripEndIndicator.getEndX(),
+                                "RESA: " + cal.getResa(),
+                                1);
+                    } else {
+                        slopeCalculationIndicator.update(stripEndIndicator.getEndX(),
+                                ((double) cal.getSlopeValue() / (double) runwayLength) * runway.getFitWidth() + stripEndIndicator.getEndX(),
+                                "Slope Calculation: " + cal.getSlopeValue(),
+                                1);
+                    }
+                }
+            }
+
+        } else { // calculating from 19 to 36
+            obstacle.setX((runway.getLayoutX() + runway.getFitWidth()) - (((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth());
+
+            if (cal.getObstacleDistanceFromThreshold() <= (runwayLength * 0.5)) { // obstacle on near-side
+                obstacle.setX((runway.getLayoutX() + runway.getFitWidth()) - (((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() - obstacle.getWidth());
+
+                if (cal.getStatus() == "Landing") { // Plane is landing
+                    displacementThresholdIndicator.update((runway.getLayoutX() + runway.getFitWidth()) - ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            runway.getLayoutX() + runway.getFitWidth(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getStartX() - ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            displacementThresholdIndicator.getStartX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+
+                    if (cal.getResa() > cal.getSlopeValue()) {
+                        if (cal.getResa() + cal.getStripEnd() < cal.getBlastProtection()) {
+                            blastProtectionIndicator.update(distanceFromThresholdIndicator.getStartX() - ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getFitWidth(),
+                                    distanceFromThresholdIndicator.getStartX(),
+                                    "Blast Protection: " + cal.getBlastProtection(),
+                                    0);
+                            ldaIndicator.update(blastProtectionIndicator.getStartX() - ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth(),
+                                    blastProtectionIndicator.getStartX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        } else {
+                            resaIndicator.update(distanceFromThresholdIndicator.getStartX() - ((double) cal.getResa() / (double) runwayLength) * runway.getFitWidth(),
+                                    distanceFromThresholdIndicator.getStartX(),
+                                    "RESA: " + cal.getResa(),
+                                    0);
+                            stripEndIndicator.update(resaIndicator.getStartX() - ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth(),
+                                    resaIndicator.getStartX(),
+                                    "" + cal.getStripEnd(),
+                                    0);
+                            ldaIndicator.update(stripEndIndicator.getStartX() - ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth(),
+                                    stripEndIndicator.getStartX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        }
+
+                    } else {
+                        if (cal.getSlopeValue() + cal.getStripEnd() < cal.getBlastProtection()) {
+                            blastProtectionIndicator.update(distanceFromThresholdIndicator.getStartX() - ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getFitWidth(),
+                                    distanceFromThresholdIndicator.getStartX(),
+                                    "Blast Protection: " + cal.getBlastProtection(),
+                                    0);
+                            ldaIndicator.update(blastProtectionIndicator.getStartX() - ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth(),
+                                    blastProtectionIndicator.getStartX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        } else {
+                            slopeCalculationIndicator.update(distanceFromThresholdIndicator.getStartX() - ((double) cal.getSlopeValue() / (double) runwayLength) * runway.getFitWidth(),
+                                    distanceFromThresholdIndicator.getStartX(),
+                                    "Slope Calculation: " + cal.getSlopeValue(),
+                                    0);
+                            stripEndIndicator.update(slopeCalculationIndicator.getStartX() - ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth(),
+                                    slopeCalculationIndicator.getStartX(),
+                                    "" + cal.getStripEnd(),
+                                    0);
+                            ldaIndicator.update(stripEndIndicator.getStartX() - ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth(),
+                                    stripEndIndicator.getStartX(),
+                                    "LDA: " + cal.getNewLDA(),
+                                    0);
+                        }
+                    }
+                } else { // Plane is taking off
+                    obstacle.setX((runway.getLayoutX() + runway.getFitWidth()) - (((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth());
+
+                    displacementThresholdIndicator.update((runway.getLayoutX() + runway.getFitWidth()) - ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            runway.getLayoutX() + runway.getFitWidth(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getStartX() - ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            displacementThresholdIndicator.getStartX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+                    blastProtectionIndicator.update(distanceFromThresholdIndicator.getStartX() - ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getFitWidth(),
+                            distanceFromThresholdIndicator.getStartX(),
+                            "" + cal.getBlastProtection(),
+                            0);
+
+                    toraIndicator.update(blastProtectionIndicator.getStartX() - ((double) cal.getNewTORA() / (double) runwayLength) * runway.getFitWidth(),
+                            blastProtectionIndicator.getStartX(),
+                            "TORA: " + cal.getNewTORA(),
+                            0);
+                    todaIndicator.update(blastProtectionIndicator.getStartX() - ((double) cal.getNewTODA() / (double) runwayLength) * runway.getFitWidth(),
+                            blastProtectionIndicator.getStartX(),
+                            "TODA: " + cal.getNewTODA(),
+                            1);
+                    asdaIndicator.update(blastProtectionIndicator.getStartX() - ((double) cal.getNewASDA() / (double) runwayLength) * runway.getFitWidth(),
+                            blastProtectionIndicator.getStartX(),
+                            "ASDA: " + cal.getNewASDA(),
+                            2);
+                }
+            } else { // obstacle on far-side
+                if (cal.getStatus() == "Landing") { // Plane is landing
+                    obstacle.setX((runway.getLayoutX() + runway.getFitWidth()) - (((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() - obstacle.getWidth());
+
+                    displacementThresholdIndicator.update((runway.getLayoutX() + runway.getFitWidth()) - ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            runway.getLayoutX() + runway.getFitWidth(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getStartX() - ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            displacementThresholdIndicator.getStartX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+                    ldaIndicator.update( displacementThresholdIndicator.getStartX() - ((double) cal.getNewLDA() / (double) runwayLength) * runway.getFitWidth(),
+                            displacementThresholdIndicator.getStartX(),
+                            "LDA: " + cal.getNewLDA(),
+                            1);
+                    stripEndIndicator.update(ldaIndicator.getStartX() - ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth(),
+                            ldaIndicator.getStartX(),
+                            "" + cal.getStripEnd(),
+                            1);
+                    resaIndicator.update(stripEndIndicator.getStartX() - ((double) cal.getResa() / (double) runwayLength) * runway.getFitWidth(),
+                            stripEndIndicator.getStartX(),
+                            "RESA: " + cal.getResa(),
+                            1);
+
+
+                } else { // Plane is taking off
+                    obstacle.setX((runway.getLayoutX() + runway.getFitWidth()) - (((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth());
+
+                    displacementThresholdIndicator.update((runway.getLayoutX() + runway.getFitWidth()) - ((double) cal.getDisplacementThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            runway.getLayoutX() + runway.getFitWidth(),
+                            "" + cal.getDisplacementThreshold(),
+                            0);
+                    distanceFromThresholdIndicator.update(displacementThresholdIndicator.getStartX() - ((double) cal.getObstacleDistanceFromThreshold() / (double) runwayLength) * runway.getFitWidth(),
+                            displacementThresholdIndicator.getStartX(),
+                            "Distance from Threshold: " + cal.getObstacleDistanceFromThreshold(),
+                            0);
+                    toraIndicator.update((runway.getLayoutX() + runway.getFitWidth()) - ((double) cal.getNewTORA() / (double) runwayLength) * runway.getFitWidth(),
+                            runway.getLayoutX() + runway.getFitWidth(),
+                            "TORA: " + cal.getNewTORA(),
+                            1);
+                    stripEndIndicator.update(toraIndicator.getStartX() - ((double) cal.getStripEnd() / (double) runwayLength) * runway.getFitWidth(),
+                            toraIndicator.getStartX(),
+                            "" + cal.getStripEnd(),
+                            1);
+
+                    if (cal.getResa() > cal.getSlopeValue()) {
+                        resaIndicator.update(stripEndIndicator.getStartX() - ((double) cal.getResa() / (double) runwayLength) * runway.getFitWidth(),
+                                stripEndIndicator.getStartX(),
+                                "RESA: " + cal.getResa(),
+                                1);
+                    } else {
+                        slopeCalculationIndicator.update(stripEndIndicator.getStartX() - ((double) cal.getSlopeValue() / (double) runwayLength) * runway.getFitWidth(),
+                                stripEndIndicator.getStartX(),
+                                "Slope Calculation: " + cal.getSlopeValue(),
+                                1);
+                    }
+                }
+            }
+
         }
-        else { // calculating from 19 to 36
-            obstacle.setX(((double) (runwayLength - cal.getObstacleDistanceFromThreshold()) / (double) runwayLength) * runway.getFitWidth());
-            runwayPane.getChildren().add(obstacle);
-        }
+
+        setIndicatorsLabel(new DistanceIndicator[] { toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
     }
 
     public void rotate(int bearing) {

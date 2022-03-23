@@ -89,20 +89,20 @@ public class DistanceIndicator extends Pane {
      * Disables all of the elements of the indicator
      */
     public void disable() {
-        left.setDisable(true);
-        right.setDisable(true);
-        center.setDisable(true);
-        label.setDisable(true);
+        left.setVisible(false);
+        right.setVisible(false);
+        center.setVisible(false);
+        label.setVisible(false);
     }
 
     /**
      * Enables all of the elements of the indicator
      */
     public void enable() {
-        left.setDisable(false);
-        right.setDisable(false);
-        center.setDisable(false);
-        label.setDisable(false);
+        left.setVisible(true);
+        right.setVisible(true);
+        center.setVisible(true);
+        label.setVisible(true);
     }
 
     /**
@@ -120,12 +120,27 @@ public class DistanceIndicator extends Pane {
 
         enable();
 
-        this.setLayoutX(x1);
-        this.setLayoutY(this.y  + (5 * (layer + 1)) + (10 * layer));
+        left.setLayoutX(0);
+        left.setLayoutY(0);
+        left.setEndY(10);
+
         right.setLayoutX(x2 - x1);
+        right.setLayoutY(0);
+        right.setEndY(10);
+
+        center.setLayoutX(0);
         center.setEndX(x2 - x1);
-        label.setLayoutX((x2 - x1) * 0.5 - (label.getWidth()));
+        center.setLayoutY(5);
+
+        label.setLayoutY(6);
         label.setText(text);
+
+        this.setLayoutY(this.y + (5 * (layer + 1)) + (10 * layer));
+        this.setLayoutX(x1);
+    }
+
+    public void setLabelX() {
+        label.setLayoutX((this.endX - this.startX) * 0.5 - (label.getWidth()));
     }
 
     /**
