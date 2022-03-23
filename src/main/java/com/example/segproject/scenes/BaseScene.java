@@ -57,6 +57,8 @@ public abstract class BaseScene {
     protected DistanceIndicator blastProtectionIndicator;
     protected DistanceIndicator slopeCalculationIndicator;
 
+    protected Boolean rotationEnabled = false;
+
     public BaseScene(SceneController controller) {
         this.controller = controller;
     }
@@ -159,6 +161,38 @@ public abstract class BaseScene {
      */
     protected void setStylesheet(String fileName) {
         root.getStylesheets().add(this.getClass().getResource("/".concat(fileName)).toExternalForm());
+    }
+
+    protected void rotate(int bearing) {
+        int rotateVal = 0;
+
+        if (bearing == 36 || bearing == 18) {
+            rotateVal = 90;
+        } else if (bearing == 27 || bearing == 9) {
+            rotateVal = 0;
+        } else if (bearing == 1 || bearing == 17 || bearing == 35 || bearing == 19){
+            rotateVal = 80;
+        } else if (bearing == 2 || bearing == 16 || bearing == 34 || bearing == 20){
+            rotateVal = 70;
+        } else if (bearing == 3 || bearing == 15 || bearing == 33 || bearing == 21){
+            rotateVal = 60;
+        } else if (bearing == 4 || bearing == 14 || bearing == 32 || bearing == 22){
+            rotateVal = 50;
+        } else if (bearing == 5 || bearing == 13 || bearing == 31 || bearing == 23){
+            rotateVal = 40;
+        } else if (bearing == 6 || bearing == 12 || bearing == 30 || bearing == 24){
+            rotateVal = 30;
+        } else if (bearing == 7 || bearing == 11 || bearing == 29 || bearing == 25){
+            rotateVal = 20;
+        } else if (bearing == 8 || bearing == 10 || bearing == 28 || bearing == 26){
+            rotateVal = 10;
+        }
+
+        if ((19 <= bearing && bearing <= 27) || (1 <= bearing && bearing <= 8)) {
+            rotateVal = rotateVal * (-1);
+        }
+
+        runwayPane.setRotate(rotateVal);
     }
 
     protected void setIndicatorsLabel(DistanceIndicator[] indicators) {

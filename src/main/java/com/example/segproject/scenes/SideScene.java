@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 public class SideScene extends BaseScene {
 
     private Rectangle runway;
+    private ImageView vector;
 
     public SideScene(SceneController controller) {
             super(controller);
@@ -84,21 +85,22 @@ public class SideScene extends BaseScene {
                     distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
                     stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator);
 
+            vector = new ImageView("vectorArrow.png");
+            vector.setPreserveRatio(true);
+            vector.setFitHeight(100);
+            vector.setLayoutX(runway.getX() + 100);
+            vector.setLayoutY(runway.getY() - 200);
+            vector.setVisible(false);
 
-        // Image vector = new Image("vectorArrow.png");
-        // ImageView iv = new ImageView();
-        // iv.setImage(vector);
-        // iv.setPreserveRatio(true);
-        // iv.setFitHeight(100);
-        // iv.setRotate(45);
-        // BorderPane borderPane = new BorderPane();
-        // borderPane.setBottom(iv);
+            runwayPane.getChildren().add(vector);
     }
 
 
     private void newValues(Calculations cal, ActionEvent event) {
         this.cal = cal;
         outputs.updateValues(cal);
+
+        vector.setVisible(true);
 
         disableIndicators(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
@@ -112,6 +114,7 @@ public class SideScene extends BaseScene {
 
 
         if (Double.valueOf(cal.getRunwayName().substring(0, 2)) <= 18) { // calculating from 01 to 18
+            vector.setRotate(180);
             obstacle.setX((((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getWidth() + runway.getX());
 
             if (cal.getObstacleDistanceFromThreshold() <= (runwayLength * 0.5)) { // obstacle on near-side
@@ -269,6 +272,7 @@ public class SideScene extends BaseScene {
                 }
             }
         } else { // calculating from 19 to 36
+            vector.setRotate(0);
                 obstacle.setX((runway.getX() + runway.getWidth()) - (((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getWidth());
 
                 if (cal.getObstacleDistanceFromThreshold() <= (runwayLength * 0.5)) { // obstacle on near-side
@@ -429,9 +433,9 @@ public class SideScene extends BaseScene {
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator, stripEndIndicator,
                 blastProtectionIndicator, slopeCalculationIndicator});
 
+        if (rotationEnabled) {
+            rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
         }
 
-    public void rotate(int bearing){
-
-    }
+        }
 }

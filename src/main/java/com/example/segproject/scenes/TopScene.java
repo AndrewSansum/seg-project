@@ -17,9 +17,11 @@ import javafx.scene.layout.*;
 public class TopScene extends BaseScene {
 
     private ImageView runway;
+    private ImageView vector;
 
     public TopScene(SceneController controller) {
         super(controller);
+        rotationEnabled = true;
     }
 
     /**
@@ -74,11 +76,22 @@ public class TopScene extends BaseScene {
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
                 stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator);
 
+        vector = new ImageView("vectorArrow.png");
+        vector.setPreserveRatio(true);
+        vector.setFitHeight(100);
+        vector.setLayoutX(runway.getLayoutX() + 100);
+        vector.setLayoutY(runway.getLayoutY() - 200);
+        vector.setVisible(false);
+
+        runwayPane.getChildren().add(vector);
+
     }
 
     private void newValues(Calculations cal, ActionEvent event) {
         this.cal = cal;
         outputs.updateValues(cal);
+
+        vector.setVisible(true);
 
         disableIndicators(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
@@ -98,6 +111,7 @@ public class TopScene extends BaseScene {
 
 
         if (Double.valueOf(cal.getRunwayName().substring(0, 2)) <= 18) { // calculating from 01 to 18
+            vector.setRotate(180);
             obstacle.setX((((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth() + runway.getLayoutX());
 
             if (cal.getObstacleDistanceFromThreshold() <= (runwayLength * 0.5)) { // obstacle on near-side
@@ -255,6 +269,7 @@ public class TopScene extends BaseScene {
             }
 
         } else { // calculating from 19 to 36
+            vector.setRotate(0);
             obstacle.setX((runway.getLayoutX() + runway.getFitWidth()) - (((double) cal.getObstacleDistanceFromThreshold() + (double) cal.getDisplacementThreshold()) / (double) runwayLength) * runway.getFitWidth());
 
             if (cal.getObstacleDistanceFromThreshold() <= (runwayLength * 0.5)) { // obstacle on near-side
@@ -415,9 +430,9 @@ public class TopScene extends BaseScene {
         setIndicatorsLabel(new DistanceIndicator[] { toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
                 stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
-    }
 
-    public void rotate(int bearing) {
-
+        if (rotationEnabled) {
+            rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
+        }
     }
 }
