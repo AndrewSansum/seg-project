@@ -4,12 +4,10 @@ import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import com.example.segproject.components.DistanceIndicator;
 import javafx.event.ActionEvent;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.layout.*;
 
 /**
  * Class that builds and determines the behaviour of the top view
@@ -18,6 +16,8 @@ public class TopScene extends BaseScene {
 
     private ImageView runway;
     private ImageView vector;
+    private Rectangle background;
+    private Polygon clearedAndGradedArea;
 
     public TopScene(SceneController controller) {
         super(controller);
@@ -37,7 +37,7 @@ public class TopScene extends BaseScene {
         runway.setLayoutX((runwayPaneCenterX - runway.getFitWidth() * 0.5));
         runway.setLayoutY(runwayPaneCenterY - runway.getFitHeight() * 0.5);
 
-        Polygon clearedAndGradedArea = new Polygon();
+        clearedAndGradedArea = new Polygon();
         clearedAndGradedArea.getPoints().addAll(new Double[]{
                 runway.getLayoutX() - 60, runway.getLayoutY() - 75,
                 runway.getLayoutX() - 60, runway.getLayoutY() + 75 + runway.getFitHeight(),
@@ -54,7 +54,7 @@ public class TopScene extends BaseScene {
         });
 
         obstacle = new Rectangle(runwayPaneCenterX - 25, runwayPaneCenterY - 25, 50, 50);
-        Rectangle background = new Rectangle(0, 0, (controller.getWidth() * 0.66), controller.getHeight());
+        background = new Rectangle(0, 0, (controller.getWidth() * 0.66), controller.getHeight());
 
         background.setFill(Color.GREEN);
         clearedAndGradedArea.setFill(Color.BLUE);
@@ -433,6 +433,23 @@ public class TopScene extends BaseScene {
 
         if (rotationEnabled) {
             rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
+        }
+    }
+
+    public void changeColorScheme(String value){
+        //System.out.println("In TopScene");
+        //System.out.println(value);
+        if (value.equals("Normal")){
+            //System.out.println("Normal If Passed");
+            background.setFill(Color.GREEN);
+            clearedAndGradedArea.setFill(Color.BLUE);
+            obstacle.setFill(Color.ORANGE);
+        }
+        if(value.equals("Dark")){
+            //System.out.println("Dark If Passed");
+            background.setFill(Color.BLACK);
+            clearedAndGradedArea.setFill(Color.GREY);
+            obstacle.setFill(Color.WHITE);
         }
     }
 }

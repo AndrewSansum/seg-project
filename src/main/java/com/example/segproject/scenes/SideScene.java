@@ -23,6 +23,9 @@ public class SideScene extends BaseScene {
 
     private Rectangle runway;
     private ImageView vector;
+    private Rectangle clearedAndGradedArea;
+    private Rectangle lowerBackground;
+    private Rectangle upperBackground;
 
     public SideScene(SceneController controller) {
             super(controller);
@@ -42,11 +45,11 @@ public class SideScene extends BaseScene {
             runway.setX((runwayPaneCenterX - runway.getWidth() * 0.5));
             runway.setY(runwayPaneCenterY - runway.getHeight() * 0.5);
 
-            Rectangle clearedAndGradedArea = new Rectangle(runway.getX() - 60, runway.getY(), runway.getWidth() + 120,
+            clearedAndGradedArea = new Rectangle(runway.getX() - 60, runway.getY(), runway.getWidth() + 120,
                     runway.getHeight());
-            Rectangle lowerBackground = new Rectangle(0, runway.getY(), controller.getWidth() * 0.66,
+            lowerBackground = new Rectangle(0, runway.getY(), controller.getWidth() * 0.66,
                     controller.getHeight());
-            Rectangle upperBackground = new Rectangle(0, 0, controller.getWidth() * 0.66,
+            upperBackground = new Rectangle(0, 0, controller.getWidth() * 0.66,
                     controller.getHeight() * 0.5 - runway.getHeight() * 0.5);
 
             obstacle = new Rectangle();
@@ -438,4 +441,23 @@ public class SideScene extends BaseScene {
         }
 
         }
+
+    public void changeColorScheme(String value){
+        if (value.equals("Normal")){
+            //System.out.println("Normal If Passed");
+            obstacle.setFill(Color.ORANGE);
+            lowerBackground.setFill(Color.GREEN);
+            upperBackground.setFill(Color.LIGHTCYAN);
+            clearedAndGradedArea.setFill(Color.BLUE);
+            runway.setFill(Color.DARKGRAY);
+        }
+        if(value.equals("Dark")){
+            //System.out.println("Dark If Passed");
+            obstacle.setFill(Color.DARKBLUE);
+            lowerBackground.setFill(Color.BLACK);
+            upperBackground.setFill(Color.WHITE);
+            clearedAndGradedArea.setFill(Color.LIGHTGRAY);
+            runway.setFill(Color.DARKGRAY);
+        }
+    }
 }

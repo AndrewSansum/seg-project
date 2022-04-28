@@ -100,7 +100,7 @@ public abstract class BaseScene {
         runwayPane.setMinWidth(controller.getWidth() * 0.66);
         io.setMinWidth(controller.getWidth() * 0.33);
 
-        inputs = new CalculationInput();
+        inputs = new CalculationInput(controller);
         outputs = new CalculationOutput();
 
         io.getChildren().add(inputs);
