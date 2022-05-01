@@ -246,6 +246,18 @@ public abstract class BaseScene {
         }
     }
 
+    protected void setIndicatorsToDarkMode(DistanceIndicator[] indicators) {
+        for (DistanceIndicator indicator:indicators) {
+            indicator.setColor(Color.WHITE);
+        }
+    }
+
+    protected void setIndicatorsToLightMode(DistanceIndicator[] indicators) {
+        for (DistanceIndicator indicator:indicators) {
+            indicator.setColor(Color.BLACK);
+        }
+    }
+
     protected void takeScreenshot(Node node, String format) {
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);

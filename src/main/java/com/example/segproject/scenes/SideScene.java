@@ -446,6 +446,9 @@ public class SideScene extends BaseScene {
             upperBackground.setFill(Color.LIGHTCYAN);
             clearedAndGradedArea.setFill(Color.BLUE);
             runway.setFill(Color.DARKGRAY);
+            setIndicatorsToLightMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
         if(value.equals("Dark")){
             //System.out.println("Dark If Passed");
@@ -454,6 +457,9 @@ public class SideScene extends BaseScene {
             upperBackground.setFill(Color.WHITE);
             clearedAndGradedArea.setFill(Color.LIGHTGRAY);
             runway.setFill(Color.DARKGRAY);
+            setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
     }
 }

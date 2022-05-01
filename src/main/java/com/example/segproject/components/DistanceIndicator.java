@@ -3,6 +3,7 @@ package com.example.segproject.components;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
@@ -140,14 +141,14 @@ public class DistanceIndicator extends Pane {
     }
 
     public void setLabelX() {
-        label.setLayoutX((this.endX - this.startX) * 0.5 - (label.getWidth()));
+        label.setLayoutX((this.endX - this.startX) * 0.5 - (label.getWidth() * 0.5));
     }
 
-    /**
-     * Rotates the indicator
-     */
-    public void rotate(int bearing) {
-
+    public void setColor(Color color) {
+        left.setStroke(color);
+        right.setStroke(color);
+        center.setStroke(color);
+        label.setTextFill(color);
     }
 
     public void setStartX (double startX) {this.startX = startX;}

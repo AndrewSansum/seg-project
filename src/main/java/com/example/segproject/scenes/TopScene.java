@@ -445,12 +445,18 @@ public class TopScene extends BaseScene {
             background.setFill(Color.GREEN);
             clearedAndGradedArea.setFill(Color.BLUE);
             obstacle.setFill(Color.ORANGE);
+            setIndicatorsToLightMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
         if(value.equals("Dark")){
             //System.out.println("Dark If Passed");
             background.setFill(Color.BLACK);
             clearedAndGradedArea.setFill(Color.GREY);
             obstacle.setFill(Color.WHITE);
+            setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
     }
 }
