@@ -100,5 +100,7 @@ public class SceneController {
      */
     public int getHeight() {return resV;}
 
+    public Stage getStage() {return stage;}
+
     public BaseScene getCurrentScene() {return currentScene;}
 }

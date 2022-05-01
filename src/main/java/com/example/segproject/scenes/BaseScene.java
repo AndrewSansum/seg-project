@@ -3,20 +3,30 @@ package com.example.segproject.scenes;
 import com.example.segproject.Calculations;
 import com.example.segproject.SceneController;
 import com.example.segproject.components.CalculationInput;
-
 import com.example.segproject.components.CalculationOutput;
 import com.example.segproject.components.DistanceIndicator;
+
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.example.segproject.App.shutdown;
@@ -103,7 +113,21 @@ public abstract class BaseScene {
         });
         settingsMenu.getItems().addAll(rotationMenuItem);
 
-        toolbar.getMenus().addAll(fileMenu, viewMenu, settingsMenu);
+        Menu importMenu = new Menu("Import");
+        MenuItem importXML = new MenuItem("Import XML");
+        importMenu.getItems().addAll(importXML);
+
+        Menu exportMenu = new Menu("Export");
+        MenuItem exportAsXML = new MenuItem("Export as XML");
+        MenuItem exportAsJPEG = new MenuItem("Export as JPEG");
+        exportAsJPEG.setOnAction(h -> takeScreenshot(root, "jpg"));
+        MenuItem exportAsPNG = new MenuItem("Export as PNG");
+        exportAsPNG.setOnAction(h -> takeScreenshot(root, "png"));
+        MenuItem exportAsGIF = new MenuItem("Export as GIF");
+        exportAsGIF.setOnAction(h -> takeScreenshot(root, "gif"));
+        exportMenu.getItems().addAll(exportAsXML, exportAsJPEG, exportAsPNG, exportAsGIF);
+
+        toolbar.getMenus().addAll(fileMenu, viewMenu, settingsMenu, importMenu, exportMenu);
         root.setTop(toolbar);
 
         root.setCenter(runwayPane);
@@ -220,6 +244,42 @@ public abstract class BaseScene {
         for (DistanceIndicator indicator:indicators) {
             indicator.disable();
         }
+    }
+
+    protected void takeScreenshot(Node node, String format) {
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+
+        Bounds bounds = node.getLayoutBounds();
+        int imageWidth = (int) Math.round(bounds.getWidth());
+        int imageHeight = (int) Math.round(bounds.getHeight());
+
+        WritableImage screenshot = new WritableImage(imageWidth, imageHeight);
+        screenshot = node.snapshot(params, screenshot);
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Screenshot");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter(format.toUpperCase(), "*." + format),
+                new FileChooser.ExtensionFilter("All Images", "*.*")
+        );
+
+
+        File file = fileChooser.showSaveDialog(controller.getStage());
+
+        try {
+            if (file != null) {
+                if (format.equals("jpg")) {
+                    BufferedImage bImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+                    ImageIO.write(SwingFXUtils.fromFXImage(screenshot, bImage), format, file);
+                } else {
+                    ImageIO.write(SwingFXUtils.fromFXImage(screenshot, null), format, file);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
