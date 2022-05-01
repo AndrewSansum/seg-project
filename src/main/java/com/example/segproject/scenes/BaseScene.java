@@ -6,6 +6,7 @@ import com.example.segproject.components.CalculationInput;
 
 import com.example.segproject.components.CalculationOutput;
 import com.example.segproject.components.DistanceIndicator;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -88,7 +89,21 @@ public abstract class BaseScene {
         viewMenu.getItems().addAll(topMenuItem, sideMenuItem);
         //viewMenu.getItems().add(bothMenuItem);
 
-        toolbar.getMenus().addAll(fileMenu, viewMenu);
+        Menu settingsMenu = new Menu("Settings");
+        MenuItem rotationMenuItem = new MenuItem("Enable View Rotation");
+        StringProperty rotationMenuItemText = rotationMenuItem.textProperty();
+        rotationMenuItem.setOnAction(h -> {
+            if (rotationEnabled) {
+                rotationEnabled = false;
+                rotationMenuItemText.set("Enable View Rotation");
+            } else {
+                rotationEnabled = true;
+                rotationMenuItemText.set("Disable View Rotation");
+            }
+        });
+        settingsMenu.getItems().addAll(rotationMenuItem);
+
+        toolbar.getMenus().addAll(fileMenu, viewMenu, settingsMenu);
         root.setTop(toolbar);
 
         root.setCenter(runwayPane);

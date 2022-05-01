@@ -21,7 +21,6 @@ public class TopScene extends BaseScene {
 
     public TopScene(SceneController controller) {
         super(controller);
-        rotationEnabled = true;
     }
 
     /**
@@ -433,6 +432,8 @@ public class TopScene extends BaseScene {
 
         if (rotationEnabled) {
             rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
+        } else {
+            rotate(9);
         }
     }
 

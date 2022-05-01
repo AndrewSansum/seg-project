@@ -436,10 +436,6 @@ public class SideScene extends BaseScene {
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator, stripEndIndicator,
                 blastProtectionIndicator, slopeCalculationIndicator});
 
-        if (rotationEnabled) {
-            rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
-        }
-
         }
 
     public void changeColorScheme(String value){
