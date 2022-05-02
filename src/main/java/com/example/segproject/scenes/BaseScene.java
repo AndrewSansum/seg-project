@@ -81,12 +81,12 @@ public abstract class BaseScene {
         Menu viewMenu = new Menu("View");
         MenuItem topMenuItem = new MenuItem("Top View");
         MenuItem sideMenuItem = new MenuItem("Side View");
-        //MenuItem bothMenuItem = new MenuItem("Top & Side View");
+        MenuItem bothMenuItem = new MenuItem("Top & Side View");
         topMenuItem.setOnAction(h -> controller.openTopScene());
         sideMenuItem.setOnAction(h -> controller.openSideScene());
-        //bothMenuItem.setOnAction(h -> controller.openDoubleScene());
+        bothMenuItem.setOnAction(h -> controller.openDoubleScene());
         viewMenu.getItems().addAll(topMenuItem, sideMenuItem);
-        //viewMenu.getItems().add(bothMenuItem);
+        viewMenu.getItems().add(bothMenuItem);
 
         toolbar.getMenus().addAll(fileMenu, viewMenu);
         root.setTop(toolbar);

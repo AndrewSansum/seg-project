@@ -10,14 +10,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.*;
+import javafx.geometry.Pos;
 
 /**
  * Class that builds and determines the behaviour of the top view
  */
 public class TopScene extends BaseScene {
 
-    private ImageView runway;
-    private ImageView vector;
+    private ImageView	runway;
+    private ImageView	vector;
+    private Pane		rPane;
 
     public TopScene(SceneController controller) {
         super(controller);
@@ -84,10 +86,10 @@ public class TopScene extends BaseScene {
         vector.setVisible(false);
 
         runwayPane.getChildren().add(vector);
-
+        this.rPane = runwayPane;
     }
 
-    private void newValues(Calculations cal, ActionEvent event) {
+    public void newValues(Calculations cal, ActionEvent event) {
         this.cal = cal;
         outputs.updateValues(cal);
 
@@ -435,4 +437,7 @@ public class TopScene extends BaseScene {
             rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
         }
     }
+
+    public Pane getRunwayPane() { return this.rPane; }
+
 }

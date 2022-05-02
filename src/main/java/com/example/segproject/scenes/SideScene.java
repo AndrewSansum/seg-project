@@ -15,6 +15,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.Node;
 
 /**
  * Class that builds and determines the behaviour of the side view
@@ -34,69 +35,82 @@ public class SideScene extends BaseScene {
          */
         public void build () {
             setupDefaultScene();
-            inputs.setOnButtonClicked(this::newValues);
+			inputs.setOnButtonClicked(this::newValues);
+			getSideScenePane();
+			// ((ImageView)test.getChildren().get(0)).setFitHeight(50.0);
+			// runwayPane.getChildren().add(test);
 
-            runway = new Rectangle();
-            runway.setWidth(controller.getWidth() * 0.66 - 300);
-            runway.setHeight(50);
-            runway.setX((runwayPaneCenterX - runway.getWidth() * 0.5));
-            runway.setY(runwayPaneCenterY - runway.getHeight() * 0.5);
 
-            Rectangle clearedAndGradedArea = new Rectangle(runway.getX() - 60, runway.getY(), runway.getWidth() + 120,
-                    runway.getHeight());
-            Rectangle lowerBackground = new Rectangle(0, runway.getY(), controller.getWidth() * 0.66,
-                    controller.getHeight());
-            Rectangle upperBackground = new Rectangle(0, 0, controller.getWidth() * 0.66,
-                    controller.getHeight() * 0.5 - runway.getHeight() * 0.5);
-
-            obstacle = new Rectangle();
-            obstacle.setWidth(50);
-            obstacle.setHeight(50);
-            obstacle.setX(runway.getX());
-            obstacle.setY(runway.getY() - obstacle.getHeight());
-            obstacle.setFill(Color.ORANGE);
-
-            lowerBackground.setFill(Color.GREEN);
-            upperBackground.setFill(Color.LIGHTCYAN);
-            clearedAndGradedArea.setFill(Color.BLUE);
-            runway.setFill(Color.DARKGRAY);
-
-            runway.setX(runway.getX());
-            runway.setWidth(runway.getWidth());
-            clearedAndGradedArea.setWidth(clearedAndGradedArea.getWidth());
-            clearedAndGradedArea.setX(clearedAndGradedArea.getX());
-            lowerBackground.setWidth(lowerBackground.getWidth());
-            upperBackground.setWidth(upperBackground.getWidth());
-
-            runwayPane.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway, obstacle);
-
-            toraIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            asdaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            todaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            ldaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            distanceFromThresholdIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            displacementThresholdIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            resaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            stripEndIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            blastProtectionIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-            slopeCalculationIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
-
-            runwayPane.getChildren().addAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
-                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
-                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator);
-
-            vector = new ImageView("vectorArrow.png");
-            vector.setPreserveRatio(true);
-            vector.setFitHeight(100);
-            vector.setLayoutX(runway.getX() + 100);
-            vector.setLayoutY(runway.getY() - 200);
-            vector.setVisible(false);
-
-            runwayPane.getChildren().add(vector);
+			// for (Node node : runwayPane.getChildren()) {
+			// 	if (node.getClass().getName().equals("javafx.scene.shape.Rectangle")) {
+			// 		// ((Rectangle) node).setHeight(((Rectangle) node).getHeight() / 2);
+			// 		((Rectangle) node).setWidth(((Rectangle) node).getWidth() / 2);
+			// 		((Rectangle) node).setX(((Rectangle) node).getX() / 2);
+			// 	}
+			// 	if (node.getClass().getName().equals("com.example.segproject.components.DistanceIndicator")) {
+			// 		// ((DistanceIndicator) node).setWidth(((DistanceIndicator) node).getWidth() / 2);
+			// 		((DistanceIndicator) node).setStartX(((DistanceIndicator) node).getStartX() / 2);
+			// 		((DistanceIndicator) node).setEndX(((DistanceIndicator) node).getEndX() / 2);
+			// 	}
+			// 		System.out.println(node.getClass());
+			// }
     }
 
+	public Pane getSideScenePane() {
+		Pane sidePane = new Pane();
+		runway = new Rectangle();
+		runway.setWidth(controller.getWidth() * 0.66 - 300);
+		runway.setHeight(50);
+		runway.setX((runwayPaneCenterX - runway.getWidth() * 0.5));
+		runway.setY(runwayPaneCenterY - runway.getHeight() * 0.5);
 
-    private void newValues(Calculations cal, ActionEvent event) {
+		Rectangle clearedAndGradedArea = new Rectangle(runway.getX() - 60, runway.getY(), runway.getWidth() + 120,
+				runway.getHeight());
+		Rectangle lowerBackground = new Rectangle(0, runway.getY(), controller.getWidth() * 0.66,
+				controller.getHeight());
+		Rectangle upperBackground = new Rectangle(0, 0, controller.getWidth() * 0.66,
+				controller.getHeight() * 0.5 - runway.getHeight() * 0.5);
+
+		obstacle = new Rectangle();
+		obstacle.setWidth(50);
+		obstacle.setHeight(50);
+		obstacle.setX(runway.getX());
+		obstacle.setY(runway.getY() - obstacle.getHeight());
+		obstacle.setFill(Color.ORANGE);
+
+		lowerBackground.setFill(Color.GREEN);
+		upperBackground.setFill(Color.LIGHTCYAN);
+		clearedAndGradedArea.setFill(Color.BLUE);
+		runway.setFill(Color.DARKGRAY);
+
+		runwayPane.getChildren().addAll(lowerBackground, upperBackground, clearedAndGradedArea, runway, obstacle);
+
+		toraIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		asdaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		todaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		ldaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		distanceFromThresholdIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		displacementThresholdIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		resaIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		stripEndIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		blastProtectionIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+		slopeCalculationIndicator = new DistanceIndicator(runway, 0, 0, "", 0);
+
+		vector = new ImageView("vectorArrow.png");
+		vector.setPreserveRatio(true);
+		vector.setFitHeight(100);
+		vector.setLayoutX(runway.getX() + 100);
+		vector.setLayoutY(runway.getY() - 200);
+		vector.setVisible(false);
+		// System.out.println(vector.getFitHeight());
+		sidePane.getChildren().add(vector);
+		runwayPane.getChildren().addAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+				distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+				stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator, sidePane);
+		return runwayPane;
+}
+
+    public void newValues(Calculations cal, ActionEvent event) {
         this.cal = cal;
         outputs.updateValues(cal);
 

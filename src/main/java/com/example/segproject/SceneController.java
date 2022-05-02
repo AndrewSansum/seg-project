@@ -80,7 +80,7 @@ public class SceneController {
     /**
      * Method that can be called by scenes to transfer control to the Dual view
      */
-    //public void openDoubleScene() {loadScene(new SimulScene(this));}
+    public void openDoubleScene() {loadScene(new SimulScene(this));}
 
     /**
      * Getter method for the current scene
