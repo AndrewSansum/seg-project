@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class LandingTowardsHeightCaseTest {
+public class LandingOverHeightCaseTest {
     @Test
     public void SmallerHeightCaseTest() {
         var calc = new Calculations("01", "Landing", 3600, 3600, 3600, 3600, 2, 100, "North", 0, 0, 240, 60, 300);
