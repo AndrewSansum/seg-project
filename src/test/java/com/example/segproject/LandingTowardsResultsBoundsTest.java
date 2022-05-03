@@ -8,7 +8,7 @@ public class LandingTowardsResultsBoundsTest {
     @Test
     public void LargerDistanceBoundsTest() {
         var calc = new Calculations("01", "Landing", 3600, 3600, 3600, 3600, 0, 4000, "North", 0, 0, 240, 60, 300);
-        //should be 3600 not 3700 here
+        //should be 3600 not 4000 here
         assertEquals(3600, calc.getNewLDA());
     }
 
