@@ -4,6 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class that ensures the new LDA is bounded above by the original
+ * when landing over.
+ * 
+ * <p> The new LDA will be larger than original when the distance is negative
+ * and the absolute value is larger than max(RESA, height) + Strip end. We want to cap this.
+ */
 public class LandingOverResultsBoundsTest {
     @Test
     public void LargerDistanceBoundsTest() {

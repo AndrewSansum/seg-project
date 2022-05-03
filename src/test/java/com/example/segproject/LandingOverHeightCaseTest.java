@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class to ensure that the Calculations class correctly calculates
+ * using the max of the RESA or height * 50 when landing over
+ * <p> i.e. LDA_1 = LDA_0 - max(RESA, height * 50) - Strip end - Obstacle distance
+ */
 public class LandingOverHeightCaseTest {
     @Test
     public void SmallerHeightCaseTest() {

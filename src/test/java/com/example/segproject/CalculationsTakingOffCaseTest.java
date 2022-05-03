@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class to ensure the correct case is chosen between taking off away and taking off towards
+ * 
+ * <p> When Object Distance is less than or equal to half of the TORA, case should be takeoff away. Takeoff towards otherwise.
+ */
 public class CalculationsTakingOffCaseTest {
     @Test
     public void NegativeDistanceCaseTest() {

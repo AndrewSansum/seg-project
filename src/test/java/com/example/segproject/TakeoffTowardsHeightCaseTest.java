@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class to ensure that the Calculations class correctly calculates
+ * using the max of the RESA or height * 50 when taking off towards.
+ * <p> i.e. TORA_1 = Obstacle distance - max(RESA, height * 50) - Strip end
+ */
 public class TakeoffTowardsHeightCaseTest {
     @Test
     public void SmallerHeightCaseTest() {

@@ -4,6 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class to ensure that the new TORA, ASDA, and TODA
+ * are bound above by the originals when
+ * taking off towards.
+ * 
+ * <p> The new values will be larger when the obstacle distance is
+ * larger than max(RESA, height) + Strip end.
+ * We want to cap this to the originals.
+ */
 public class TakeoffTowardsResultsBoundsTest {
     @Test
     public void LargerDistanceBoundsTest() {

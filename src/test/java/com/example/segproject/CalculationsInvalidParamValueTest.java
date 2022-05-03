@@ -5,6 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class that checks for the Calculations class not accepting invalid parameters
+ * 
+ * <p> VALUES TABLE: 
+ * <p> 0 <= TORA
+ * <p> 0 <= ASDA
+ * <p> TORA <= TODA
+ * <p> 0 <= LDA <= TORA
+ * <p> 0 <= Obstacle Height
+ * <p> 0 <= Threshold Displacement < TORA
+ * <p> 240 <= RESA < TORA
+ * <p> 60 <= Strip End < TORA
+ * <p> 0 <= Blast Protection < TORA
+ */
 public class CalculationsInvalidParamValueTest {
     @Test
     @DisplayName("Valid TORA value test")

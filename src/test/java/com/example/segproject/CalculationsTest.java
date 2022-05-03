@@ -9,6 +9,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+/**
+ * Tests built from examples given in spec
+ */
 public class CalculationsTest {
 
     //TORA, ASDA, TODA, LDA, Obstacle height, Distance, Threshold Displacement,

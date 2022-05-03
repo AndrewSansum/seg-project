@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class that ensures landing chooses the correct case between landing over and landing towards
+ * 
+ * <p> When Object Distance is less than or equal to half of the TORA, case should be landing over. Landing towards otherwise.
+ */
 public class CalculationsLandingCaseTest {
     @Test
     public void NegativeDistanceCaseTest() {
