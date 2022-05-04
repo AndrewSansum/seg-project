@@ -122,9 +122,7 @@ public class SimulScene extends BaseScene {
 					Double x = hello.getLayoutX();
 					((ImageView)(((Pane)node)).getChildren().get(0)).setFitHeight(sz / 2);
 					((ImageView)(((Pane)node)).getChildren().get(0)).setLayoutX(x / 2);
-					System.out.println( hello );
 				}
-				System.out.println(node.getClass().getName());
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {

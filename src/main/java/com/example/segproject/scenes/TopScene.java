@@ -18,7 +18,9 @@ public class TopScene extends BaseScene {
 
     private ImageView	runway;
     private ImageView	vector;
-    private Pane		rPane;
+	private Pane		rPane;
+	private Rectangle	background;
+	private Polygon		clearedAndGradedArea;
 
     public TopScene(SceneController controller) {
         super(controller);
@@ -439,10 +441,7 @@ public class TopScene extends BaseScene {
     }
 
     public void changeColorScheme(String value){
-        //System.out.println("In TopScene");
-        //System.out.println(value);
         if (value.equals("Normal")){
-            //System.out.println("Normal If Passed");
             background.setFill(Color.GREEN);
             clearedAndGradedArea.setFill(Color.BLUE);
             obstacle.setFill(Color.ORANGE);
@@ -451,7 +450,6 @@ public class TopScene extends BaseScene {
                     stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
         if(value.equals("Dark")){
-            //System.out.println("Dark If Passed");
             background.setFill(Color.BLACK);
             clearedAndGradedArea.setFill(Color.GREY);
             obstacle.setFill(Color.WHITE);
