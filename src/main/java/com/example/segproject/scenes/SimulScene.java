@@ -140,4 +140,27 @@ public class SimulScene extends BaseScene {
 			top.newValues(cal, event);
 		}
 
+		public void changeColorScheme(String value){
+			// if (value.equals("Normal")) {
+				top.changeColorScheme(value);
+				side.changeColorScheme(value);
+			// }
+			// if (value.equals("Normal")){
+			// 	background.setFill(Color.GREEN);
+			// 	clearedAndGradedArea.setFill(Color.BLUE);
+			// 	obstacle.setFill(Color.ORANGE);
+			// 	setIndicatorsToLightMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+			// 			distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+			// 			stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+			// }
+			// if(value.equals("Dark")){
+			// 	background.setFill(Color.web("0x191919"));
+			// 	clearedAndGradedArea.setFill(Color.web("0x2D4263"));
+			// 	obstacle.setFill(Color.web("0xC84B31"));
+			// 	setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+			// 			distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+			// 			stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+			// }
+		}
+
 }

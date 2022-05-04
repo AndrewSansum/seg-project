@@ -7,6 +7,7 @@ import com.example.segproject.Calculations;
 
 import com.example.segproject.SceneController;
 import com.example.segproject.scenes.SideScene;
+import com.example.segproject.scenes.SimulScene;
 import com.example.segproject.scenes.TopScene;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -69,6 +70,9 @@ public class CalculationInput extends VBox {
                 if(controller.getCurrentScene() instanceof SideScene){
                     //System.out.println("Side scene");
                     ((SideScene) controller.getCurrentScene()).changeColorScheme(colorChoices[new_value.intValue()]);
+                }
+                if(controller.getCurrentScene() instanceof SimulScene){
+                    ((SimulScene) controller.getCurrentScene()).changeColorScheme(colorChoices[new_value.intValue()]);
                 }
             }
         });
