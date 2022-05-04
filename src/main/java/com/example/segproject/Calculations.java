@@ -108,9 +108,9 @@ public class Calculations {
     }
 
     public void takeoffAway(int blastProtection, int obstacleDistanceFromThreshold) {
-        this.newTORA = Math.min(this.tora - blastProtection - obstacleDistanceFromThreshold, this.tora);
-        this.newTODA = Math.min(this.toda - blastProtection - obstacleDistanceFromThreshold, this.tora);
-        this.newASDA = Math.min(this.asda - blastProtection - obstacleDistanceFromThreshold, this.asda);
+        this.newTORA = Math.min(this.tora - blastProtection - obstacleDistanceFromThreshold - this.displacementThreshold, this.tora);
+        this.newTODA = Math.min(this.toda - blastProtection - obstacleDistanceFromThreshold - this.displacementThreshold, this.tora);
+        this.newASDA = Math.min(this.asda - blastProtection - obstacleDistanceFromThreshold - this.displacementThreshold, this.asda);
 
         this.TORACalc = "TORA: " + this.tora + " - " + blastProtection + " - " + obstacleDistanceFromThreshold + " = "
                 + this.newTORA;
@@ -126,21 +126,21 @@ public class Calculations {
 
         if (this.resa > slopeCalculation) { // this case shouldn't happen until obstacle length is known
             if (this.resa + stripEnd < this.blastProtection) {
-                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - this.blastProtection - this.displacementThreshold, this.lda);
-                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " - " + this.displacementThreshold + " = " + this.newLDA;
+                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - this.blastProtection, this.lda);
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " = " + this.newLDA;
             } else {
-                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd - this.displacementThreshold, this.lda);
-                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.resa + " - " + stripEnd + " - " + this.displacementThreshold + " = " + this.newLDA;
+                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - this.resa - stripEnd, this.lda);
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.resa + " - " + stripEnd + " = " + this.newLDA;
 
             }
 
         } else {
             if (slopeCalculation + stripEnd < this.blastProtection) {
-                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - this.blastProtection - this.displacementThreshold, this.lda);
-                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " - " + this.displacementThreshold + " = " + this.newLDA;
+                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - this.blastProtection, this.lda);
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + this.blastProtection + " = " + this.newLDA;
             } else {
-                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - slopeCalculation -  - this.displacementThreshold - stripEnd, this.lda);
-                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - " + stripEnd + " - " + this.displacementThreshold + " = " + this.newLDA;
+                this.newLDA = Math.min(this.lda - obstacleDistanceFromThreshold - slopeCalculation - stripEnd, this.lda);
+                this.LDACalc = "LDA: " + this.lda + " - " + obstacleDistanceFromThreshold + " - " + slopeCalculation + " - " + stripEnd + " = " + this.newLDA;
 
             }
         }
