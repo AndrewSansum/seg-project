@@ -24,6 +24,9 @@ public class SideScene extends BaseScene {
 
     private Rectangle runway;
     private ImageView vector;
+    private Rectangle clearedAndGradedArea;
+    private Rectangle lowerBackground;
+    private Rectangle upperBackground;
 
     public SideScene(SceneController controller) {
             super(controller);
@@ -447,9 +450,30 @@ public class SideScene extends BaseScene {
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator, stripEndIndicator,
                 blastProtectionIndicator, slopeCalculationIndicator});
 
-        if (rotationEnabled) {
-            rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
         }
 
+    public void changeColorScheme(String value){
+        if (value.equals("Normal")){
+            //System.out.println("Normal If Passed");
+            obstacle.setFill(Color.ORANGE);
+            lowerBackground.setFill(Color.GREEN);
+            upperBackground.setFill(Color.LIGHTCYAN);
+            clearedAndGradedArea.setFill(Color.BLUE);
+            runway.setFill(Color.DARKGRAY);
+            setIndicatorsToLightMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
+        if(value.equals("Dark")){
+            //System.out.println("Dark If Passed");
+            obstacle.setFill(Color.DARKBLUE);
+            lowerBackground.setFill(Color.BLACK);
+            upperBackground.setFill(Color.WHITE);
+            clearedAndGradedArea.setFill(Color.LIGHTGRAY);
+            runway.setFill(Color.DARKGRAY);
+            setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+        }
+    }
 }

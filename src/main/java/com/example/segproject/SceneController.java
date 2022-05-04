@@ -99,4 +99,8 @@ public class SceneController {
      * @return resV The vertical resolution
      */
     public int getHeight() {return resV;}
+
+    public Stage getStage() {return stage;}
+
+    public BaseScene getCurrentScene() {return currentScene;}
 }

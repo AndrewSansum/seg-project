@@ -5,6 +5,12 @@ import java.util.List;
 
 import com.example.segproject.Calculations;
 
+import com.example.segproject.SceneController;
+import com.example.segproject.scenes.SideScene;
+import com.example.segproject.scenes.TopScene;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Alert;
 import com.example.segproject.events.CalculateButtonListener;
 import javafx.event.ActionEvent;
@@ -42,8 +48,30 @@ public class CalculationInput extends VBox {
 
     private CalculateButtonListener buttonClickedListener;
 
-    public CalculationInput(){
+    public CalculationInput(SceneController controller){
         cal = new Calculations();
+
+        Label colorLabel = new Label("Color Scheme");
+        HBox colorBox = new HBox();
+        String colorChoices[] = {"Normal", "Dark"};
+        ChoiceBox colorChoice = new ChoiceBox(FXCollections.observableArrayList(colorChoices));
+        colorChoice.setValue("Normal");
+        colorBox.getChildren().add(colorChoice);
+        this.getChildren().add(colorLabel);
+        this.getChildren().add(colorBox);
+        colorChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+                if(controller.getCurrentScene() instanceof TopScene){
+                    //System.out.println("Top scene");
+                    ((TopScene) controller.getCurrentScene()).changeColorScheme(colorChoices[new_value.intValue()]);
+                }
+                if(controller.getCurrentScene() instanceof SideScene){
+                    //System.out.println("Side scene");
+                    ((SideScene) controller.getCurrentScene()).changeColorScheme(colorChoices[new_value.intValue()]);
+                }
+            }
+        });
 
         Label nameLabel = new Label("Runway Designator:");
         HBox nameBox = new HBox();
