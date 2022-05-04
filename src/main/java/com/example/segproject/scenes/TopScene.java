@@ -431,8 +431,10 @@ public class TopScene extends BaseScene {
 
         setIndicatorsLabel(new DistanceIndicator[] { toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                 distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
-                stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
-
+				stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+		setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
+			distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
+			stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         if (rotationEnabled) {
             rotate(Integer.valueOf(cal.getRunwayName().substring(0, 2)));
         } else {
@@ -444,18 +446,12 @@ public class TopScene extends BaseScene {
         if (value.equals("Normal")){
             background.setFill(Color.GREEN);
             clearedAndGradedArea.setFill(Color.BLUE);
-            obstacle.setFill(Color.ORANGE);
-            setIndicatorsToLightMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
-                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
-                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+			obstacle.setFill(Color.ORANGE);            
         }
         if(value.equals("Dark")){
             background.setFill(Color.web("0x2D4263"));
             clearedAndGradedArea.setFill(Color.web("0x191919"));
             obstacle.setFill(Color.web("0xC84B31"));
-            setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
-                    distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
-                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
     }
 
