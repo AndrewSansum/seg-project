@@ -153,24 +153,24 @@ public class SideScene extends BaseScene {
                             blastProtectionIndicator.update(distanceFromThresholdIndicator.getEndX(),
                                     ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getWidth() + distanceFromThresholdIndicator.getEndX(),
                                     "Blast Protection: " + cal.getBlastProtection(),
-                                    0);
+                                    1);
                             ldaIndicator.update(blastProtectionIndicator.getEndX(),
                                     ((double) cal.getNewLDA() / (double) runwayLength) * runway.getWidth() + blastProtectionIndicator.getEndX(),
                                     "LDA: " + cal.getNewLDA(),
-                                    0);
+                                    2);
                         } else {
                             resaIndicator.update(distanceFromThresholdIndicator.getEndX(),
                                     ((double) cal.getResa() / (double) runwayLength) * runway.getWidth() + distanceFromThresholdIndicator.getEndX(),
                                     "RESA: " + cal.getResa(),
-                                    0);
+                                    1);
                             stripEndIndicator.update(resaIndicator.getEndX(),
                                     ((double) cal.getStripEnd() / (double) runwayLength) * runway.getWidth() + resaIndicator.getEndX(),
                                     "" + cal.getStripEnd(),
-                                    0);
+                                    2);
                             ldaIndicator.update(stripEndIndicator.getEndX(),
                                     ((double) cal.getNewLDA() / (double) runwayLength) * runway.getWidth() + stripEndIndicator.getEndX(),
                                     "LDA: " + cal.getNewLDA(),
-                                    0);
+                                    2);
                         }
 
                     } else {
@@ -178,24 +178,24 @@ public class SideScene extends BaseScene {
                             blastProtectionIndicator.update(distanceFromThresholdIndicator.getEndX(),
                                     ((double) cal.getBlastProtection() / (double) runwayLength) * runway.getWidth() + distanceFromThresholdIndicator.getEndX(),
                                     "Blast Protection: " + cal.getBlastProtection(),
-                                    0);
+                                    1);
                             ldaIndicator.update(blastProtectionIndicator.getEndX(),
                                     ((double) cal.getNewLDA() / (double) runwayLength) * runway.getWidth() + blastProtectionIndicator.getEndX(),
                                     "LDA: " + cal.getNewLDA(),
-                                    0);
+                                    2);
                         } else {
                             slopeCalculationIndicator.update(distanceFromThresholdIndicator.getEndX(),
                                     ((double) cal.getSlopeValue() / (double) runwayLength) * runway.getWidth() + distanceFromThresholdIndicator.getEndX(),
                                     "Slope Calculation: " + cal.getSlopeValue(),
-                                    0);
+                                    1);
                             stripEndIndicator.update(slopeCalculationIndicator.getEndX(),
                                     ((double) cal.getStripEnd() / (double) runwayLength) * runway.getWidth() + slopeCalculationIndicator.getEndX(),
                                     "" + cal.getStripEnd(),
-                                    0);
+                                    2);
                             ldaIndicator.update(stripEndIndicator.getEndX(),
                                     ((double) cal.getNewLDA() / (double) runwayLength) * runway.getWidth() + stripEndIndicator.getEndX(),
                                     "LDA: " + cal.getNewLDA(),
-                                    0);
+                                    2);
                         }
                     }
 

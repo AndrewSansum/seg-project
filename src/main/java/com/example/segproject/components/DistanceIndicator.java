@@ -78,10 +78,10 @@ public class DistanceIndicator extends Pane {
 
         label = new Label(text);
         label.setLayoutX((x2 - x1) * 0.5 - (label.getWidth()));
-        label.setLayoutY(6);
+        label.setLayoutY(8);
 
         this.getChildren().addAll(left, center, right, label);
-        this.setLayoutY(this.y + (5 * (layer + 1)) + (10 * layer));
+        this.setLayoutY(this.y + (20 * (layer + 1)) + (10 * layer));
         this.setLayoutX(x1);
         disable();
     }
@@ -133,10 +133,10 @@ public class DistanceIndicator extends Pane {
         center.setEndX(x2 - x1);
         center.setLayoutY(5);
 
-        label.setLayoutY(6);
+        label.setLayoutY(8);
         label.setText(text);
 
-        this.setLayoutY(this.y + (5 * (layer + 1)) + (10 * layer));
+        this.setLayoutY(this.y + (20 * (layer + 1)) + (10 * layer));
         this.setLayoutX(x1);
     }
 

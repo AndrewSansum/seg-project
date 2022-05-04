@@ -76,6 +76,7 @@ public class SimulScene extends BaseScene {
 				if (node.getClass().getName().equals("com.example.segproject.components.DistanceIndicator")) {
 					((DistanceIndicator) node).setStartX(((DistanceIndicator) node).getStartX() / 2);
 					((DistanceIndicator) node).setEndX(((DistanceIndicator) node).getEndX() / 2);
+					((DistanceIndicator) node).setY(((DistanceIndicator) node).getY() - 25);
 				}
 				else if (node.getClass().getName().equals("javafx.scene.image.ImageView")) {
 					Double width = ((ImageView)node).getFitWidth();
@@ -115,6 +116,7 @@ public class SimulScene extends BaseScene {
 				else if (node.getClass().getName().equals("com.example.segproject.components.DistanceIndicator")) {
 					((DistanceIndicator) node).setStartX(((DistanceIndicator) node).getStartX() / 2);
 					((DistanceIndicator) node).setEndX(((DistanceIndicator) node).getEndX() / 2);
+					// ((DistanceIndicator) node).setY(((DistanceIndicator) node).getY() + 10);
 				}
 				else if (node.getClass().getName().equals("javafx.scene.layout.Pane")) {
 					var hello = (ImageView)(((Pane)node)).getChildren().get(0);
