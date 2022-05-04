@@ -20,7 +20,8 @@ public class DistanceIndicator extends Pane {
     private Line left;
     private Line center;
     private Line right;
-    private Label label;
+	private Label label;
+	private boolean isVisible = false;
 
     /**
      * Constructor for when runway is an image
@@ -94,6 +95,7 @@ public class DistanceIndicator extends Pane {
         right.setVisible(false);
         center.setVisible(false);
         label.setVisible(false);
+		this.isVisible = false;
     }
 
     /**
@@ -103,7 +105,8 @@ public class DistanceIndicator extends Pane {
         left.setVisible(true);
         right.setVisible(true);
         center.setVisible(true);
-        label.setVisible(true);
+		label.setVisible(true);
+		this.isVisible = true;
     }
 
     /**
@@ -161,6 +164,7 @@ public class DistanceIndicator extends Pane {
     public double getEndX() {return this.endX;}
     public double getY() {return this.y;}
     public String getText() {return this.text;}
-    public int getLayer() {return this.layer;}
+	public int getLayer() {return this.layer;}
+	public boolean isEnabled() { return this.isVisible; }
 
 }

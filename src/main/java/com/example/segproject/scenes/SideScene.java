@@ -17,12 +17,6 @@ import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.Node;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
-
-
 /**
  * Class that builds and determines the behaviour of the side view
  */
@@ -33,7 +27,6 @@ public class SideScene extends BaseScene {
     private Rectangle clearedAndGradedArea;
     private Rectangle lowerBackground;
 	private Rectangle upperBackground;
-	private Pane sidePane;
 	
 
     public SideScene(SceneController controller) {
@@ -68,7 +61,7 @@ public class SideScene extends BaseScene {
     }
 
 	public Pane getSideScenePane() {
-		this.sidePane = new Pane();
+		Pane sidePane = new Pane();
 		runway = new Rectangle();
 		runway.setWidth(controller.getWidth() * 0.66 - 300);
 		runway.setHeight(50);
@@ -114,10 +107,10 @@ public class SideScene extends BaseScene {
 		vector.setLayoutY(runway.getY() - 200);
 		vector.setVisible(false);
 		// System.out.println(vector.getFitHeight());
-		this.sidePane.getChildren().add(vector);
+		sidePane.getChildren().add(vector);
 		runwayPane.getChildren().addAll(toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
 				distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
-				stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator, this.sidePane);
+				stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator, sidePane);
 		return runwayPane;
 }
 
@@ -461,9 +454,7 @@ public class SideScene extends BaseScene {
         }
 
     public void changeColorScheme(String value){
-		this.sidePane.getChildren().remove(this.vector);
-		// runwayPane.getChildren().remove(this.sidePane);
-		if (value.equals("Normal")){
+        if (value.equals("Normal")){
             //System.out.println("Normal If Passed");
             obstacle.setFill(Color.ORANGE);
             lowerBackground.setFill(Color.GREEN);
@@ -472,35 +463,18 @@ public class SideScene extends BaseScene {
             runway.setFill(Color.DARKGRAY);
             setIndicatorsToLightMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                     distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
-					stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
-
-			// this.sidePane.getChildren().remove(this.vector);
-			// runwayPane.getChildren().remove(this.sidePane);
-			this.vector = new ImageView("vectorArrow.png");
-			this.vector.setPreserveRatio(true);
-			this.vector.setFitHeight(100);
-			this.vector.setLayoutX(runway.getX() + 100);
-			this.vector.setLayoutY(runway.getY() - 200);
-			// this.vector.setVisible(false);
-		}
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+        }
         if(value.equals("Dark")){
             //System.out.println("Dark If Passed");
             obstacle.setFill(Color.web("0xC84B31"));
-            lowerBackground.setFill(Color.web("0x191919"));
+            lowerBackground.setFill(Color.web("0x2D4263"));
             upperBackground.setFill(Color.web("0xECDBBA"));
-            clearedAndGradedArea.setFill(Color.web("0x2D4263"));
+            clearedAndGradedArea.setFill(Color.web("0x191919"));
             runway.setFill(Color.DARKGRAY);
             setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                     distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
-					stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
-			this.vector = new ImageView("vectorArrowInverted.png");
-			this.vector.setPreserveRatio(true);
-			this.vector.setFitHeight(100);
-			this.vector.setLayoutX(runway.getX() + 100);
-			this.vector.setLayoutY(runway.getY() - 200);
-			// this.vector.setVisible(false);
-		}
-		this.sidePane.getChildren().add(this.vector);
-		// this.runwayPane.getChildren().add(this.sidePane);
+                    stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
+        }
     }
 }
