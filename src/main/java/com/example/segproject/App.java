@@ -22,7 +22,7 @@ public class App extends Application {
     public void start(Stage stage) {
         this.stage = stage;
         var screenSize = Screen.getPrimary().getBounds();
-        resH = (int)screenSize.getWidth() / 10 * 8 + 230;
+        resH = (int)screenSize.getWidth() / 10 * 8 + 220;
         resV = (int)screenSize.getHeight() / 10 * 8;
         var controller = new SceneController(stage, resH, resV, "Runway Redeclaration");
         stage.show();

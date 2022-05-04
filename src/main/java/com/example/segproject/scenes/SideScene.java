@@ -26,7 +26,8 @@ public class SideScene extends BaseScene {
     private ImageView vector;
     private Rectangle clearedAndGradedArea;
     private Rectangle lowerBackground;
-    private Rectangle upperBackground;
+	private Rectangle upperBackground;
+	
 
     public SideScene(SceneController controller) {
             super(controller);
@@ -67,11 +68,11 @@ public class SideScene extends BaseScene {
 		runway.setX((runwayPaneCenterX - runway.getWidth() * 0.5));
 		runway.setY(runwayPaneCenterY - runway.getHeight() * 0.5);
 
-		Rectangle clearedAndGradedArea = new Rectangle(runway.getX() - 60, runway.getY(), runway.getWidth() + 120,
+		this.clearedAndGradedArea = new Rectangle(runway.getX() - 60, runway.getY(), runway.getWidth() + 120,
 				runway.getHeight());
-		Rectangle lowerBackground = new Rectangle(0, runway.getY(), controller.getWidth() * 0.66,
+		this.lowerBackground = new Rectangle(0, runway.getY(), controller.getWidth() * 0.66,
 				controller.getHeight());
-		Rectangle upperBackground = new Rectangle(0, 0, controller.getWidth() * 0.66,
+		this.upperBackground = new Rectangle(0, 0, controller.getWidth() * 0.66,
 				controller.getHeight() * 0.5 - runway.getHeight() * 0.5);
 
 		obstacle = new Rectangle();
@@ -466,10 +467,10 @@ public class SideScene extends BaseScene {
         }
         if(value.equals("Dark")){
             //System.out.println("Dark If Passed");
-            obstacle.setFill(Color.DARKBLUE);
-            lowerBackground.setFill(Color.BLACK);
-            upperBackground.setFill(Color.WHITE);
-            clearedAndGradedArea.setFill(Color.LIGHTGRAY);
+            obstacle.setFill(Color.web("0xC84B31"));
+            lowerBackground.setFill(Color.web("0x191919"));
+            upperBackground.setFill(Color.web("0xECDBBA"));
+            clearedAndGradedArea.setFill(Color.web("0x2D4263"));
             runway.setFill(Color.DARKGRAY);
             setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                     distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,

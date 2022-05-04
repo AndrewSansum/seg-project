@@ -450,9 +450,9 @@ public class TopScene extends BaseScene {
                     stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
         }
         if(value.equals("Dark")){
-            background.setFill(Color.BLACK);
-            clearedAndGradedArea.setFill(Color.GREY);
-            obstacle.setFill(Color.WHITE);
+            background.setFill(Color.web("0x191919"));
+            clearedAndGradedArea.setFill(Color.web("0x2D4263"));
+            obstacle.setFill(Color.web("0xC84B31"));
             setIndicatorsToDarkMode(new DistanceIndicator[]{toraIndicator, asdaIndicator, todaIndicator, ldaIndicator,
                     distanceFromThresholdIndicator, displacementThresholdIndicator, resaIndicator,
                     stripEndIndicator, blastProtectionIndicator, slopeCalculationIndicator});
