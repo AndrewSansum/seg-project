@@ -152,6 +152,26 @@ public class Calculations {
         return this.tora;
     }
 
+    public int getASDA() {
+        return this.asda;
+    }
+
+    public int getTODA() {
+        return this.toda;
+    }
+
+    public int getLDA() {
+        return this.lda;
+    }
+
+    public int getTOCS() {
+        return this.tocs;
+    }
+
+    public int getALS() {
+        return this.als;
+    }
+
     public int getNewTORA() {
         return this.newTORA;
     }
