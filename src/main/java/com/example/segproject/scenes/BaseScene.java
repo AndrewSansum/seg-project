@@ -317,13 +317,16 @@ public abstract class BaseScene {
     }
 
     protected void exportAsXML() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        File f = chooser.getSelectedFile();
-        String filename = f.getAbsolutePath();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save XML");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("XML", "*.xml"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
+
+        File f = fileChooser.showSaveDialog(controller.getStage());
+
         try {
-            FileOutputStream fos = new FileOutputStream(new File(filename));
+            FileOutputStream fos = new FileOutputStream(f);
             XMLEncoder encoder = new XMLEncoder(fos);
             encoder.writeObject(cal);
             encoder.close();
@@ -336,7 +339,7 @@ public abstract class BaseScene {
 
     protected void importAsXML() {
         FileChooser chooser = new FileChooser();
-        File selectedFile = chooser.showOpenDialog((Window) null);
+        File selectedFile = chooser.showOpenDialog(controller.getStage());
         if (selectedFile != null) {
             if (!selectedFile.getName().endsWith(".xml")) {
                 new Alert(AlertType.NONE, "The File should be in XML format", ButtonType.OK).showAndWait();
